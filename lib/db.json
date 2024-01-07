@@ -6,142 +6,160 @@
       "category": "in",
       "value": 50,
       "source": "Moby - Upwork Client",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-06T00:00:00.000Z"
     },
     {
       "id": "o-002",
       "category": "out",
       "value": 30,
       "destination": "VendorXYZ - Software Purchase",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-07T00:00:00.000Z"
     },
     {
       "id": "i-003",
       "category": "in",
       "value": 120,
       "source": "ABC Corp - Consulting Fee",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-08T00:00:00.000Z"
     },
     {
       "id": "o-004",
       "category": "out",
       "value": 80,
       "destination": "Office Supplies Store",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-09T00:00:00.000Z"
     },
     {
       "id": "i-005",
       "category": "in",
       "value": 200,
       "source": "Tech Solutions - Project Payment",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-10T00:00:00.000Z"
     },
     {
       "id": "o-006",
       "category": "out",
       "value": 40,
       "destination": "Internet Service Provider",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-11T00:00:00.000Z"
     },
     {
       "id": "i-007",
       "category": "in",
       "value": 75,
       "source": "Freelancer123 - Graphic Design",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-12T00:00:00.000Z"
     },
     {
       "id": "o-008",
       "category": "out",
       "value": 60,
       "destination": "Utilities Company",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-13T00:00:00.000Z"
     },
     {
       "id": "i-009",
       "category": "in",
       "value": 150,
       "source": "XYZ Ltd - Product Sale",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-14T00:00:00.000Z"
     },
     {
       "id": "o-010",
       "category": "out",
       "value": 25,
       "destination": "Coffee Shop - Team Meeting",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-15T00:00:00.000Z"
     },
     {
       "id": "i-011",
       "category": "in",
       "value": 180,
       "source": "Global Services - Web Development",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-16T00:00:00.000Z"
     },
     {
       "id": "o-012",
       "category": "out",
       "value": 90,
       "destination": "Advertising Agency",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-17T00:00:00.000Z"
     },
     {
       "id": "i-013",
       "category": "in",
       "value": 100,
       "source": "Event Organizer - Sponsorship",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-18T00:00:00.000Z"
     },
     {
       "id": "o-014",
       "category": "out",
       "value": 55,
       "destination": "Travel Agency - Business Trip",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-19T00:00:00.000Z"
     },
     {
       "id": "i-015",
       "category": "in",
       "value": 120,
       "source": "Software Co - Licensing Fee",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-20T00:00:00.000Z"
     },
     {
       "id": "o-016",
       "category": "out",
       "value": 70,
       "destination": "Training Institute",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-21T00:00:00.000Z"
     },
     {
       "id": "i-017",
       "category": "in",
       "value": 80,
       "source": "Health Clinic - Consulting Fee",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-22T00:00:00.000Z"
     },
     {
       "id": "o-018",
       "category": "out",
       "value": 35,
       "destination": "Print Shop - Marketing Materials",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-23T00:00:00.000Z"
     },
     {
       "id": "i-019",
       "category": "in",
       "value": 200,
       "source": "E-commerce Co - Sales Revenue",
-      "status": { "value": "paid", "label": "Paid" }
+      "status": { "value": "paid", "label": "Paid" },
+      "date": "2024-01-24T00:00:00.000Z"
     },
     {
       "id": "o-020",
       "category": "out",
       "value": 50,
       "destination": "Employee Salary",
-      "status": { "value": "pending", "label": "Pending" }
+      "status": { "value": "pending", "label": "Pending" },
+      "date": "2024-01-25T00:00:00.000Z"
     }
-  ]
-  
-   
+  ]  
 }

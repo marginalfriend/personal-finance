@@ -1,26 +1,32 @@
-'use client'
-
 import {
   CashInTable,
   CashOutTable,
 } from "@/app/cashflow-tables/components/cash-flow-table";
 import { useFetch } from "./data";
+import { Tabs, TabsList, TabsTrigger,TabsContent } from "@/components/ui/tabs";
+import { fetchCashflowTable } from "./server";
+import { Suspense } from "react";
 
-export default function Home() {
-  const { data: cashflow, isPending, isError } = useFetch('http://localhost:8000/cashflow')
+export default async function Home() {
+  const cashin = await fetchCashflowTable('in')
+  const cashout = await fetchCashflowTable('out')
 
   return (
     <main>
-      <h1>Cashflow Tables</h1>
-
-        { isError && <h1>Failed loading table</h1> }
-        { isPending && <h1>Loading table</h1> }
-        { cashflow && 
-          <section className="col col-span-2 flex gap-8">
-            <CashInTable cashflows={cashflow}/>
-            <CashOutTable cashflows={cashflow}/>
-          </section>
-        }
+      <Tabs defaultValue="cashin" className="w-[100%]">
+        <TabsList>
+          <TabsTrigger value="cashin">Cash-in</TabsTrigger>
+          <TabsTrigger value="cashout">Cash-out</TabsTrigger>
+        </TabsList>
+        <TabsContent value="cashin">
+          <Suspense fallback={<h1>Loading data table...</h1>}>
+            <CashInTable cashflows={cashin} />
+          </Suspense>
+        </TabsContent>
+        <TabsContent value="cashout">
+          <CashOutTable cashflows={cashout} />
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }

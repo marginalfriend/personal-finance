@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Popover, PopoverTrigger } from "../../../components/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "../../../components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "../../../components/ui/button";
-import { PopoverContent } from "@radix-ui/react-popover";
 import {
   Command,
   CommandEmpty,
@@ -20,6 +19,7 @@ import {
   TableBody,
   TableCell,
 } from "../../../components/ui/table";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface Cashflow {
   id: string;
@@ -28,6 +28,7 @@ interface Cashflow {
   source?: string;
   destination?: string;
   status: any;
+  date: Date;
 } 
 
 export function CashInTable( { cashflows } : { cashflows : Cashflow[]} ) {
@@ -41,6 +42,7 @@ export function CashInTable( { cashflows } : { cashflows : Cashflow[]} ) {
             <TableHead>Cash In</TableHead>
             <TableHead>Source</TableHead>
             <TableHead>Status</TableHead>
+            <TableHead>Tx Date</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -51,6 +53,9 @@ export function CashInTable( { cashflows } : { cashflows : Cashflow[]} ) {
             <TableCell>{cashin.source}</TableCell>
             <TableCell>
               <Status set={cashin.status.value}/>
+            </TableCell>
+            <TableCell>
+              <DatePicker set={cashin} />
             </TableCell>
           </TableRow>
           ))}
@@ -71,6 +76,7 @@ export function CashOutTable( { cashflows } : { cashflows : Cashflow[]} ) {
             <TableHead>Cash Out</TableHead>
             <TableHead>Receiver</TableHead>
             <TableHead>Status</TableHead>
+            <TableHead>Tx Date</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -81,6 +87,9 @@ export function CashOutTable( { cashflows } : { cashflows : Cashflow[]} ) {
             <TableCell>{cashout.destination}</TableCell>
             <TableCell>
               <Status set={cashout.status.value}/>
+            </TableCell>
+            <TableCell>
+              <DatePicker set={cashout}/>
             </TableCell>
           </TableRow>
           ))}

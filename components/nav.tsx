@@ -6,7 +6,7 @@ export function Nav() {
       <nav className="flex justify-between items-center">
         <div className="flex flex-row space-x-8">
           <a href="/">Home</a>
-          <a href="/tables">Tables</a>
+          <a href="/cashflow-tables">Tables</a>
         </div>
         <ModeToggle />
       </nav>
