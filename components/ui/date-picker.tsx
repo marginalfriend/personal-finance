@@ -3,6 +3,7 @@
 import * as React from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
+import { updateDate, editDate } from "@/app/cashflow-tables/server"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -12,9 +13,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useFormState } from "react-dom"
+import { Matcher } from "react-day-picker"
 
-export function DatePicker({ set } : { set?:any }) {
-  const [date, setDate] = React.useState<Date>(set.date as Date);
+const initialState = {
+  message: '',
+}
+
+
+export function DatePicker({ set } : { set:any }) {
+  const [date, setDate] = React.useState<Date>(set.date)
 
   return (
     <Popover>
@@ -22,7 +30,7 @@ export function DatePicker({ set } : { set?:any }) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[100%] h-[2em] justify-start text-left font-normal",
+            "w-auto h-[2em] justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >
@@ -31,12 +39,13 @@ export function DatePicker({ set } : { set?:any }) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={() => setDate}
-          initialFocus
-        />
+          <Calendar
+            onDayBlur={() => editDate(set.id, date)}
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            initialFocus
+          />
       </PopoverContent>
     </Popover>
   )
