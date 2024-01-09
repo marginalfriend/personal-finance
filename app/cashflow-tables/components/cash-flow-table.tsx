@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "../../../components/ui/popover";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "../../../components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import {
@@ -20,6 +24,10 @@ import {
   TableCell,
 } from "../../../components/ui/table";
 import { DatePicker } from "@/components/ui/date-picker";
+import { BsFillTrashFill, BsFillPencilFill, BsFillCheckSquareFill } from "react-icons/bs";
+import { Input } from "@/components/ui/input";
+import { useFormState } from "react-dom";
+import { updateRow } from "../server";
 
 interface Cashflow {
   id: string;
@@ -29,10 +37,10 @@ interface Cashflow {
   destination?: string;
   status: any;
   date: Date;
-} 
+}
 
-export function CashInTable( { cashflows } : { cashflows : Cashflow[]} ) {
-  const cashIn = cashflows.filter(cashflow => cashflow.category === 'in')
+export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
+  const cashIn = cashflows.filter((cashflow) => cashflow.category === "in");
 
   return (
     <div className="border rounded-lg w-[100%]">
@@ -47,17 +55,8 @@ export function CashInTable( { cashflows } : { cashflows : Cashflow[]} ) {
         </TableHeader>
 
         <TableBody>
-          {cashIn.map(cashin => (
-          <TableRow key={cashin.id}>
-            <TableCell>{cashin.value}$</TableCell>
-            <TableCell>{cashin.source}</TableCell>
-            <TableCell>
-              <Status set={cashin.status.value}/>
-            </TableCell>
-            <TableCell>
-              <DatePicker set={cashin} />
-            </TableCell>
-          </TableRow>
+          {cashIn.map((cashin) => (
+            <Row data={cashin} key={cashin.id} />
           ))}
         </TableBody>
       </Table>
@@ -65,9 +64,10 @@ export function CashInTable( { cashflows } : { cashflows : Cashflow[]} ) {
   );
 }
 
-export function CashOutTable( { cashflows } : { cashflows : Cashflow[]} ) {
-  const cashOut = cashflows.filter(cashflow => cashflow.category === "out")
-  
+export function CashOutTable({ cashflows }: { cashflows: Cashflow[] }) {
+  const [editState, setEditState] = useState(false);
+  const cashOut = cashflows.filter((cashflow) => cashflow.category === "out");
+
   return (
     <div className="border rounded-lg w-[100%]">
       <Table>
@@ -81,17 +81,8 @@ export function CashOutTable( { cashflows } : { cashflows : Cashflow[]} ) {
         </TableHeader>
 
         <TableBody>
-          {cashOut.map(cashout => (
-          <TableRow key={cashout.id}>
-            <TableCell>{cashout.value}$</TableCell>
-            <TableCell>{cashout.destination}</TableCell>
-            <TableCell>
-              <Status set={cashout.status.value}/>
-            </TableCell>
-            <TableCell>
-              <DatePicker set={cashout}/>
-            </TableCell>
-          </TableRow>
+          {cashOut.map((cashout) => (
+            <Row data={cashout} key={cashout.id} />
           ))}
         </TableBody>
       </Table>
@@ -110,7 +101,7 @@ export const status = [
   },
 ];
 
-export function Status({ set }:{ set?:any }) {
+export function Status({ set, onSelect }: { set?: any, onSelect: (status:any) => {} }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(set || "");
 
@@ -140,6 +131,7 @@ export function Status({ set }:{ set?:any }) {
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
+                  onSelect(status)
                 }}
               >
                 <Check
@@ -156,4 +148,86 @@ export function Status({ set }:{ set?:any }) {
       </PopoverContent>
     </Popover>
   );
+}
+
+interface RowData {
+  id: string;
+  category: string;
+  value: number;
+  source?: string;
+  destination?: string;
+  date: Date;
+  status: any;
+}
+
+const initialState = {
+  message: ''
+}
+
+function Row({ data } : { data:RowData }) {
+  const [editState, setEditState] = useState(false);
+  const [status, setStatus] = useState({ value:"paid", label:"Paid" }); 
+  const [date, setDate] = useState(new Date())
+  const [state, formAction] = useFormState(updateRow, initialState);
+
+  const editStatus = (newStatus: any):any => {
+    setStatus(newStatus)
+  }
+
+  const editDate = (newDate: Date):any => {
+    setDate(newDate)
+  }
+
+
+
+  return (
+    <TableRow>
+    { editState ? (
+      <form action={formAction}>
+      <TableCell>
+        <Input type="number" placeholder={data.value + ' $'} name="value" />
+      </TableCell>
+      <TableCell>
+        <Input type="string" placeholder={data.source ? data.source : data.destination} name={data.source ? "source" : "destination"} />
+      </TableCell>
+      <TableCell>
+        <input type="hidden" name="status" value={JSON.stringify(status)} />
+        <Status set={data.status.value} onSelect={editStatus(status)} />
+      </TableCell>
+      <TableCell>
+        <input type="hidden" name="date" value={date.toString()} />
+        <DatePicker set={data} passDate={editDate(date)}/>
+      </TableCell>
+      <TableCell>
+        <Button onClick={() => setEditState(false)} type="submit">
+          <BsFillCheckSquareFill />
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button>
+          <BsFillTrashFill />
+        </Button>
+      </TableCell>
+      </form>
+    ) : (
+      <>
+      <TableCell>{data.value}$</TableCell>
+      <TableCell>{data.source ? data.source : data.destination}</TableCell>
+      <TableCell>{data.status.label}</TableCell>
+      <TableCell>{new Date(data.date).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</TableCell>
+      <TableCell>
+        <Button onClick={() => setEditState(true)}>
+          <BsFillPencilFill />
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button>
+          <BsFillTrashFill />
+        </Button>
+      </TableCell>
+      </>
+    )
+    }
+    </TableRow>
+  )
 }

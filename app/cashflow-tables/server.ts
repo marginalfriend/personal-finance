@@ -68,3 +68,25 @@ export async function editDate(id: string, newDate: Date) {
     return { message: 'Failed to update data' }
   }
 }
+
+export async function updateRow(prevState: { message: string }, formData: FormData) {
+  try {
+    await fetch(`http://localhost:8000/cashflow/${formData.get('id')}`, {
+      method: 'PATCH', headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }, body: JSON.stringify({
+        category: formData.get('category'),
+        value: formData.get('value'),
+        destination: formData.get('destination'),
+        status: formData.get('status'),
+        date: formData.get('date'),
+      }),
+    })
+
+    revalidatePath('/cashflow-tables')
+    return { message: 'Date updated successfully' }
+  } catch (error) {
+    return { message: 'Failed to update data' }
+  }
+}

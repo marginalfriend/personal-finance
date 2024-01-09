@@ -21,7 +21,7 @@ const initialState = {
 }
 
 
-export function DatePicker({ set } : { set:any }) {
+export function DatePicker({ set, passDate } : { set:any, passDate: (date:Date) => {} }) {
   const [date, setDate] = React.useState<Date>(set.date)
 
   return (
@@ -40,10 +40,12 @@ export function DatePicker({ set } : { set:any }) {
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
           <Calendar
-            onDayBlur={() => editDate(set.id, date)}
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={() => {
+              setDate
+              passDate(date)
+            }}
             initialFocus
           />
       </PopoverContent>
