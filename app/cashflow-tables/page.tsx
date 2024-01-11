@@ -6,8 +6,11 @@ import { useFetch } from "./data";
 import { Tabs, TabsList, TabsTrigger,TabsContent } from "@/components/ui/tabs";
 import { fetchCashflowTable } from "./server";
 import { Suspense } from "react";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Home() {
+  noStore()
+  
   const cashin = await fetchCashflowTable('in')
   const cashout = await fetchCashflowTable('out')
 

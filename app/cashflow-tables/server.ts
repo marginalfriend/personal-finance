@@ -22,27 +22,6 @@ export async function fetchDate(id: string) {
   }
 }
 
-export async function updateDate(prevState: { message: string }, formData: FormData) {
-  const schema = z.object({
-    id: z.string().min(1),
-    newDate: z.string()
-  })
-
-  const data = schema.parse({
-    id: formData.get('id'),
-    newDate: formData.get('date')
-  })
-
-  try {
-    await fetch(`http://localhost:8000/cashflow/:${data.id}`, { method: 'PUT', body: JSON.stringify(data.newDate), })
-
-    revalidatePath('/cashflow-tables')
-    return { message: 'Date updated successfully' }
-  } catch (error) {
-    return { message: 'Failed to update data' }
-  }
-}
-
 export async function editDate(id: string, newDate: Date) {
   // const schema = z.object({
   //   id: z.string().min(1),
@@ -62,31 +41,50 @@ export async function editDate(id: string, newDate: Date) {
       }, body: JSON.stringify({ date: newDate }),
     })
 
-    revalidatePath('/cashflow-tables')
     return { message: 'Date updated successfully' }
   } catch (error) {
     return { message: 'Failed to update data' }
   }
 }
 
-export async function updateRow(prevState: { message: string }, formData: FormData) {
+export async function updateData({ id, newData }: { id: string, newData: {} }) {
+  if (newData === null) {
+    return { message: newData }
+  }
   try {
-    await fetch(`http://localhost:8000/cashflow/${formData.get('id')}`, {
+    await fetch(`http://localhost:8000/cashflow/${id}`, {
       method: 'PATCH', headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }, body: JSON.stringify({
-        category: formData.get('category'),
-        value: formData.get('value'),
-        destination: formData.get('destination'),
-        status: formData.get('status'),
-        date: formData.get('date'),
+        ...newData,
       }),
     })
 
-    revalidatePath('/cashflow-tables')
-    return { message: 'Date updated successfully' }
+    return { message: `Updated ${newData}` }
   } catch (error) {
-    return { message: 'Failed to update data' }
+    return { message: `Error: ${error}` }
   }
+}
+
+export async function deleteRow(id:string) {
+  try {
+    await fetch(`http://localhost:8000/cashflow/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+
+    revalidatePath('/cashflow-tables')
+    return { message: `Deleted row ${id}`}
+  } catch (error) {
+
+    revalidatePath('/cashflow-tables')
+    return {message:`Could not delete row ${id}. Error: ${error}`}
+  }
+}
+
+export async function refresh(path: string) {
+  revalidatePath(path)
 }

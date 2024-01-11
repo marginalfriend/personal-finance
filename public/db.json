@@ -2,14 +2,14 @@
   "cashflow": [
     {
       "id": "i-001",
+      "value": "2300",
       "category": "in",
-      "value": 50,
-      "source": "Moby - Upwork Client",
+      "source": "TB Makmur Jawa Web App",
       "status": {
         "value": "paid",
         "label": "Paid"
       },
-      "date": "2023-12-31T17:00:00.000Z"
+      "date": "2024-01-02T17:00:00.000Z"
     },
     {
       "id": "o-002",
@@ -53,7 +53,7 @@
         "value": "pending",
         "label": "Pending"
       },
-      "date": "2024-01-10T00:00:00.000Z"
+      "date": "2024-01-02T17:00:00.000Z"
     },
     {
       "id": "o-006",
@@ -69,13 +69,13 @@
     {
       "id": "i-007",
       "category": "in",
-      "value": 75,
-      "source": "Freelancer123 - Graphic Design",
+      "value": "300",
+      "source": "Freelancing",
       "status": {
         "value": "paid",
         "label": "Paid"
       },
-      "date": "2024-01-12T00:00:00.000Z"
+      "date": "2024-01-09T17:00:00.000Z"
     },
     {
       "id": "o-008",

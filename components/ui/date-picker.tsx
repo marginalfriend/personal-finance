@@ -3,7 +3,7 @@
 import * as React from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
-import { updateDate, editDate } from "@/app/cashflow-tables/server"
+import { editDate } from "@/app/cashflow-tables/server"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -21,8 +21,12 @@ const initialState = {
 }
 
 
-export function DatePicker({ set, passDate } : { set:any, passDate: (date:Date) => {} }) {
-  const [date, setDate] = React.useState<Date>(set.date)
+export function DatePicker({ data } : { data:any }) {
+  const [date, setDate] = React.useState<Date>(data.date)
+
+  async function handleSelect ( newDate:Date ) {
+    await editDate(data.id ,newDate)
+  }
 
   return (
     <Popover>
@@ -42,10 +46,8 @@ export function DatePicker({ set, passDate } : { set:any, passDate: (date:Date) 
           <Calendar
             mode="single"
             selected={date}
-            onSelect={() => {
-              setDate
-              passDate(date)
-            }}
+            onSelect={(e) => { setDate(e as Date) }}
+            onDayBlur={handleSelect}
             initialFocus
           />
       </PopoverContent>
