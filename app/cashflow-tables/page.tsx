@@ -2,7 +2,6 @@ import {
   CashInTable,
   CashOutTable,
 } from "@/app/cashflow-tables/components/cash-flow-table";
-import { useFetch } from "./data";
 import { Tabs, TabsList, TabsTrigger,TabsContent } from "@/components/ui/tabs";
 import { fetchCashflowTable } from "./server";
 import { Suspense } from "react";
