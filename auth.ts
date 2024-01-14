@@ -1,26 +1,31 @@
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next"
-import NextAuth, { getServerSession, NextAuthOptions } from "next-auth";
+import NextAuth, {NextAuthOptions, getServerSession} from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { PrismaClient } from "@prisma/client"
+import { Adapter } from "next-auth/adapters";
 
-export const authConfig = {
+const prisma = new PrismaClient()
+
+
+export const authOptions = {
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    })
+    }),
   ],
-  // callbacks: {
-  //   async signIn({ account, profile }) {
-  //     if (account?.provider === "google") {
-  //       return profile.email_verified && profile.email?.endsWith("@gmail.com")
-  //     }
-  //     return true // Do different verification for other providers that don't have `email_verified`
-  //   },
-  // }
+  callbacks: {
+    async session({session, user}) {
+      session.user.id = user.id
+      return session
+    }
+  }
 } satisfies NextAuthOptions
 
-export const { handlers, signIn, signOut } = NextAuth(authConfig)
+export const { handlers, signIn, signOut } = NextAuth(authOptions)
 
 export function auth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
-  return getServerSession(...args, authConfig)
+  return getServerSession(...args, authOptions)
 }

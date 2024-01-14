@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { Button } from "./ui/button";
-import { auth, authConfig } from "@/auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 
@@ -14,8 +12,6 @@ export function LoginButton() {
   };
 
   return (
-    <Link href={'/api/auth/signin'}>
-      <Button>Login</Button>
-    </Link>
+    <Button onClick={() => signIn()}>Login</Button>
   )
 }

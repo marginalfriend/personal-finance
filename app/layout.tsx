@@ -5,6 +5,7 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider"
+import { authOptions } from "@/auth";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["500"] });
 
@@ -18,11 +19,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <SessionProvider>
+        <SessionProvider session={session}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
