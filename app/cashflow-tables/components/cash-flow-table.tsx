@@ -1,7 +1,7 @@
 "use client";
 
-import { unstable_noStore as noStore } from "next/cache"
-import { useState } from "react";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { ChangeEvent, SetStateAction, useState } from "react";
 import { Button } from "../../../components/ui/button";
 import {
   Table,
@@ -18,23 +18,24 @@ import {
   BsFillCheckSquareFill,
 } from "react-icons/bs";
 import { Input } from "@/components/ui/input";
-import { deleteRow, refresh, updateData } from "../server";
+import { refresh, updateData } from "../server";
 import { Status } from "./status";
 
-interface Cashflow {
-  id: string;
-  category: string;
-  value: number;
-  source?: string;
-  destination?: string;
-  status: any;
-  date: Date;
-}
+import type { Cashflow, Category } from "@prisma/client";
+import { createCashflow, editData, deleteRow } from "../actions";
+
+// interface Cashflow {
+//   id: string;
+//   category: string;
+//   value: number;
+//   subject: string;
+//   status: any;
+//   date: Date;
+//   userId: string
+// }
 
 export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
-  noStore()
-
-  const cashIn = cashflows.filter((cashflow) => cashflow.category === "in");
+  noStore();
 
   return (
     <div className="border rounded-lg w-[100%]">
@@ -50,7 +51,8 @@ export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
         </TableHeader>
 
         <TableBody>
-          {cashIn.map((cashin) => (
+          <CreateRow category="in" />
+          {cashflows.map((cashin) => (
             <Row data={cashin} key={cashin.id} />
           ))}
         </TableBody>
@@ -60,10 +62,7 @@ export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
 }
 
 export function CashOutTable({ cashflows }: { cashflows: Cashflow[] }) {
-  noStore()
-
-  const [editState, setEditState] = useState(false);
-  const cashOut = cashflows.filter((cashflow) => cashflow.category === "out");
+  noStore();
 
   return (
     <div className="border rounded-lg w-[100%]">
@@ -79,8 +78,9 @@ export function CashOutTable({ cashflows }: { cashflows: Cashflow[] }) {
         </TableHeader>
 
         <TableBody>
-          {cashOut.map((cashout) => (
-            <Row data={cashout} key={cashout.id} />
+          <CreateRow category="out" />
+          {cashflows.map((cashout) => (
+            <Row data={cashout as RowData} key={cashout.id} />
           ))}
         </TableBody>
       </Table>
@@ -101,36 +101,37 @@ export const status = [
 
 interface RowData {
   id: string;
-  category: string;
+  category: Category;
   value: number;
-  source?: string;
-  destination?: string;
+  subject: string;
   date: Date;
   status: any;
 }
 
-const initialState = {
-  message: "",
-};
-
 function Row({ data }: { data: RowData }) {
-  noStore()
-
+  noStore();
   const [editState, setEditState] = useState(false);
 
-  function doneEditing() {
+  const rowData = {
+    id: data.id,
+    category: data.category,
+    value: data.value,
+    status: data.status,
+    date: data.date,
+    subject: data.subject,
+  };
+  const [rowState, setRowState] = useState(rowData);
+  const handleBlur = (e: any, prop: string) => {
+    setRowState((prevState) => ({
+      ...prevState,
+      [prop]: e,
+    }));
+  };
+
+  async function doneEditing() {
     setEditState(false);
-    refresh('/cashflow-table')
+    await editData({ ...rowState });
   }
-
-  // const editStatus = (newStatus: any):any => {
-  //   setStatus(newStatus)
-  // }
-
-  // const editDate = (newDate: Date):any => {
-  //   setDate(newDate)
-  // }
-
   return (
     <TableRow>
       {editState ? (
@@ -138,50 +139,37 @@ function Row({ data }: { data: RowData }) {
           <TableCell>
             <Input
               type="number"
-              placeholder={data.value + " $"}
-              onBlur={(e) =>
-                updateData({ id: data.id, newData: { value: e.target.value } })
-              }
+              placeholder={String(data.value)}
+              onChange={(e) => handleBlur(e.target.value, "value")}
             />
           </TableCell>
           <TableCell>
             <Input
               type="string"
-              placeholder={data.source ? data.source : data.destination}
-              onBlur={
-                data.source
-                  ? (e) =>
-                      updateData({
-                        id: data.id,
-                        newData: { source: e.target.value },
-                      })
-                  : (e) =>
-                      updateData({
-                        id: data.id,
-                        newData: { destination: e.target.value },
-                      })
-              }
+              placeholder={data.subject}
+              onChange={(e) => handleBlur(e.target.value, "subject")}
             />
           </TableCell>
           <TableCell>
-            <Status data={data} />
+            <Status sendData={(e: object) => handleBlur(e, "status")} />
           </TableCell>
           <TableCell>
-            <DatePicker data={data} />
+            <DatePicker
+              sendData={(e: ChangeEvent<HTMLInputElement>) =>
+                handleBlur(e, "date")
+              }
+            />
           </TableCell>
           <TableCell className="flex flex-row gap-6">
-            <Button onClick={() => doneEditing()}>
+            <Button onClick={async () => doneEditing()}>
               <BsFillCheckSquareFill />
-            </Button>
-            <Button>
-              <BsFillTrashFill />
             </Button>
           </TableCell>
         </>
       ) : (
         <>
           <TableCell>{data.value}$</TableCell>
-          <TableCell>{data.source ? data.source : data.destination}</TableCell>
+          <TableCell>{data.subject}</TableCell>
           <TableCell>{data.status.label}</TableCell>
           <TableCell>
             {new Date(data.date).toLocaleDateString("en-US", {
@@ -201,6 +189,58 @@ function Row({ data }: { data: RowData }) {
           </TableCell>
         </>
       )}
+    </TableRow>
+  );
+}
+
+function CreateRow({ category }: { category: Category }) {
+  const rowData = {
+    id: "",
+    category: category,
+    value: 0,
+    status: "",
+    date: new Date(),
+    subject: "",
+  };
+  const [rowState, setRowState] = useState(rowData);
+  const handleBlur = (e: any, prop: string) => {
+    setRowState((prevState) => ({
+      ...prevState,
+      [prop]: e,
+    }));
+
+    console.log(rowState);
+  };
+
+  return (
+    <TableRow>
+      <TableCell>
+        <Input
+          type="number"
+          placeholder={"How much?"}
+          onChange={(e) => handleBlur(e.target.value, "value")}
+        />
+      </TableCell>
+      <TableCell>
+        <Input
+          type="string"
+          placeholder={category === "in" ? "From whom?" : "To whom?"}
+          onChange={(e) => handleBlur(e.target.value, "subject")}
+        />
+      </TableCell>
+      <TableCell>
+        <Status sendData={(e: object) => handleBlur(e, "status")} />
+      </TableCell>
+      <TableCell>
+        <DatePicker
+          sendData={(e: ChangeEvent<HTMLInputElement>) => handleBlur(e, "date")}
+        />
+      </TableCell>
+      <TableCell className="flex flex-row gap-6">
+        <Button onClick={async () => await createCashflow({ ...rowState })}>
+          <BsFillCheckSquareFill />
+        </Button>
+      </TableCell>
     </TableRow>
   );
 }

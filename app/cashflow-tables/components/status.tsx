@@ -30,11 +30,19 @@ export const status = [
 
 export function Status({
   data,
+  sendData,
 }: {
   data?: any;
+  sendData?: any
 }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(data.status.value || "");
+  const [value, setValue] = useState(data?.status.value || "");
+
+  const handleSelect = (e: any) => {
+    setValue(e);
+    sendData(status.find((status) => status.value === e));
+    setOpen(false)
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -60,9 +68,7 @@ export function Status({
                 key={status.value}
                 value={status.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue);
-                  updateData({ id: data.id, newData: { status: status } })
-                  setOpen(false);
+                  handleSelect(currentValue)
                 }}
               >
                 <Check

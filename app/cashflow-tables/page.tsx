@@ -6,12 +6,10 @@ import { Tabs, TabsList, TabsTrigger,TabsContent } from "@/components/ui/tabs";
 import { fetchCashflowTable } from "./server";
 import { Suspense } from "react";
 import { unstable_noStore as noStore } from "next/cache";
+import {cashflowTable} from './actions'
 
 export default async function Home() {
   noStore()
-  
-  const cashin = await fetchCashflowTable('in')
-  const cashout = await fetchCashflowTable('out')
 
   return (
     <main>
@@ -22,11 +20,11 @@ export default async function Home() {
         </TabsList>
         <TabsContent value="cashin">
           <Suspense fallback={<h1>Loading data table...</h1>}>
-            <CashInTable cashflows={cashin} />
+            <CashInTable cashflows={await cashflowTable('in')} />
           </Suspense>
         </TabsContent>
         <TabsContent value="cashout">
-          <CashOutTable cashflows={cashout} />
+          <CashOutTable cashflows={await cashflowTable('out')} />
         </TabsContent>
       </Tabs>
     </main>

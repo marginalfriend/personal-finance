@@ -1,8 +1,6 @@
 'use server'
 
-import { error } from 'console'
 import { revalidatePath } from 'next/cache'
-import { z } from 'zod'
 
 export async function fetchCashflowTable(category: string) {
   try {
@@ -23,16 +21,6 @@ export async function fetchDate(id: string) {
 }
 
 export async function editDate(id: string, newDate: Date) {
-  // const schema = z.object({
-  //   id: z.string().min(1),
-  //   newDate: z.string()
-  // })
-
-  // const data = schema.parse({
-  //   id: id,
-  //   newDate: newDate
-  // })
-
   try {
     await fetch(`http://localhost:8000/cashflow/${id}`, {
       method: 'PATCH', headers: {
@@ -47,7 +35,7 @@ export async function editDate(id: string, newDate: Date) {
   }
 }
 
-export async function updateData({ id, newData }: { id: string, newData: {} }) {
+export async function  updateData({ id, newData }: { id: string, newData: {} }) {
   if (newData === null) {
     return { message: newData }
   }

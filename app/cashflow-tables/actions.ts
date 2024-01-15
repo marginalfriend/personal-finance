@@ -1,9 +1,11 @@
 'use server'
 import { auth } from '@/auth'
-import { PrismaClient } from '@prisma/client'
+import { db } from '@/lib/db'
+import { Cashflow, Category } from '@prisma/client'
+import { error } from 'console'
+import { revalidatePath } from 'next/cache'
 
-const prisma = new PrismaClient
-const userId = 'userid'
+const prisma = db
 
 export async function user() {
   const session = await auth()
@@ -17,23 +19,94 @@ export async function user() {
   return JSON.stringify(session.user)
 }
 
-// export async function accountCheck({ userId }: { userId: any }) {
-//   const result = await prisma.user.findUnique({
-//     where: {
-//       id: userId ? userId.id : undefined
-//     }
-//   })
-//   if (!result) throw Error('No such user')
-//   return result
-// }
-
-export async function fetchUserCashflow() {
-  const cashflow = await prisma.user.findUnique({
+export async function fetchUser() {
+  const session = await auth()
+  const user = await prisma.user.findUnique({
     where: {
-      id: userId
+      id: session?.user.id
     },
     include: {
       cashflows: true
     }
+
   })
+
+  return user;
+}
+
+
+
+export async function createCashflow(newData: any) {
+  const session = await auth();
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    await prisma.cashflow.create({
+      data: {
+        category: newData.category,
+        status: newData.status || '',
+        value: parseInt(newData.value),
+        subject: newData.subject,
+        userId: session.user.id
+      }
+    })
+  } catch (error) {
+    console.log('Error creating a cashflow : ', error);
+  }
+
+  revalidatePath('/cashflow-tables')
+}
+
+export const cashflowTable = async (category: Category) => {
+  const session = await auth()
+  if (!session) {
+    throw error
+  }
+
+  const table = prisma.cashflow.findMany({
+    where: {
+      category: category,
+      userId: session.user.id,
+    }
+  })
+
+  return table
+}
+
+export async function editData( newData:any ) {
+  try {
+    await prisma.cashflow.update({
+      where: {
+        id: newData.id
+      },
+      data: {
+        value: newData.value,
+        status: newData.status,
+        subject: newData.subject,
+        date: newData.date,
+      }
+    })
+
+    console.log('Data updated')
+  } catch (error) {
+    console.log('Error updating data : ' + error)
+  }
+
+  revalidatePath('/cashflow-tables')
+}
+
+export async function deleteRow(id:string) {
+  try {
+    await prisma.cashflow.delete({
+      where : {
+        id: id
+      }
+    })
+  } catch (error) {
+    console.log('Error deleting row : ' + error)
+  }
+
+  revalidatePath('/cashflow-tables')
 }

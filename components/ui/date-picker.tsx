@@ -21,11 +21,12 @@ const initialState = {
 }
 
 
-export function DatePicker({ data } : { data:any }) {
-  const [date, setDate] = React.useState<Date>(data.date)
+export function DatePicker({ data, sendData } : { data?:any, sendData?:any }) {
+  const [date, setDate] = React.useState<Date>(data?.date)
 
-  async function handleSelect ( newDate:Date ) {
-    await editDate(data.id ,newDate)
+  const handleSelect = (e:Date) => {
+    setDate(e)
+    sendData(e)
   }
 
   return (
@@ -46,8 +47,7 @@ export function DatePicker({ data } : { data:any }) {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={(e) => { setDate(e as Date) }}
-            onDayBlur={handleSelect}
+            onSelect={(e) => { handleSelect(e as Date) }}
             initialFocus
           />
       </PopoverContent>
