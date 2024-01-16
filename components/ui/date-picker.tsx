@@ -3,7 +3,6 @@
 import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-import { editDate } from "@/app/cashflow-tables/server";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -13,12 +12,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useFormState } from "react-dom";
-import { Matcher } from "react-day-picker";
-
-const initialState = {
-  message: "",
-};
 
 export function DatePicker({ data, sendData }: { data?: any; sendData?: any }) {
   const [date, setDate] = React.useState<Date>(data?.date);

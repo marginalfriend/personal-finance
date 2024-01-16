@@ -15,7 +15,6 @@ import {
 } from "../../../components/ui/command";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { updateData } from "../server";
 
 export const status = [
   {
