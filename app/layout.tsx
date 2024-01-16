@@ -4,7 +4,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { getServerSession } from "next-auth";
-import SessionProvider from "@/components/SessionProvider"
+import SessionProvider from "@/components/SessionProvider";
 import { authOptions } from "@/auth";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["500"] });

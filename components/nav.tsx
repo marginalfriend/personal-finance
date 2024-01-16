@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { LoginButton } from "./login-button";
 import { ModeToggle } from "./theme-switch";

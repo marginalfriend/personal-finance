@@ -18,7 +18,6 @@ import {
   BsFillCheckSquareFill,
 } from "react-icons/bs";
 import { Input } from "@/components/ui/input";
-import { refresh, updateData } from "../server";
 import { Status } from "./status";
 
 import type { Cashflow, Category } from "@prisma/client";

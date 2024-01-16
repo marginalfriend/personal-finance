@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Popover,
@@ -28,21 +28,15 @@ export const status = [
   },
 ];
 
-export function Status({
-  data,
-  sendData,
-}: {
-  data?: any;
-  sendData?: any
-}) {
+export function Status({ data, sendData }: { data?: any; sendData?: any }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(data?.status.value || "");
 
   const handleSelect = (e: any) => {
     setValue(e);
     sendData(status.find((status) => status.value === e));
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -68,13 +62,13 @@ export function Status({
                 key={status.value}
                 value={status.value}
                 onSelect={(currentValue) => {
-                  handleSelect(currentValue)
+                  handleSelect(currentValue);
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === status.value ? "opacity-100" : "opacity-0"
+                    value === status.value ? "opacity-100" : "opacity-0",
                   )}
                 />
                 {status.label}
