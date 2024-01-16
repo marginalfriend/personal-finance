@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && prisma migrate deploy && next build",
     "prepare": "husky install",
     "lint:write": "next lint --cache --fix",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
