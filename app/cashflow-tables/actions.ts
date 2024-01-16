@@ -1,7 +1,6 @@
 "use server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { Category } from "@prisma/client";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
 
@@ -56,7 +55,7 @@ export async function createCashflow(newData: any) {
   revalidatePath("/cashflow-tables");
 }
 
-export const cashflowTable = async (category: Category) => {
+export const cashflowTable = async (category: any) => {
   const session = await auth();
   if (!session) {
     throw error;
