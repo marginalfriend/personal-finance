@@ -1,4 +1,5 @@
 "use server";
+
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { error } from "console";
@@ -10,11 +11,10 @@ export async function user() {
   const session = await auth();
 
   if (!session?.user) {
-    console.log("No user found");
-    return "No user found";
+    return null;
   }
 
-  console.log(session.user);
+  console.log(session.user.name + " has signed in");
   return JSON.stringify(session.user);
 }
 

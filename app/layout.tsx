@@ -2,7 +2,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { Nav } from "@/components/nav";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 import { authOptions } from "@/auth";
@@ -30,7 +29,6 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Nav />
             {children}
           </ThemeProvider>
         </SessionProvider>

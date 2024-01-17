@@ -1,7 +1,8 @@
 "use client";
 
+import * as z from "zod";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import { ChangeEvent, SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button } from "../../../components/ui/button";
 import {
   Table,
@@ -16,22 +17,13 @@ import {
   BsFillTrashFill,
   BsFillPencilFill,
   BsFillCheckSquareFill,
+  BsFillPlusSquareFill,
 } from "react-icons/bs";
 import { Input } from "@/components/ui/input";
 import { Status } from "./status";
 
 import type { Cashflow, Category } from "@prisma/client";
 import { createCashflow, editData, deleteRow } from "../actions";
-
-// interface Cashflow {
-//   id: string;
-//   category: string;
-//   value: number;
-//   subject: string;
-//   status: any;
-//   date: Date;
-//   userId: string
-// }
 
 export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
   noStore();
@@ -107,6 +99,13 @@ interface RowData {
   status: any;
 }
 
+const rowSchema = z.object({
+  value: z.coerce.number().min(1, { message: "Amount must be at least 1" }),
+  subject: z
+    .string()
+    .min(5, { message: "Subject must be at least 5 characters" }),
+});
+
 function Row({ data }: { data: RowData }) {
   noStore();
   const [editState, setEditState] = useState(false);
@@ -119,6 +118,7 @@ function Row({ data }: { data: RowData }) {
     date: data.date,
     subject: data.subject,
   };
+
   const [rowState, setRowState] = useState(rowData);
   const handleBlur = (e: any, prop: string) => {
     setRowState((prevState) => ({
@@ -128,9 +128,15 @@ function Row({ data }: { data: RowData }) {
   };
 
   async function doneEditing() {
+    rowSchema.parse(rowState);
     setEditState(false);
     await editData({ ...rowState });
   }
+
+  const result = rowSchema.safeParse(rowState);
+  const error = result.success ? {} : result.error.format();
+  console.log(error);
+
   return (
     <TableRow>
       {editState ? (
@@ -139,7 +145,7 @@ function Row({ data }: { data: RowData }) {
             <Input
               type="number"
               placeholder={String(data.value)}
-              onChange={(e) => handleBlur(e.target.value, "value")}
+              onChange={(e) => handleBlur(parseInt(e.target.value), "value")}
             />
           </TableCell>
           <TableCell>
@@ -237,7 +243,7 @@ function CreateRow({ category }: { category: Category }) {
       </TableCell>
       <TableCell className="flex flex-row gap-6">
         <Button onClick={async () => await createCashflow({ ...rowState })}>
-          <BsFillCheckSquareFill />
+          <BsFillPlusSquareFill />
         </Button>
       </TableCell>
     </TableRow>

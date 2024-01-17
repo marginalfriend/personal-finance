@@ -1,6 +1,15 @@
+import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
+import { auth } from "@/auth";
+import Link from "next/link";
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+
+  if (session) {
+    redirect("/cashflow-tables");
+  }
   return (
     <main className="h-[60vh] items-center">
       <div className="flex flex-col gap-4 items-center justify-center h-[100%]">
@@ -10,7 +19,9 @@ export default function Page() {
         >
           Simply manage your personal finance.
         </h1>
-        <Button>Get Started</Button>
+        <Link href={"/cashflow-tables"}>
+          <Button>Get Started</Button>
+        </Link>
       </div>
     </main>
   );
