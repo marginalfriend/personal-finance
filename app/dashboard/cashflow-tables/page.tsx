@@ -1,7 +1,4 @@
-import {
-  CashInTable,
-  CashOutTable,
-} from "@/app/cashflow-tables/components/cash-flow-table";
+import { CashInTable, CashOutTable } from "../components/cash-flow-table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Suspense } from "react";
 import { unstable_noStore as noStore } from "next/cache";
@@ -20,7 +17,7 @@ export default async function Home() {
   }
 
   return (
-    <Tabs defaultValue="cashin" className="w-[75%]">
+    <Tabs defaultValue="cashin" className="w-[100%]">
       <div className="flex justify-between align-middle">
         <TabsList>
           <TabsTrigger value="cashin">Cash-in</TabsTrigger>

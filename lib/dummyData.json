@@ -1,0 +1,175 @@
+[
+  {
+    "value": 1500,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-01-05",
+    "subject": "Salary Deposit"
+  },
+  {
+    "value": 300,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "in",
+    "date": "2024-01-15",
+    "subject": "Freelance Work"
+  },
+  {
+    "value": 200,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "out",
+    "date": "2024-01-08",
+    "subject": "Grocery Shopping"
+  },
+  {
+    "value": 50,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-01-20",
+    "subject": "Dinner with Friends"
+  },
+
+  {
+    "value": 1600,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-02-03",
+    "subject": "Salary Deposit"
+  },
+  {
+    "value": 250,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "in",
+    "date": "2024-02-18",
+    "subject": "Consultation Fee"
+  },
+  {
+    "value": 180,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "out",
+    "date": "2024-02-10",
+    "subject": "Utilities Payment"
+  },
+  {
+    "value": 40,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-02-25",
+    "subject": "Movie Night"
+  },
+
+  {
+    "value": 1550,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-03-07",
+    "subject": "Salary Deposit"
+  },
+  {
+    "value": 280,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "in",
+    "date": "2024-03-22",
+    "subject": "Web Development Project"
+  },
+  {
+    "value": 220,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "out",
+    "date": "2024-03-14",
+    "subject": "Grocery Shopping"
+  },
+  {
+    "value": 60,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-03-28",
+    "subject": "Coffee with Colleagues"
+  },
+
+  {
+    "value": 1700,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-04-05",
+    "subject": "Salary Deposit"
+  },
+  {
+    "value": 320,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "in",
+    "date": "2024-04-20",
+    "subject": "Graphic Design Project"
+  },
+  {
+    "value": 190,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "out",
+    "date": "2024-04-12",
+    "subject": "Utilities Payment"
+  },
+  {
+    "value": 75,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-04-24",
+    "subject": "Dinner with Family"
+  },
+
+  {
+    "value": 1800,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-05-03",
+    "subject": "Salary Deposit"
+  },
+  {
+    "value": 280,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "in",
+    "date": "2024-05-18",
+    "subject": "Writing Assignment"
+  },
+  {
+    "value": 210,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "out",
+    "date": "2024-05-10",
+    "subject": "Grocery Shopping"
+  },
+  {
+    "value": 80,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-05-25",
+    "subject": "Lunch with Friends"
+  },
+
+  {
+    "value": 1650,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-06-07",
+    "subject": "Salary Deposit"
+  },
+  {
+    "value": 300,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "in",
+    "date": "2024-06-22",
+    "subject": "Consultation Fee"
+  },
+  {
+    "value": 200,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "out",
+    "date": "2024-06-14",
+    "subject": "Utilities Payment"
+  },
+  {
+    "value": 50,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-06-28",
+    "subject": "Coffee with Colleagues"
+  }
+]

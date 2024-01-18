@@ -8,7 +8,7 @@ export default async function Page() {
   const session = await auth();
 
   if (session) {
-    redirect("/cashflow-tables");
+    redirect("/dashboard");
   }
   return (
     <main className="h-[60vh] items-center">
@@ -19,7 +19,7 @@ export default async function Page() {
         >
           Simply manage your personal finance.
         </h1>
-        <Link href={"/cashflow-tables"}>
+        <Link href={"/dashboard"}>
           <Button>Get Started</Button>
         </Link>
       </div>

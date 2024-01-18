@@ -23,7 +23,11 @@ import { Input } from "@/components/ui/input";
 import { Status } from "./status";
 
 import type { Cashflow, Category } from "@prisma/client";
-import { createCashflow, editData, deleteRow } from "../actions";
+import {
+  createCashflow,
+  editData,
+  deleteRow,
+} from "../cashflow-tables/actions";
 
 export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
   noStore();
