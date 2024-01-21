@@ -181,7 +181,7 @@ function Row({ data }: { data: RowData }) {
           <TableCell>{data.subject}</TableCell>
           <TableCell>{data.status.label}</TableCell>
           <TableCell>
-            {new Date(data.date).toLocaleDateString("en-US", {
+            {data.date.toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
               month: "long",

@@ -171,5 +171,61 @@
     "category": "out",
     "date": "2024-06-28",
     "subject": "Coffee with Colleagues"
+  },
+  {
+    "value": 150,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-01-15",
+    "subject": "Consultation Fee"
+  },
+  {
+    "value": 30,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-01-15",
+    "subject": "Lunch with Friends"
+  },
+  {
+    "value": 200,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-01-18",
+    "subject": "Freelance Work"
+  },
+  {
+    "value": 40,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-01-18",
+    "subject": "Grocery Shopping"
+  },
+  {
+    "value": 120,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-01-19",
+    "subject": "Salary Bonus"
+  },
+  {
+    "value": 25,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-01-19",
+    "subject": "Dinner with Family"
+  },
+  {
+    "value": 180,
+    "status": { "value": "paid", "label": "Paid" },
+    "category": "in",
+    "date": "2024-01-21",
+    "subject": "Web Development Project"
+  },
+  {
+    "value": 50,
+    "status": { "value": "pending", "label": "Pending" },
+    "category": "out",
+    "date": "2024-01-21",
+    "subject": "Movie Night"
   }
 ]

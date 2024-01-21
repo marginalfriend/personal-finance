@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import {
   AccountReceivable,
   Balance,
@@ -5,7 +6,7 @@ import {
   Expenses,
   Income,
 } from "./components/balance";
-import Overview from "./components/charts";
+import CashflowChart from "./components/charts";
 import {
   Card,
   CardContent,
@@ -13,6 +14,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { chartData } from "./chartdata";
+
+const data: any[] = JSON.parse(chartData);
 
 export default function Page() {
   return (
@@ -30,7 +34,9 @@ export default function Page() {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            <Suspense fallback="Loading...">
+              <CashflowChart data={data} />
+            </Suspense>
           </CardContent>
         </Card>
       </div>

@@ -44,6 +44,7 @@ export async function createCashflow(newData: any) {
         category: newData.category,
         status: newData.status || "",
         value: parseInt(newData.value),
+        date: newData.date,
         subject: newData.subject,
         userId: session.user.id,
       },
