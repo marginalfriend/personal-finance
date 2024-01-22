@@ -35,8 +35,10 @@ data.map((entry: any) => {
   }
 });
 
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 dailyChartData.map((data) => {
-  data.date = data.date.toString("us-US", { weekday: "long" });
+  data.date = weekdays[data.date.getDay()];
 });
 
 export const chartData = JSON.stringify(dailyChartData);

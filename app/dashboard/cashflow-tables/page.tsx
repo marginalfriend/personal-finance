@@ -20,8 +20,8 @@ export default async function Home() {
     <Tabs defaultValue="cashin" className="w-[100%]">
       <div className="flex justify-between align-middle">
         <TabsList>
-          <TabsTrigger value="cashin">Cash-in</TabsTrigger>
-          <TabsTrigger value="cashout">Cash-out</TabsTrigger>
+          <TabsTrigger value="cashin">Income</TabsTrigger>
+          <TabsTrigger value="cashout">Expenses</TabsTrigger>
         </TabsList>
         <ModeToggle />
       </div>
@@ -31,7 +31,9 @@ export default async function Home() {
         </Suspense>
       </TabsContent>
       <TabsContent value="cashout">
-        <CashOutTable cashflows={await cashflowTable("out")} />
+        <Suspense fallback={<h1>Loading data table...</h1>}>
+          <CashOutTable cashflows={await cashflowTable("out")} />
+        </Suspense>
       </TabsContent>
     </Tabs>
   );

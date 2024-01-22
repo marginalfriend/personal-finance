@@ -1,25 +1,49 @@
 "use client";
 
-import React, { PureComponent } from "react";
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from "recharts";
 
 export default function CashflowChart({ data }: { data: any }) {
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <AreaChart data={data}>
+      <BarChart data={data}>
         <XAxis dataKey="date" tickLine={false} axisLine={false} />
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis
+          yAxisId="left"
+          orientation="left"
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          yAxisId="right"
+          orientation="right"
+          tickLine={false}
+          axisLine={false}
+        />
         <Tooltip />
-        <Area type="monotone" dataKey="out" stroke="#ff0000" fill="#ff9d9d" />
-        <Area type="monotone" dataKey="in" stroke="#8884d8" fill="#8884d8" />
-      </AreaChart>
+        <Legend />
+        <Bar
+          name="Expenses"
+          yAxisId="right"
+          type="monotone"
+          dataKey="out"
+          fill="#FF4C4C"
+        />
+        <Bar
+          name="Income"
+          yAxisId="left"
+          type="monotone"
+          dataKey="in"
+          fill="#039100"
+        />
+      </BarChart>
     </ResponsiveContainer>
   );
 }
