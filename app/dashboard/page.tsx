@@ -1,11 +1,5 @@
 import { Suspense } from "react";
-import {
-  AccountReceivable,
-  Balance,
-  Debt,
-  Expenses,
-  Income,
-} from "./components/balance";
+import { Calculated } from "./components/balance";
 import CashflowChart from "./components/charts";
 import {
   Card,
@@ -14,26 +8,53 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { chartData } from "./chartdata";
+import chartData from "./chartdata";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LatestCashflow } from "./components/latest-cashflow";
 import { cashflowTable } from "./cashflow-tables/actions";
 import { unstable_noStore as noStore } from "next/cache";
+import actions from "./actions";
 
 export default async function Page() {
   noStore();
-  const data: any[] = JSON.parse(chartData);
+  const calculated = await actions();
+  const calculatedData = [
+    {
+      title: "Income",
+      value: calculated.income,
+      className: "text green",
+    },
+    {
+      title: "Acc Receivable",
+      value: calculated.accountReceivable,
+      className: "text green",
+    },
+    {
+      title: "Balance",
+      value: calculated.balance,
+    },
+    {
+      title: "Expenses",
+      value: calculated.expenses,
+      className: "text red",
+    },
+    {
+      title: "Debt",
+      value: calculated.debt,
+      className: "text red",
+    },
+  ];
+
+  const data = await chartData();
   const cashin: any = await cashflowTable("in");
   const cashout: any = await cashflowTable("out");
 
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5 w-[100%]">
-        <Income />
-        <AccountReceivable />
-        <Balance />
-        <Debt />
-        <Expenses />
+        {calculatedData.map((data) => (
+          <Calculated data={data} key={data.title} />
+        ))}
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
@@ -42,7 +63,7 @@ export default async function Page() {
           </CardHeader>
           <CardContent className="pl-2">
             <Suspense fallback="Loading...">
-              <CashflowChart data={data} />
+              <CashflowChart data={JSON.parse(data)} />
             </Suspense>
           </CardContent>
         </Card>
