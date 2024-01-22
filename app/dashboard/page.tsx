@@ -20,12 +20,11 @@ import { LatestCashflow } from "./components/latest-cashflow";
 import { cashflowTable } from "./cashflow-tables/actions";
 import { unstable_noStore as noStore } from "next/cache";
 
-const data: any[] = JSON.parse(chartData);
-const cashin: any = await cashflowTable("in");
-const cashout: any = await cashflowTable("out");
-
 export default async function Page() {
   noStore();
+  const data: any[] = JSON.parse(chartData);
+  const cashin: any = await cashflowTable("in");
+  const cashout: any = await cashflowTable("out");
 
   return (
     <>
