@@ -5,10 +5,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-export async function Calculated({ data }: { data: any }) {
+interface Calculated {
+  data: any;
+  className?: string;
+}
+
+export async function Calculated({ data, className }: Calculated) {
   return (
-    <Card>
+    <Card className={cn(className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{data.title}</CardTitle>
         <svg

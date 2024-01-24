@@ -170,7 +170,7 @@ function Row({ data }: { data: RowData }) {
             />
           </TableCell>
           <TableCell className="flex flex-row gap-6">
-            <Button onClick={async () => doneEditing()}>
+            <Button variant="ghost" onClick={async () => doneEditing()}>
               <BsFillCheckSquareFill />
             </Button>
           </TableCell>
@@ -189,10 +189,10 @@ function Row({ data }: { data: RowData }) {
             })}
           </TableCell>
           <TableCell className="flex flex-row gap-6">
-            <Button onClick={() => setEditState(true)}>
+            <Button variant="ghost" onClick={() => setEditState(true)}>
               <BsFillPencilFill />
             </Button>
-            <Button onClick={() => deleteRow(data.id)}>
+            <Button variant="ghost" onClick={() => deleteRow(data.id)}>
               <BsFillTrashFill />
             </Button>
           </TableCell>
@@ -246,7 +246,10 @@ function CreateRow({ category }: { category: Category }) {
         />
       </TableCell>
       <TableCell className="flex flex-row gap-6">
-        <Button onClick={async () => await createCashflow({ ...rowState })}>
+        <Button
+          variant="ghost"
+          onClick={async () => await createCashflow({ ...rowState })}
+        >
           <BsFillPlusSquareFill />
         </Button>
       </TableCell>

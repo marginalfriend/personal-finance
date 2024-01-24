@@ -19,7 +19,7 @@ export default async function Page() {
         >
           Simply manage your personal finance.
         </h1>
-        <Link href={"/dashboard"}>
+        <Link href={"/api/auth/signin"}>
           <Button>Get Started</Button>
         </Link>
       </div>

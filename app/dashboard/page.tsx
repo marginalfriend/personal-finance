@@ -17,6 +17,7 @@ import actions from "./actions";
 
 export default async function Page() {
   noStore();
+
   const calculated = await actions();
   const calculatedData = [
     {
@@ -51,13 +52,13 @@ export default async function Page() {
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5 w-[100%]">
+      <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5 justify-normal">
         {calculatedData.map((data) => (
           <Calculated data={data} key={data.title} />
         ))}
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+      <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-4">
+        <Card className="col-span-1 md:col-span-4">
           <CardHeader>
             <CardTitle>Overview</CardTitle>
           </CardHeader>
@@ -67,7 +68,7 @@ export default async function Page() {
             </Suspense>
           </CardContent>
         </Card>
-        <Card className="col-span-3">
+        <Card className="col-span-1 md:col-span-3">
           <CardHeader>
             <CardTitle>Latest Cashflow</CardTitle>
           </CardHeader>
