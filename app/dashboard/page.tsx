@@ -73,22 +73,24 @@ export default async function Page() {
             <CardTitle>Latest Cashflow</CardTitle>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="cashin">
-              <TabsList>
-                <TabsTrigger value="cashin">Income</TabsTrigger>
-                <TabsTrigger value="cashout">Expenses</TabsTrigger>
-              </TabsList>
-              <TabsContent value="cashin">
-                <Suspense fallback={<h1>Loading data table...</h1>}>
-                  <LatestCashflow data={await cashin.slice(0, 9)} />
-                </Suspense>
-              </TabsContent>
-              <TabsContent value="cashout">
-                <Suspense fallback={<h1>Loading data table...</h1>}>
-                  <LatestCashflow data={await cashout.slice(0, 9)} />
-                </Suspense>
-              </TabsContent>
-            </Tabs>
+            <Suspense fallback="Loading...">
+              <Tabs defaultValue="cashin">
+                <TabsList>
+                  <TabsTrigger value="cashin">Income</TabsTrigger>
+                  <TabsTrigger value="cashout">Expenses</TabsTrigger>
+                </TabsList>
+                <TabsContent value="cashin">
+                  <Suspense fallback={<h1>Loading data table...</h1>}>
+                    <LatestCashflow data={await cashin.slice(0, 9)} />
+                  </Suspense>
+                </TabsContent>
+                <TabsContent value="cashout">
+                  <Suspense fallback={<h1>Loading data table...</h1>}>
+                    <LatestCashflow data={await cashout.slice(0, 9)} />
+                  </Suspense>
+                </TabsContent>
+              </Tabs>
+            </Suspense>
           </CardContent>
         </Card>
       </div>

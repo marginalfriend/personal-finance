@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { unstable_noStore as noStore } from "next/cache";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Suspense, useState } from "react";
 import { Button } from "../../../components/ui/button";
 import {
   Table,
@@ -47,9 +47,11 @@ export function CashInTable({ cashflows }: { cashflows: Cashflow[] }) {
 
         <TableBody>
           <CreateRow category="in" />
-          {cashflows.map((cashin) => (
-            <Row data={cashin} key={cashin.id} />
-          ))}
+          <Suspense fallback={<h1>Loading...</h1>}>
+            {cashflows.map((cashin) => (
+              <Row data={cashin} key={cashin.id} />
+            ))}
+          </Suspense>
         </TableBody>
       </Table>
     </div>

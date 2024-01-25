@@ -6,34 +6,9 @@ import { error } from "console";
 import { revalidatePath } from "next/cache";
 
 const prisma = db;
-
-export async function user() {
-  const session = await auth();
-
-  if (!session?.user) {
-    return null;
-  }
-
-  console.log(session.user.name + " has signed in");
-  return JSON.stringify(session.user);
-}
-
-export async function fetchUser() {
-  const session = await auth();
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session?.user.id,
-    },
-    include: {
-      cashflows: true,
-    },
-  });
-
-  return user;
-}
+const session = await auth();
 
 export async function createCashflow(newData: any) {
-  const session = await auth();
   if (!session?.user) {
     throw new Error("Unauthorized");
   }
@@ -57,7 +32,6 @@ export async function createCashflow(newData: any) {
 }
 
 export const cashflowTable = async (category: any) => {
-  const session = await auth();
   if (!session) {
     throw error;
   }

@@ -1,4 +1,3 @@
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
