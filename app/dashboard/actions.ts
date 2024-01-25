@@ -3,10 +3,10 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
-export default async function actions() {
-  const prisma = db;
-  const session = await auth();
+const prisma = db;
+const session = await auth();
 
+export default async function actions() {
   const cashin = await prisma.cashflow.findMany({
     where: {
       userId: session?.user.id,
