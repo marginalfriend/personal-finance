@@ -6,10 +6,11 @@ import { error } from "console";
 import { revalidatePath } from "next/cache";
 
 const prisma = db;
-const session = await auth();
 
 export async function createCashflow(newData: any) {
-  if (!session?.user) {
+  const session = await auth();
+
+  if (!session) {
     throw new Error("Unauthorized");
   }
 
@@ -32,6 +33,8 @@ export async function createCashflow(newData: any) {
 }
 
 export const cashflowTable = async (category: any) => {
+  const session = await auth();
+
   if (!session) {
     throw error;
   }
