@@ -3,8 +3,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import Link from "next/link";
 
-const session = await auth();
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+
   if (session) {
     redirect("/dashboard");
   }
