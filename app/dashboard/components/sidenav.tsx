@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { ModeToggle } from "@/components/theme-switch";
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -18,7 +19,8 @@ export function SidebarNav({ className, items }: SidebarNavProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex flex-col w-[20%] lg:w-[20%]">
+    <aside className="hidden md:flex flex-col w-[20%] gap-4">
+      <ModeToggle />
       <nav>
         {items.map((item) => (
           <Link

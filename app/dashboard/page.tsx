@@ -28,25 +28,30 @@ export default async function Page() {
       title: "Income",
       value: calculated.income,
       className: "text green",
+      info: "Received income",
     },
     {
       title: "Acc Receivable",
       value: calculated.accountReceivable,
       className: "text green",
+      info: "Unreceived income / claim",
     },
     {
       title: "Balance",
       value: calculated.balance,
+      info: "Your current balance",
     },
     {
       title: "Expenses",
       value: calculated.expenses,
       className: "text red",
+      info: "Money spent",
     },
     {
       title: "Debt",
       value: calculated.debt,
       className: "text-red",
+      info: "Unpaid spending",
     },
   ];
 
@@ -61,7 +66,7 @@ export default async function Page() {
           <Calculated className={data.className} data={data} key={data.title} />
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-2">
         <Card className="col-span-1 md:col-span-4">
           <CardHeader>
             <CardTitle>Overview</CardTitle>

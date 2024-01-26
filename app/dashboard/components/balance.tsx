@@ -31,10 +31,8 @@ export async function Calculated({ data, className }: Calculated) {
         </svg>
       </CardHeader>
       <CardContent>
-        <div className={cn(className, "text-xl")}>${data.value}</div>
-        {/* <p className="text-xs text-muted-foreground">
-          +20.1% from last month
-        </p> */}
+        <p className={cn(data.className, "text-xl")}>${data.value}</p>
+        <p className="text-xs text-muted-foreground">{data.info}</p>
       </CardContent>
     </Card>
   );

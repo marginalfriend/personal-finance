@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import { TableRow, TableCell } from "../../../../components/ui/table";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -37,13 +37,15 @@ export function CreateRow({ category, sendRow, userId }: CreateRowProps) {
           type="number"
           placeholder={"How much?"}
           onChange={(e) => handleBlur(e.target.value, "value")}
+          value={rowState.value}
         />
       </TableCell>
       <TableCell>
         <Input
           type="string"
-          placeholder={category === "in" ? "From whom?" : "To whom?"}
+          placeholder={category === "in" ? "From where?" : "For what?"}
           onChange={(e) => handleBlur(e.target.value, "subject")}
+          value={rowState.subject}
         />
       </TableCell>
       <TableCell>

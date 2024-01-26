@@ -21,7 +21,6 @@ async function Page() {
           <TabsTrigger value="cashin">Income</TabsTrigger>
           <TabsTrigger value="cashout">Expenses</TabsTrigger>
         </TabsList>
-        <ModeToggle />
       </div>
       <TabsContent value="cashin">
         <CashInTable userId={session.user.id} cashflows={income} />
