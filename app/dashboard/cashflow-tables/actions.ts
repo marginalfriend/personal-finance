@@ -39,7 +39,7 @@ export const cashflowTable = async (category: any) => {
     throw error;
   }
 
-  const table = prisma.cashflow.findMany({
+  const table = await prisma.cashflow.findMany({
     where: {
       category: category,
       userId: session.user.id,
@@ -62,8 +62,6 @@ export async function editData(newData: any) {
         date: newData.date,
       },
     });
-
-    console.log("Data updated");
   } catch (error) {
     console.log("Error updating data : " + error);
   }

@@ -1,9 +1,16 @@
-import { CashInTable, CashOutTable } from "../components/cash-flow-table";
+import { CashInTable, CashOutTable } from "./components/cash-flow-table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { cashflowTable } from "./actions";
 import { ModeToggle } from "@/components/theme-switch";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 async function Page() {
+  const session = await auth();
+  if (!session) {
+    redirect("/api/auth/signin");
+  }
+
   const income = await cashflowTable("in");
   const expenses = await cashflowTable("out");
 
@@ -17,10 +24,10 @@ async function Page() {
         <ModeToggle />
       </div>
       <TabsContent value="cashin">
-        <CashInTable cashflows={income} />
+        <CashInTable userId={session.user.id} cashflows={income} />
       </TabsContent>
       <TabsContent value="cashout">
-        <CashOutTable cashflows={expenses} />
+        <CashOutTable userId={session.user.id} cashflows={expenses} />
       </TabsContent>
     </Tabs>
   );

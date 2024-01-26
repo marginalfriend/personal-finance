@@ -2,19 +2,7 @@ import { BsCashStack, BsKanban, BsPen } from "react-icons/bs";
 import { SidebarNav } from "./components/sidenav";
 import { Suspense } from "react";
 import { MobileNav } from "./components/mobile-nav";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await auth();
-  if (!session) {
-    redirect("/api/auth/signin");
-  }
-
+export default function Layout({ children }: { children: React.ReactNode }) {
   const sidebarNavItems = [
     {
       title: "Dashboard",
@@ -46,7 +34,7 @@ export default async function Layout({
       <main className="flex gap-4 sm:justify-center p-4">
         <SidebarNav items={sidebarNavItems} />
         <div className="md:w-[80%] flex flex-col gap-4 max-w-full">
-          {children}
+          <Suspense>{children}</Suspense>
         </div>
       </main>
     </>

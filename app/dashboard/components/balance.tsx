@@ -14,7 +14,7 @@ interface Calculated {
 
 export async function Calculated({ data, className }: Calculated) {
   return (
-    <Card className={cn(className)}>
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{data.title}</CardTitle>
         <svg
@@ -31,7 +31,7 @@ export async function Calculated({ data, className }: Calculated) {
         </svg>
       </CardHeader>
       <CardContent>
-        <div className="text-xl">${data.value}</div>
+        <div className={cn(className, "text-xl")}>${data.value}</div>
         {/* <p className="text-xs text-muted-foreground">
           +20.1% from last month
         </p> */}

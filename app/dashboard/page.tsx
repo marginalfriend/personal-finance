@@ -12,11 +12,15 @@ import chartData from "./chartdata";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LatestCashflow } from "./components/latest-cashflow";
 import { cashflowTable } from "./cashflow-tables/actions";
-import { unstable_noStore as noStore } from "next/cache";
 import actions from "./actions";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
-  noStore();
+  const session = await auth();
+  if (!session) {
+    redirect("/api/auth/signin");
+  }
 
   const calculated = await actions();
   const calculatedData = [
@@ -42,7 +46,7 @@ export default async function Page() {
     {
       title: "Debt",
       value: calculated.debt,
-      className: "text red",
+      className: "text-red",
     },
   ];
 
@@ -54,7 +58,7 @@ export default async function Page() {
     <>
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5 justify-normal">
         {calculatedData.map((data) => (
-          <Calculated data={data} key={data.title} />
+          <Calculated className={data.className} data={data} key={data.title} />
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-4">
