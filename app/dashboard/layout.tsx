@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     {
       title: "Dashboard",
       href: "/dashboard",
-      icon: <BsKanban />,
+      icon: <BsKanban style={{ transform: "rotate(180deg)" }} />,
     },
     {
       title: "Cashflow",

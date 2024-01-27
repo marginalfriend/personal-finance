@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { unstable_noStore as noStore } from "next/cache";
 
 interface Calculated {
   data: any;
@@ -13,6 +14,8 @@ interface Calculated {
 }
 
 export async function Calculated({ data, className }: Calculated) {
+  noStore();
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -31,7 +34,7 @@ export async function Calculated({ data, className }: Calculated) {
         </svg>
       </CardHeader>
       <CardContent>
-        <p className={cn(data.className, "text-xl")}>${data.value}</p>
+        <p className={cn(data.className, " text-xl")}>${data.value}</p>
         <p className="text-xs text-muted-foreground">{data.info}</p>
       </CardContent>
     </Card>

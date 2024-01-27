@@ -32,9 +32,9 @@ export default async function chartData() {
         dailyChartData[i].date.getTime()
       ) {
         if (entry.category === "in") {
-          dailyChartData[i].in += Number(entry.value);
+          return (dailyChartData[i].in += Number(entry.value));
         }
-        dailyChartData[i].out += Number(entry.value);
+        return (dailyChartData[i].out += Number(entry.value));
       }
     }
   });
@@ -42,7 +42,10 @@ export default async function chartData() {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   dailyChartData.map((data) => {
-    data.date = weekdays[data.date.getDay()];
+    data.date = data.date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+    });
   });
 
   const chartData = JSON.stringify(dailyChartData);

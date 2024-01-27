@@ -29,7 +29,8 @@ export async function createCashflow(newData: any) {
     console.log("Error creating a cashflow : ", error);
   }
 
-  revalidatePath("dashboard/cashflow-tables");
+  revalidatePath("/dashboard/cashflow-tables");
+  revalidatePath("/dashboard");
 }
 
 export const cashflowTable = async (category: any) => {
@@ -66,7 +67,8 @@ export async function editData(newData: any) {
     console.log("Error updating data : " + error);
   }
 
-  revalidatePath("dashboard/cashflow-tables");
+  revalidatePath("/dashboard/cashflow-tables");
+  revalidatePath("/dashboard");
 }
 
 export async function deleteRow(id: string) {
@@ -80,5 +82,6 @@ export async function deleteRow(id: string) {
     console.log("Error deleting row : " + error);
   }
 
-  revalidatePath("dashboard/cashflow-tables");
+  revalidatePath("/dashboard/cashflow-tables");
+  revalidatePath("/dashboard");
 }

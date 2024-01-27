@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
+import { ModeToggle } from "@/components/theme-switch";
 
 export function MobileNav({ items }: { items: any[] }) {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ export function MobileNav({ items }: { items: any[] }) {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col align-center">
-        <a href="/dashboard">💵</a>
+        <ModeToggle className="w-[2.5em] h-[2.5em]" />
         {items.map((item) => (
           <MobileLink
             key={item.href}

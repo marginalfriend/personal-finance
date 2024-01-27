@@ -16,7 +16,7 @@ export function CreateRow({ category, sendRow, userId }: CreateRowProps) {
   const rowData = {
     id: crypto.randomUUID(),
     category: category,
-    value: 0,
+    value: parseInt(""),
     status: "",
     date: new Date(),
     subject: "",

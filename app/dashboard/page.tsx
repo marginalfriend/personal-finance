@@ -69,7 +69,7 @@ export default async function Page() {
       <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-2">
         <Card className="col-span-1 md:col-span-4">
           <CardHeader>
-            <CardTitle>Overview</CardTitle>
+            <CardTitle>Last 7 Days Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <Suspense fallback="Loading...">

@@ -20,7 +20,7 @@ export function SidebarNav({ className, items }: SidebarNavProps) {
 
   return (
     <aside className="hidden md:flex flex-col w-[20%] gap-4">
-      <ModeToggle />
+      <ModeToggle className="w-[2.5em] h-[2.5em]" />
       <nav>
         {items.map((item) => (
           <Link
