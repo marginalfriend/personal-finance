@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Calculated } from "./components/balance";
-import CashflowChart from "./components/charts";
 import {
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import { cashflowTable } from "./cashflow-tables/actions";
 import actions from "./actions";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { SimpleBarChart } from "./components/charts";
 
 export default async function Page() {
   const session = await auth();
@@ -73,7 +73,7 @@ export default async function Page() {
           </CardHeader>
           <CardContent className="pl-2">
             <Suspense fallback="Loading...">
-              <CashflowChart data={JSON.parse(data)} />
+              <SimpleBarChart data={JSON.parse(data)} />
             </Suspense>
           </CardContent>
         </Card>
