@@ -27,13 +27,13 @@ export default async function Page() {
     {
       title: "Income",
       value: calculated.income,
-      className: "text green",
+      className: "text-lime-500",
       info: "Received income",
     },
     {
       title: "Acc Receivable",
       value: calculated.accountReceivable,
-      className: "text green",
+      className: "text-lime-500",
       info: "Unreceived income / claim",
     },
     {
@@ -44,13 +44,13 @@ export default async function Page() {
     {
       title: "Expenses",
       value: calculated.expenses,
-      className: "text red",
+      className: "text-rose-500",
       info: "Money spent",
     },
     {
       title: "Debt",
       value: calculated.debt,
-      className: "text-red",
+      className: "text-rose-500",
       info: "Unpaid spending",
     },
   ];
@@ -78,12 +78,12 @@ export default async function Page() {
             </CardHeader>
             <CardContent className="pl-2">
               <TabsContent value="simple-bar">
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<h1>Loading chart...</h1>}>
                   <SimpleBarChart data={JSON.parse(data)} />
                 </Suspense>
               </TabsContent>
               <TabsContent value="stacked-bar">
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<h1>Loading chart...</h1>}>
                   <StackedBarChart data={JSON.parse(data)} />
                 </Suspense>
               </TabsContent>
