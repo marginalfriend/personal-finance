@@ -14,7 +14,7 @@ import { cashflowTable } from "./cashflow-tables/actions";
 import actions from "./actions";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { SimpleBarChart } from "./components/charts";
+import { SimpleBarChart, StackedBarChart } from "./components/charts";
 
 export default async function Page() {
   const session = await auth();
@@ -68,39 +68,51 @@ export default async function Page() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-2">
         <Card className="col-span-1 md:col-span-4">
-          <CardHeader>
-            <CardTitle>Last 7 Days Overview</CardTitle>
-          </CardHeader>
-          <CardContent className="pl-2">
-            <Suspense fallback="Loading...">
-              <SimpleBarChart data={JSON.parse(data)} />
-            </Suspense>
-          </CardContent>
+          <Tabs defaultValue="simple-bar">
+            <CardHeader className="flex flex-row justify-between align-top pt-3">
+              <CardTitle className="my-auto">Last 7 Days Overview</CardTitle>
+              <TabsList>
+                <TabsTrigger value="simple-bar">Simple Bar</TabsTrigger>
+                <TabsTrigger value="stacked-bar">Stacked Bar</TabsTrigger>
+              </TabsList>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <TabsContent value="simple-bar">
+                <Suspense fallback="Loading...">
+                  <SimpleBarChart data={JSON.parse(data)} />
+                </Suspense>
+              </TabsContent>
+              <TabsContent value="stacked-bar">
+                <Suspense fallback="Loading...">
+                  <StackedBarChart data={JSON.parse(data)} />
+                </Suspense>
+              </TabsContent>
+            </CardContent>
+          </Tabs>
         </Card>
+
         <Card className="col-span-1 md:col-span-3">
-          <CardHeader>
-            <CardTitle>Latest Cashflow</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Suspense fallback="Loading...">
-              <Tabs defaultValue="cashin">
-                <TabsList>
-                  <TabsTrigger value="cashin">Income</TabsTrigger>
-                  <TabsTrigger value="cashout">Expenses</TabsTrigger>
-                </TabsList>
-                <TabsContent value="cashin">
-                  <Suspense fallback={<h1>Loading data table...</h1>}>
-                    <LatestCashflow data={await cashin.slice(0, 9)} />
-                  </Suspense>
-                </TabsContent>
-                <TabsContent value="cashout">
-                  <Suspense fallback={<h1>Loading data table...</h1>}>
-                    <LatestCashflow data={await cashout.slice(0, 9)} />
-                  </Suspense>
-                </TabsContent>
-              </Tabs>
-            </Suspense>
-          </CardContent>
+          <Tabs defaultValue="cashin">
+            <CardHeader className="flex flex-row justify-between align-top pt-3">
+              <CardTitle className="my-auto">Latest Cashflow</CardTitle>
+              <TabsList>
+                <TabsTrigger value="cashin">Income</TabsTrigger>
+                <TabsTrigger value="cashout">Expenses</TabsTrigger>
+              </TabsList>
+            </CardHeader>
+            <CardContent>
+              <TabsContent value="cashin">
+                <Suspense fallback={<h1>Loading data table...</h1>}>
+                  <LatestCashflow data={await cashin.slice(0, 9)} />
+                </Suspense>
+              </TabsContent>
+              <TabsContent value="cashout">
+                <Suspense fallback={<h1>Loading data table...</h1>}>
+                  <LatestCashflow data={await cashout.slice(0, 9)} />
+                </Suspense>
+              </TabsContent>
+            </CardContent>
+          </Tabs>
         </Card>
       </div>
     </>
