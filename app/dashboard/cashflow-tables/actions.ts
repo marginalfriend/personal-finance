@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
+import { CashlflowTable } from "./components/columns";
 
 const prisma = db;
 
@@ -39,15 +40,18 @@ export const cashflowTable = async (category: any) => {
   if (!session) {
     throw error;
   }
+  try {
+    const table = await prisma.cashflow.findMany({
+      where: {
+        category: category,
+        userId: session.user.id,
+      },
+    });
 
-  const table = await prisma.cashflow.findMany({
-    where: {
-      category: category,
-      userId: session.user.id,
-    },
-  });
-
-  return table;
+    return table as CashlflowTable[];
+  } catch (error) {
+    throw { message: error };
+  }
 };
 
 export async function editData(newData: any) {

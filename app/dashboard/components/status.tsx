@@ -27,6 +27,8 @@ export const status = [
   },
 ];
 
+export type StatusType = (typeof status)[number];
+
 export function Status({ data, sendData }: { data?: any; sendData?: any }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(data?.status.value || "");
