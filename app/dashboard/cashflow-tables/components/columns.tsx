@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import type { StatusType } from "../../components/status";
-import { Prisma } from "@prisma/client";
+import { Prisma, Category } from "@prisma/client";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export type CashlflowTable = {
+  category: Category;
   id: string;
   value: number;
   subject: string;

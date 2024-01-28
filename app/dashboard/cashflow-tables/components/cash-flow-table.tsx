@@ -14,9 +14,10 @@ import type { Cashflow } from "@prisma/client";
 
 import { CreateRow } from "./create-row";
 import { Row, RowData } from "./row";
+import { CashlflowTable } from "./columns";
 
 interface CashflowTableProps {
-  cashflows: Cashflow[];
+  cashflows: CashlflowTable[];
   userId: string;
 }
 
