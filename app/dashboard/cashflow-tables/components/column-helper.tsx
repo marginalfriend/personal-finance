@@ -23,6 +23,7 @@ import {
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/date-picker";
+import { cn } from "@/lib/utils";
 
 export type CashlflowTable = {
   category: Category;
@@ -130,7 +131,16 @@ const InputCell = ({ getValue, row, column, table }: any) => {
     );
   }
 
-  return <div className="text-left">{value}</div>;
+  return column.columnDef.meta?.type === "text" ? (
+    <div className="text-left">{value}</div>
+  ) : (
+    <div className="text-left">
+      {new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(value)}
+    </div>
+  );
 };
 
 const StatusCell = ({ getValue, row, column, table }: any) => {
@@ -149,7 +159,16 @@ const StatusCell = ({ getValue, row, column, table }: any) => {
     return <Status sendData={onChange} />;
   }
 
-  return <div className="text-left">{value.label}</div>;
+  return (
+    <div
+      className={cn(
+        value.value === "pending" ? "bg-amber-300/75" : "bg-lime-500/75",
+        "text-left border rounded-sm w-min px-2 m-0",
+      )}
+    >
+      {value.label}
+    </div>
+  );
 };
 
 const DateCell = ({ getValue, row, column, table }: any) => {
