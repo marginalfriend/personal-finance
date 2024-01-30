@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  ColumnHelper,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -24,16 +25,22 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CreateRow } from "./create-row";
+import { Category } from "@prisma/client";
+import { useOptimistic, useState } from "react";
+import { CashlflowTable } from "./columns";
+import { columns } from "./column-helper";
+import { createCashflow, deleteRow } from "../actions";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProps {
+  serverData: CashlflowTable[];
+  category: Category;
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function DataTable({ serverData, category }: DataTableProps) {
+  const [originalData, setOriginalData] = useState(() => [...serverData]);
+  const [data, setData] = useState(() => [...serverData]);
+  const [editedRows, setEditedRows] = useState({});
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -52,6 +59,61 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       columnFilters,
+    },
+    meta: {
+      editedRows,
+      setEditedRows,
+      revertData: (rowIndex: number, revert: boolean) => {
+        if (revert) {
+          setData((old) =>
+            old.map((row, index) =>
+              index === rowIndex ? originalData[rowIndex] : row,
+            ),
+          );
+        } else {
+          setOriginalData((old) =>
+            old.map((row, index) =>
+              index === rowIndex ? data[rowIndex] : row,
+            ),
+          );
+        }
+      },
+      updateData: (rowIndex: number, columnId: string, value: string) => {
+        setData((old) =>
+          old.map((row, index) => {
+            if (index === rowIndex) {
+              return {
+                ...old[rowIndex],
+                [columnId]: value,
+              };
+            }
+            return row;
+          }),
+        );
+      },
+      addRow: (row: any) => {
+        const newRow: CashlflowTable = {
+          id: row.id || crypto.randomUUID(),
+          category: row.category,
+          value: row.value,
+          subject: row.subject,
+          status: row.status,
+          date: row.date,
+        };
+
+        const setFunc = (old: CashlflowTable[]) => [...old, newRow];
+        setData(setFunc);
+        setOriginalData(setFunc);
+      },
+      removeRow: (rowIndex: number) => {
+        const setFilterFunc = (old: CashlflowTable[]) =>
+          old.filter(
+            (_row: CashlflowTable, index: number) => index !== rowIndex,
+          );
+        setData(setFilterFunc);
+        setOriginalData(setFilterFunc);
+        deleteRow(data[rowIndex].id);
+      },
     },
   });
 
@@ -88,6 +150,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
+            <CreateRow category={category} table={table} />
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

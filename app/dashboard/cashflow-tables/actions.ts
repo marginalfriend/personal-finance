@@ -26,6 +26,8 @@ export async function createCashflow(newData: any) {
         userId: session.user.id,
       },
     });
+
+    console.log("Cashflow created!");
   } catch (error) {
     console.log("Error creating a cashflow : ", error);
   }

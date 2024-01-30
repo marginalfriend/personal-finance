@@ -29,7 +29,7 @@ export const status = [
 
 export type StatusType = (typeof status)[number];
 
-export function Status({ data, sendData }: { data?: any; sendData?: any }) {
+export function Status({ data, sendData }: { data?: any; sendData: Function }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(data?.status.value || "");
 
@@ -46,7 +46,7 @@ export function Status({ data, sendData }: { data?: any; sendData?: any }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[100px] h-[2em] justify-between"
+          className="w-[100px] justify-between"
         >
           {value
             ? status.find((status) => status.value === value)?.label

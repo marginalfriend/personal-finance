@@ -27,7 +27,7 @@ export function DatePicker({ data, sendData }: { data?: any; sendData?: any }) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-auto h-[2em] justify-start text-left font-normal",
+            "w-auto justify-start text-left font-normal",
             !date && "text-muted-foreground",
           )}
         >
