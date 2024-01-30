@@ -44,7 +44,7 @@ export function CashInTable({ cashflows, userId }: CashflowTableProps) {
         </TableHeader>
 
         <TableBody>
-          <CreateRow category="in" sendRow={addOptimisticRow} userId={userId} />
+          <CreateRow category="in" sendRow={addOptimisticRow} />
           <Suspense fallback={<h1>Loading...</h1>}>
             {cashflow.map((cashin) => (
               <Row data={cashin} key={cashin.id} />
@@ -80,11 +80,7 @@ export function CashOutTable({ cashflows, userId }: CashflowTableProps) {
         </TableHeader>
 
         <TableBody>
-          <CreateRow
-            userId={userId}
-            category="out"
-            sendRow={addOptimisticRow}
-          />
+          <CreateRow category="out" sendRow={addOptimisticRow} />
           <Suspense fallback={<h1>Loading...</h1>}>
             {cashflow.map((cashout) => (
               <Row data={cashout as RowData} key={cashout.id} />

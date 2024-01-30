@@ -1,22 +1,22 @@
 "use client";
 
 import * as z from "zod";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import { TableRow, TableCell } from "../../../../components/ui/table";
-import { DatePicker } from "@/components/ui/date-picker";
-import { BsFillPlusSquareFill } from "react-icons/bs";
 import { Input } from "@/components/ui/input";
 import { Status } from "../../components/status";
-
-import type { $Enums, Category, Prisma } from "@prisma/client";
 import { createCashflow } from "../actions";
+import { Plus } from "lucide-react";
+import { Category } from "@prisma/client";
+import { DatePicker } from "@/components/ui/date-picker";
 
-export function CreateRow({ category, sendRow, userId }: CreateRowProps) {
+export function CreateRow({ category, sendRow, table }: CreateRowProps) {
+  const meta = table.options.meta;
   const rowData = {
     id: crypto.randomUUID(),
     category: category,
-    value: parseInt(""),
+    value: "",
     status: "",
     date: new Date(),
     subject: "",
@@ -58,14 +58,15 @@ export function CreateRow({ category, sendRow, userId }: CreateRowProps) {
       </TableCell>
       <TableCell className="flex flex-row gap-6">
         <Button
+          className="h-8 w-8 p-0"
           variant="ghost"
           onClick={async () => {
-            sendRow({ ...rowState, userId });
+            meta?.addRow({ ...rowState });
             await createCashflow({ ...rowState });
             setRowState(rowData);
           }}
         >
-          <BsFillPlusSquareFill />
+          <Plus className="h-4 w-4" />
         </Button>
       </TableCell>
     </TableRow>
@@ -74,14 +75,6 @@ export function CreateRow({ category, sendRow, userId }: CreateRowProps) {
 
 interface CreateRowProps {
   category: Category;
-  sendRow: (action: {
-    id: string;
-    value: number;
-    subject: string;
-    category: $Enums.Category;
-    status: Prisma.JsonValue;
-    date: Date;
-    userId: string;
-  }) => void;
-  userId: string;
+  table: any;
+  sendRow?: (action: any) => void;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import type { StatusType } from "../../components/status";
 import { Prisma, Category } from "@prisma/client";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
@@ -23,6 +23,8 @@ export type CashlflowTable = {
   status: Prisma.JsonValue;
   date: Date;
 };
+
+export const columnHelper = createColumnHelper<CashlflowTable>();
 
 export const columns: ColumnDef<CashlflowTable>[] = [
   {

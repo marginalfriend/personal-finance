@@ -4,6 +4,8 @@ import { cashflowTable } from "./actions";
 import { ModeToggle } from "@/components/theme-switch";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { DataTable } from "./components/cashflow-data-table";
+import { columnHelper, columns } from "./components/columns";
 
 async function Page() {
   const session = await auth();
@@ -23,10 +25,10 @@ async function Page() {
         </TabsList>
       </div>
       <TabsContent value="cashin">
-        <CashInTable userId={session.user.id} cashflows={income} />
+        <DataTable category="in" serverData={income} />
       </TabsContent>
       <TabsContent value="cashout">
-        <CashOutTable userId={session.user.id} cashflows={expenses} />
+        <DataTable category="out" serverData={expenses} />
       </TabsContent>
     </Tabs>
   );
