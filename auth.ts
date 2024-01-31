@@ -28,6 +28,9 @@ export const authOptions = {
       return session;
     },
   },
+  pages: {
+    signIn: "/",
+  },
 } satisfies NextAuthOptions;
 
 export const { handlers, signIn, signOut } = NextAuth(authOptions);
