@@ -34,9 +34,20 @@ export async function Calculated({ data, className }: Calculated) {
         </svg>
       </CardHeader>
       <CardContent>
-        <p className={cn(data.className, " text-xl")}>${data.value}</p>
+        <p className={cn(data.className, " text-xl")}>
+          {currencyFormatter(data.value)}
+        </p>
         <p className="text-xs text-muted-foreground">{data.info}</p>
       </CardContent>
     </Card>
   );
 }
+
+export const currencyFormatter = (value: number) => {
+  const formatted = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(value);
+
+  return formatted;
+};

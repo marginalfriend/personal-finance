@@ -31,9 +31,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className="col-auto md:hidden lg:hidden p-4">
         <MobileNav items={sidebarNavItems} />
       </header>
-      <main className="flex gap-4 sm:justify-center p-4">
+      <main className="flex gap-4 sm:justify-center p-0">
         <SidebarNav items={sidebarNavItems} />
-        <div className="md:w-[80%] flex flex-col gap-2 max-w-full">
+        <div className="md:w-[80%] p-4 flex flex-col gap-2 max-w-full">
           <Suspense>{children}</Suspense>
         </div>
       </main>

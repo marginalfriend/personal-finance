@@ -17,8 +17,8 @@ export function CreateRow({ category, sendRow, table }: CreateRowProps) {
     id: crypto.randomUUID(),
     category: category,
     value: "",
-    status: "",
-    date: new Date(),
+    status: {},
+    date: "",
     subject: "",
   };
   const [rowState, setRowState] = useState(rowData);

@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { unstable_noStore as noStore } from "next/cache";
+import { currencyFormatter } from "./balance";
 export function LatestCashflow({ data }: { data: any }) {
   noStore();
 
@@ -35,7 +36,7 @@ function Row({ data }: { data: any }) {
     <TableRow>
       <TableCell>{data.subject}</TableCell>
       <TableCell>{data.status.label}</TableCell>
-      <TableCell>{data.value}$</TableCell>
+      <TableCell>{currencyFormatter(data.value)}</TableCell>
       <TableCell>
         {data.date.toLocaleDateString("en-Us", {
           month: "long",
