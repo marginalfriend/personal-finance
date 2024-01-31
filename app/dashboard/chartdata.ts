@@ -39,8 +39,6 @@ export default async function chartData() {
     }
   });
 
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   dailyChartData.map((data) => {
     data.date = data.date.toLocaleDateString("en-US", {
       day: "numeric",

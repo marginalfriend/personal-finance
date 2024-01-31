@@ -49,9 +49,13 @@ export function SidebarNav({ className, items }: SidebarNavProps) {
   );
 }
 
-function LogOutButton() {
+export function LogOutButton() {
   return (
-    <Button variant={"ghost"} onClick={() => signOut()}>
+    <Button
+      className="flex flex-ro justify-between"
+      variant={"ghost"}
+      onClick={() => signOut()}
+    >
       <pre className="sr-only">Logout / Signout Button</pre>
       <LogOut className="h-[1.2rem] w-[1.2rem]" />
     </Button>

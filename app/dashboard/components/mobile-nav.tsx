@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
 import { ModeToggle } from "@/components/theme-switch";
+import { LogOutButton } from "./sidenav";
 
 export function MobileNav({ items }: { items: any[] }) {
   const [open, setOpen] = useState(false);
@@ -20,25 +21,31 @@ export function MobileNav({ items }: { items: any[] }) {
           <BsLayoutSidebar />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex flex-col align-center">
-        <ModeToggle className="w-[2.5em] h-[2.5em]" />
-        {items.map((item) => (
-          <MobileLink
-            key={item.href}
-            href={item.href}
-            onOpenChange={setOpen}
-            className={cn(
-              buttonVariants({ variant: "ghost" }),
-              pathname === item.href
-                ? "bg-muted hover:bg-muted"
-                : "hover:bg-transparent hover:underline",
-              "justify-between w-full",
-            )}
-          >
-            {item.title}
-            {item.icon}
-          </MobileLink>
-        ))}
+      <SheetContent
+        side="left"
+        className="flex flex-col align-center justify-between"
+      >
+        <div>
+          <ModeToggle className="w-[2.5em] h-[2.5em]" />
+          {items.map((item) => (
+            <MobileLink
+              key={item.href}
+              href={item.href}
+              onOpenChange={setOpen}
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                pathname === item.href
+                  ? "bg-muted hover:bg-muted"
+                  : "hover:bg-transparent hover:underline",
+                "justify-between w-full",
+              )}
+            >
+              {item.title}
+              {item.icon}
+            </MobileLink>
+          ))}
+        </div>
+        <LogOutButton />
       </SheetContent>
     </Sheet>
   );

@@ -1,4 +1,4 @@
-import { BsCashStack, BsKanban, BsPen } from "react-icons/bs";
+import { BsCashStack, BsKanban } from "react-icons/bs";
 import { SidebarNav } from "./components/sidenav";
 import { Suspense } from "react";
 import { MobileNav } from "./components/mobile-nav";

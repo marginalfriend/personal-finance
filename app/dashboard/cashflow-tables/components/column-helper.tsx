@@ -226,6 +226,8 @@ export const columns = [
     },
     cell: InputCell,
     meta: { type: "text" },
+    size: 200,
+    minSize: 100,
   }),
 
   columnHelper.accessor("status", {
@@ -242,6 +244,16 @@ export const columns = [
       );
     },
     cell: StatusCell,
+    sortingFn: (rowA: any, rowB: any, columnId: string) => {
+      // Convert the priority values to numbers for comparison
+      const value = (A: string) => {
+        return A === "paid" ? 1 : A === "pending" ? 2 : 3;
+      };
+      const Anum = value(rowA.getValue("status").value);
+      const Bnum = value(rowB.getValue("status").value);
+      // Return the comparison result
+      return Anum < Bnum ? 1 : Anum > Bnum ? -1 : 0;
+    },
   }),
 
   columnHelper.accessor("date", {
