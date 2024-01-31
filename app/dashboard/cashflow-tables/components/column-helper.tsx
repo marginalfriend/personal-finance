@@ -24,11 +24,12 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
+import { currencyFormatter } from "../../components/balance";
 
 export type CashlflowTable = {
   category: Category;
   id: string;
-  value: number;
+  value: any;
   subject: string;
   status: Prisma.JsonValue;
   date: Date;
@@ -134,12 +135,7 @@ const InputCell = ({ getValue, row, column, table }: any) => {
   return column.columnDef.meta?.type === "text" ? (
     <div className="text-left">{value}</div>
   ) : (
-    <div className="text-left">
-      {new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-      }).format(value)}
-    </div>
+    <div className="text-left">{currencyFormatter(value)}</div>
   );
 };
 

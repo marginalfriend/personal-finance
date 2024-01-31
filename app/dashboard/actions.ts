@@ -39,7 +39,7 @@ export default async function actions() {
         JSON.stringify({ label: "Paid", value: "paid" }),
     )
     .reduce(function (prev, next) {
-      return prev + next.value;
+      return prev + Number(next.value);
     }, 0);
 
   const income: number = cashin
@@ -50,7 +50,7 @@ export default async function actions() {
         JSON.stringify({ label: "Paid", value: "paid" }),
     )
     .reduce(function (prev, next) {
-      return prev + next.value;
+      return prev + Number(next.value);
     }, 0);
 
   const balance: number = income - expenses;
@@ -63,7 +63,7 @@ export default async function actions() {
         JSON.stringify({ label: "Pending", value: "pending" }),
     )
     .reduce(function (prev, next) {
-      return prev + next.value;
+      return prev + Number(next.value);
     }, 0);
 
   const accountReceivable: number = cashin
@@ -74,7 +74,7 @@ export default async function actions() {
         JSON.stringify({ label: "Pending", value: "pending" }),
     )
     .reduce(function (prev, next) {
-      return prev + next.value;
+      return prev + Number(next.value);
     }, 0);
 
   return { expenses, income, balance, debt, accountReceivable };

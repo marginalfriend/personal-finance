@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
-import { CashlflowTable } from "./components/columns";
+import type { CashlflowTable } from "./components/column-helper";
 
 const prisma = db;
 
@@ -20,14 +20,14 @@ export async function createCashflow(newData: any) {
       data: {
         category: newData.category,
         status: newData.status || "",
-        value: parseInt(newData.value),
+        value: newData.value,
         date: newData.date,
         subject: newData.subject,
         userId: session.user.id,
       },
     });
 
-    console.log("Cashflow created!");
+    console.log("Cash inputed: " + newData.value);
   } catch (error) {
     console.log("Error creating a cashflow : ", error);
   }

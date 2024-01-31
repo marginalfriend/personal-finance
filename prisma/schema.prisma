@@ -18,7 +18,7 @@ enum Category {
 
 model Cashflow {
   id       String   @id @default(uuid())
-  value    Int
+  value    Decimal @db.Decimal()
   subject  String
   category Category
   status   Json

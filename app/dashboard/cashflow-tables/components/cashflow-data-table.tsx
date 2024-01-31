@@ -28,8 +28,7 @@ import { Input } from "@/components/ui/input";
 import { CreateRow } from "./create-row";
 import { Category } from "@prisma/client";
 import { useOptimistic, useState } from "react";
-import { CashlflowTable } from "./columns";
-import { columns } from "./column-helper";
+import { columns, CashlflowTable } from "./column-helper";
 import { createCashflow, deleteRow } from "../actions";
 
 interface DataTableProps {
