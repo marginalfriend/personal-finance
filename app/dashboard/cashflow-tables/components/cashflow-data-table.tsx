@@ -28,12 +28,12 @@ import { Input } from "@/components/ui/input";
 import { CreateRow } from "./create-row";
 import { Category } from "@prisma/client";
 import { useOptimistic, useState } from "react";
-import { CashlflowTable } from "./columns";
+import { CashflowTable } from "./columns";
 import { columns } from "./column-helper";
 import { createCashflow, deleteRow } from "../actions";
 
 interface DataTableProps {
-  serverData: CashlflowTable[];
+  serverData: CashflowTable[];
   category: Category;
 }
 
@@ -92,7 +92,7 @@ export function DataTable({ serverData, category }: DataTableProps) {
         );
       },
       addRow: (row: any) => {
-        const newRow: CashlflowTable = {
+        const newRow: CashflowTable = {
           id: row.id || crypto.randomUUID(),
           category: row.category,
           value: row.value,
@@ -101,14 +101,14 @@ export function DataTable({ serverData, category }: DataTableProps) {
           date: row.date,
         };
 
-        const setFunc = (old: CashlflowTable[]) => [...old, newRow];
+        const setFunc = (old: CashflowTable[]) => [...old, newRow];
         setData(setFunc);
         setOriginalData(setFunc);
       },
       removeRow: (rowIndex: number) => {
-        const setFilterFunc = (old: CashlflowTable[]) =>
+        const setFilterFunc = (old: CashflowTable[]) =>
           old.filter(
-            (_row: CashlflowTable, index: number) => index !== rowIndex,
+            (_row: CashflowTable, index: number) => index !== rowIndex,
           );
         setData(setFilterFunc);
         setOriginalData(setFilterFunc);

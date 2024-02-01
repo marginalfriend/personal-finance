@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export type CashlflowTable = {
+export type CashflowTable = {
   category: Category;
   id: string;
   value: number;
@@ -24,9 +24,9 @@ export type CashlflowTable = {
   date: Date;
 };
 
-export const columnHelper = createColumnHelper<CashlflowTable>();
+export const columnHelper = createColumnHelper<CashflowTable>();
 
-export const columns: ColumnDef<CashlflowTable>[] = [
+export const columns: ColumnDef<CashflowTable>[] = [
   {
     accessorKey: "value",
     header: ({ column }) => {
