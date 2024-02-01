@@ -3,20 +3,20 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="grid grid-cols-1 h-[100vh] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-      <div className="col-span-1 p-8 align-middle justify-center m-auto">
+    <section className="flex flex-col h-[90vh] w-[100vw] justify-center m-0 p-0 sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+      <article className="col-span-1 p-8 align-middle justify-center my-auto mx-0">
         <h1
-          className="align-middle text-5xl font-bold mb-4 text-gray
-        dark:text-white"
+          className="align-middle text-5xl font-bold text-gray
+        dark:text-white mb-6"
         >
           Selffin: A tool to Forge a Prosperous Financial Future
         </h1>
-        <div className="flex flex-row gap-4 max-w-min">
+        <article className="flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
           <LoginButton provider="google" />
           <LoginButton provider="github" />
-        </div>
-      </div>
-      <div className="col-span-1 relative h-full">
+        </article>
+      </article>
+      <article className="col-span-1 relative h-full">
         <Image
           src={
             "https://www.worldhistory.org/uploads/images/6123.jpg?v=1706169006"
@@ -25,7 +25,7 @@ export default function Hero() {
           fill
           objectFit="cover"
         />
-      </div>
+      </article>
     </section>
   );
 }

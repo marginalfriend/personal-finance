@@ -33,8 +33,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
       <main className="flex gap-4 sm:justify-center p-0">
         <SidebarNav items={sidebarNavItems} />
-        <div className="md:w-[80%] p-4 flex flex-col gap-2 max-w-full">
-          <Suspense>{children}</Suspense>
+        <div className="md:w-[80%] p-4 pl-0 flex flex-col gap-2 max-w-full">
+          <Suspense fallback={<h1>Loading...</h1>}>{children}</Suspense>
         </div>
       </main>
     </>
