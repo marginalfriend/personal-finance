@@ -156,7 +156,7 @@ const StatusCell = ({ getValue, row, column, table }: any) => {
   };
 
   if (tableMeta?.editedRows[row.id]) {
-    return <Status sendData={onChange} />;
+    return <Status data={value} sendData={onChange} />;
   }
 
   return (

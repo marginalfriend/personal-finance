@@ -9,7 +9,7 @@ export default function Hero() {
           className="align-middle text-5xl font-bold text-gray
         dark:text-white mb-6"
         >
-          Selffin: A tool to Forge a Prosperous Financial Future
+          Selffin: A Tool to Forge a Prosperous Financial Future
         </h1>
         <article className="flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
           <LoginButton provider="google" />

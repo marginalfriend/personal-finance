@@ -17,8 +17,8 @@ export function CreateRow({ category, sendRow, table }: CreateRowProps) {
     id: crypto.randomUUID(),
     category: category,
     value: "",
-    status: {},
-    date: "",
+    status: undefined,
+    date: undefined,
     subject: "",
   };
   const [rowState, setRowState] = useState(rowData);
@@ -49,10 +49,14 @@ export function CreateRow({ category, sendRow, table }: CreateRowProps) {
         />
       </TableCell>
       <TableCell>
-        <Status sendData={(e: object) => handleBlur(e, "status")} />
+        <Status
+          data={rowState.status}
+          sendData={(e: object) => handleBlur(e, "status")}
+        />
       </TableCell>
       <TableCell>
         <DatePicker
+          data={rowState.date}
           sendData={(e: ChangeEvent<HTMLInputElement>) => handleBlur(e, "date")}
         />
       </TableCell>

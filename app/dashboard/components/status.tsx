@@ -24,22 +24,29 @@ export const status = [
 
 export type StatusType = (typeof status)[number];
 
-export function Status({ data, sendData }: { data?: any; sendData: Function }) {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(data?.status.value || "");
-
+export function Status({
+  data,
+  sendData,
+}: {
+  data: StatusType | undefined;
+  sendData: Function;
+}) {
   const handleSelect = (e: any) => {
-    setValue(e);
     sendData(status.find((status) => status.value === e));
-    setOpen(false);
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="w-[100px] justify-between">
-          {value
-            ? status.find((status) => status.value === value)?.label
+        <Button
+          variant="outline"
+          className={cn(
+            "w-autos justify-start text-left font-normal",
+            !data && "text-muted-foreground",
+          )}
+        >
+          {data
+            ? status.find((status) => status.value === data.value)?.label
             : "+ Status"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -55,7 +62,7 @@ export function Status({ data, sendData }: { data?: any; sendData: Function }) {
             <Check
               className={cn(
                 "mr-2 h-4 w-4",
-                value === status.value ? "opacity-100" : "opacity-0",
+                data?.value === status.value ? "opacity-100" : "opacity-0",
               )}
             />
             {status.label}

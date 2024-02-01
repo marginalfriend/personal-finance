@@ -13,32 +13,46 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePicker({ data, sendData }: { data?: any; sendData?: any }) {
-  const [date, setDate] = React.useState<Date>(data?.date);
+export function DatePicker({
+  data,
+  sendData,
+}: {
+  data: Date | undefined;
+  sendData?: any;
+}) {
+  const [open, setOpen] = React.useState(false);
 
   const handleSelect = (e: Date) => {
-    setDate(e);
+    setOpen(false);
     sendData(e);
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
           className={cn(
             "w-autos justify-start text-left font-normal",
-            !date && "text-muted-foreground",
+            !data && "text-muted-foreground",
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {data ? (
+            data.toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })
+          ) : (
+            <span>Pick a date</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={date}
+          selected={data}
           onSelect={(e) => {
             handleSelect(e as Date);
           }}
