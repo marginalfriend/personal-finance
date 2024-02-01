@@ -15,12 +15,6 @@ import {
 } from "../../../components/ui/command";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
 
 export const status = [
   {
@@ -46,8 +40,8 @@ export function Status({ data, sendData }: { data?: any; sendData: Function }) {
   };
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
@@ -59,26 +53,31 @@ export function Status({ data, sendData }: { data?: any; sendData: Function }) {
             : "+ Status"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[100px]  p-0">
-        {status.map((status) => (
-          <DropdownMenuItem
-            key={status.value}
-            // value={status.value}
-            onSelect={(currentValue) => {
-              handleSelect(currentValue);
-            }}
-          >
-            <Check
-              className={cn(
-                "mr-2 h-4 w-4",
-                value === status.value ? "opacity-100" : "opacity-0",
-              )}
-            />
-            {status.label}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </PopoverTrigger>
+      <PopoverContent className="w-[100px]  p-0">
+        <Command>
+          <CommandEmpty>No status found</CommandEmpty>
+          <CommandGroup>
+            {status.map((status) => (
+              <CommandItem
+                key={status.value}
+                value={status.value}
+                onSelect={(currentValue) => {
+                  handleSelect(currentValue);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === status.value ? "opacity-100" : "opacity-0",
+                  )}
+                />
+                {status.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
