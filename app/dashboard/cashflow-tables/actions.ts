@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
-import { CashlflowTable } from "./components/columns";
+import { CashflowTable } from "./components/columns";
 
 const prisma = db;
 
@@ -50,7 +50,7 @@ export const cashflowTable = async (category: any) => {
       },
     });
 
-    return table as CashlflowTable[];
+    return table as CashflowTable[];
   } catch (error) {
     throw { message: error };
   }

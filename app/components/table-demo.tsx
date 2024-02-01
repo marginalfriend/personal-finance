@@ -1,8 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DataTable } from "../dashboard/cashflow-tables/components/cashflow-data-table";
 import { CashflowTable } from "../dashboard/cashflow-tables/components/columns";
+import { StatusType } from "../dashboard/components/status";
+import { Category } from "@prisma/client";
 
-const dummyData: CashflowTable[] = [
+const dummyData: NoId[] = [
   {
     value: 1500000, // 1,500,000 IDR
     status: { value: "paid", label: "Paid" },
@@ -159,7 +161,16 @@ const dummyData: CashflowTable[] = [
   },
 ];
 
-const income = dummyData.filter((data) => data.category === "in");
+type NoId = {
+  value: number;
+  subject: string;
+  status: StatusType;
+  category: Category;
+  date: Date;
+  id?: string;
+};
+
+const income: NoId[] = dummyData.filter((data) => data.category === "in");
 
 income.map((data, index) => {
   const id = crypto.randomUUID();
@@ -170,7 +181,7 @@ income.map((data, index) => {
   data.id = id;
 });
 
-const expenses = dummyData.filter((data) => data.category === "out");
+const expenses: NoId[] = dummyData.filter((data) => data.category === "out");
 
 expenses.map((data, index) => {
   const id = crypto.randomUUID();
@@ -190,10 +201,10 @@ export function TableDemo() {
       </TabsList>
     </div>
     <TabsContent value="cashin">
-      <DataTable category="in" serverData={income} />
+      <DataTable category="in" serverData={income as CashflowTable[]} />
     </TabsContent>
     <TabsContent value="cashout">
-      <DataTable category="out" serverData={expenses} />
+      <DataTable category="out" serverData={expenses as CashflowTable[]} />
     </TabsContent>
   </Tabs>;
 }
