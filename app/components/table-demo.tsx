@@ -6,7 +6,7 @@ import { Category } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Section } from "./section";
 
-const dummyData: NoId[] = [
+export const dummyData: NoId[] = [
   {
     value: 1500000, // 1,500,000 IDR
     status: { value: "paid", label: "Paid" },
@@ -241,3 +241,5 @@ export function TableDemo() {
     </Section>
   );
 }
+
+export { income, expenses };
