@@ -63,7 +63,7 @@ export async function editData(newData: any) {
         id: newData.id,
       },
       data: {
-        value: newData.value,
+        value: Number(newData.value),
         status: newData.status,
         subject: newData.subject,
         date: newData.date,

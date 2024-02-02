@@ -19,7 +19,7 @@ export async function Calculated({ data, className }: Calculated) {
   return (
     <Card className="flex flex-col align-middle">
       <CardHeader className="flex flex-row items-center justify-between pb-0 pt-4 space-y-0">
-        <CardTitle className="text-md font-medium">{data.title}</CardTitle>
+        <CardTitle className="text-sm font-medium">{data.title}</CardTitle>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -34,7 +34,7 @@ export async function Calculated({ data, className }: Calculated) {
         </svg>
       </CardHeader>
       <CardContent className="pb-4">
-        <p className={cn(data.className, "text-xl font-black")}>
+        <p className={cn(data.className, " text-lg font-bold")}>
           {currencyFormatter(data.value)}
         </p>
         <p className="text-xs text-muted-foreground">{data.info}</p>
@@ -47,6 +47,7 @@ export const currencyFormatter = (value: number) => {
   const formatted = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
+    maximumFractionDigits: 0,
   }).format(value);
 
   return formatted;

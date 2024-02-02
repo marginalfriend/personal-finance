@@ -77,7 +77,7 @@ export function DataTable({ serverData, category }: DataTableProps) {
               index === rowIndex ? data[rowIndex] : row,
             ),
           );
-          editData(data[rowIndex]);
+          editData(data[rowIndex] as CashflowTable);
         }
       },
       updateData: (rowIndex: number, columnId: string, value: any) => {

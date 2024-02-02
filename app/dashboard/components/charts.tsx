@@ -15,7 +15,7 @@ export function SimpleBarChart({ data }: { data: any }) {
     <ResponsiveContainer width="100%" height={400}>
       <BarChart data={data}>
         <XAxis dataKey="date" tickLine={false} axisLine={false} />
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis hide={true} tickLine={false} axisLine={false} />
         <Tooltip />
         <Legend />
         <Bar name="Expenses" type="monotone" dataKey="out" fill="#FF4C4C" />
@@ -30,7 +30,7 @@ export function StackedBarChart({ data }: { data: any }) {
     <ResponsiveContainer width="100%" height={400}>
       <BarChart data={data}>
         <XAxis dataKey="date" tickLine={false} axisLine={false} />
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis hide={true} tickLine={false} axisLine={false} />
         <Tooltip />
         <Legend />
         <Bar
