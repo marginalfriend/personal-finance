@@ -30,7 +30,7 @@ import { Category } from "@prisma/client";
 import { useState } from "react";
 import { CashflowTable, columnHelper } from "./columns";
 import { columns } from "./column-helper";
-import { deleteRow } from "../actions";
+import { deleteRow, editData } from "../actions";
 import { cn } from "@/lib/utils";
 
 interface DataTableProps {
@@ -77,9 +77,10 @@ export function DataTable({ serverData, category }: DataTableProps) {
               index === rowIndex ? data[rowIndex] : row,
             ),
           );
+          editData(data[rowIndex]);
         }
       },
-      updateData: (rowIndex: number, columnId: string, value: string) => {
+      updateData: (rowIndex: number, columnId: string, value: any) => {
         setData((old) =>
           old.map((row, index) => {
             if (index === rowIndex) {

@@ -119,7 +119,7 @@ const InputCell = ({ getValue, row, column, table }: any) => {
     setValue(initialValue);
   }, [initialValue]);
   const onBlur = () => {
-    table.options.meta?.updateData(row.index, column.id, value);
+    tableMeta?.updateData(row.index, column.id, value);
   };
 
   if (tableMeta?.editedRows[row.id]) {
@@ -154,11 +154,12 @@ const StatusCell = ({ getValue, row, column, table }: any) => {
     setValue(initialValue);
   }, [initialValue]);
   const onChange = () => {
-    table.options.meta?.updateData(row.index, column.id, value);
+    console.log(value);
+    tableMeta?.updateData(row.index, column.id, value);
   };
 
   if (tableMeta?.editedRows[row.id]) {
-    return <Status data={value} sendData={onChange} />;
+    return <Status data={value} sendData={setValue} onOpenChange={onChange} />;
   }
 
   return (
@@ -187,11 +188,14 @@ const DateCell = ({ getValue, row, column, table }: any) => {
     setValue(initialValue);
   }, [initialValue]);
   const onChange = () => {
+    console.log(value);
     table.options.meta?.updateData(row.index, column.id, value);
   };
 
   if (tableMeta?.editedRows[row.id]) {
-    return <DatePicker data={value} sendData={onChange} />;
+    return (
+      <DatePicker data={value} sendData={setValue} onOpenChange={onChange} />
+    );
   }
 
   return <div className="text-left">{date}</div>;

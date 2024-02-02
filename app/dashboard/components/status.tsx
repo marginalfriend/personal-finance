@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const status = [
   {
@@ -27,10 +27,13 @@ export type StatusType = (typeof status)[number];
 export function Status({
   data,
   sendData,
+  onOpenChange,
 }: {
   data: StatusType | undefined;
   sendData: Function;
+  onOpenChange?: () => void;
 }) {
+  noStore();
   const handleSelect = (e: any) => {
     sendData(status.find((status) => status.value === e));
   };
@@ -51,7 +54,7 @@ export function Status({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" onCloseAutoFocus={onOpenChange}>
         {status.map((status) => (
           <DropdownMenuItem
             key={status.value}
