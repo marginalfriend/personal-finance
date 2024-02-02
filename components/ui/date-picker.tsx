@@ -16,9 +16,11 @@ import {
 export function DatePicker({
   data,
   sendData,
+  onOpenChange,
 }: {
   data: Date | undefined;
   sendData?: any;
+  onOpenChange: () => void;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -49,7 +51,7 @@ export function DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-auto p-0" onCloseAutoFocus={onOpenChange}>
         <Calendar
           mode="single"
           selected={data}
