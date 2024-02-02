@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CreateRow } from "./create-row";
 import { Category } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CashflowTable, columnHelper } from "./columns";
 import { columns } from "./column-helper";
 import { deleteRow, editData } from "../actions";
@@ -36,9 +36,10 @@ import { cn } from "@/lib/utils";
 interface DataTableProps {
   serverData: CashflowTable[];
   category: Category;
+  pageSize?: number;
 }
 
-export function DataTable({ serverData, category }: DataTableProps) {
+export function DataTable({ serverData, category, pageSize }: DataTableProps) {
   const [originalData, setOriginalData] = useState(() => [...serverData]);
   const [data, setData] = useState(() => [...serverData]);
   const [editedRows, setEditedRows] = useState({});
@@ -125,6 +126,10 @@ export function DataTable({ serverData, category }: DataTableProps) {
       // }
     },
   });
+
+  useEffect(() => {
+    table.setPageSize(pageSize || 8);
+  }, [table, pageSize]);
 
   return (
     <div>

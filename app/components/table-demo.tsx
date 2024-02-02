@@ -4,6 +4,7 @@ import { CashflowTable } from "../dashboard/cashflow-tables/components/columns";
 import { StatusType } from "../dashboard/components/status";
 import { Category } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Section } from "./section";
 
 const dummyData: NoId[] = [
   {
@@ -195,18 +196,16 @@ expenses.map((data, index) => {
 
 export function TableDemo() {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 p-10">
-      <h1
+    <Section className="p-8 gap-8">
+      {/* <h1
         className="align-middle text-center text-5xl font-bold text-gray
         dark:text-white mb-6 col-span-2"
       >
         Cashflow-Management Made Simple
-      </h1>
-      <article className="col-span-1">
+      </h1> */}
+      <article className="col-span-1 align-middle my-auto">
         <Card className="max-h-[70vh] overflow-y-scroll">
-          <CardHeader>
-            <CardTitle>Table Demo</CardTitle>
-          </CardHeader>
+          <CardHeader>{/* <CardTitle>Table Demo</CardTitle> */}</CardHeader>
           <CardContent>
             <Tabs defaultValue="cashin" className="w-[100%]">
               <TabsList>
@@ -215,12 +214,14 @@ export function TableDemo() {
               </TabsList>
               <TabsContent value="cashin" className="overflo-scroll">
                 <DataTable
+                  pageSize={3}
                   category="in"
                   serverData={income as CashflowTable[]}
                 />
               </TabsContent>
               <TabsContent value="cashout">
                 <DataTable
+                  pageSize={4}
                   category="out"
                   serverData={expenses as CashflowTable[]}
                 />
@@ -229,6 +230,14 @@ export function TableDemo() {
           </CardContent>
         </Card>
       </article>
-    </section>
+      <article className="col-span-1 align-middle justify-center my-auto mx-0">
+        <h1
+          className="align-middle text-6xl font-bold text-gray
+        dark:text-white mb-6"
+        >
+          Take Notes of Every Financial Decision You&apos;ve Made
+        </h1>
+      </article>
+    </Section>
   );
 }

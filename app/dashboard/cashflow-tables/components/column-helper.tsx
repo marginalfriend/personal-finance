@@ -118,6 +118,7 @@ const InputCell = ({ getValue, row, column, table }: any) => {
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
+
   const onBlur = () => {
     tableMeta?.updateData(row.index, column.id, value);
   };
