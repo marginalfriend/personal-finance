@@ -226,8 +226,6 @@ export const columns = [
     },
     cell: InputCell,
     meta: { type: "text" },
-    size: 200,
-    minSize: 100,
   }),
 
   columnHelper.accessor("status", {

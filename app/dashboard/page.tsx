@@ -61,7 +61,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5 justify-normal">
+      <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5">
         {calculatedData.map((data) => (
           <Calculated className={data.className} data={data} key={data.title} />
         ))}

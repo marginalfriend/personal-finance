@@ -21,7 +21,7 @@ export function SidebarNav({ className, items }: SidebarNavProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden sticky top-0 md:flex flex-col justify-between h-[100vh] w-[20%] gap-4 border-r p-3">
+    <aside className="hidden sticky top-0 md:flex flex-col justify-between h-[100vh] w-[20%] mx-0 gap-4 border-r p-3">
       <div>
         <ModeToggle className="w-[2.5em] h-[2.5em] ml-3" />
         <nav>

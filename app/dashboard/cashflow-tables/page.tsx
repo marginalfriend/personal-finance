@@ -7,14 +7,14 @@ import { DataTable } from "./components/cashflow-data-table";
 async function Page() {
   const session = await auth();
   if (!session) {
-    redirect("/api/auth/signin");
+    redirect("/");
   }
 
   const income = await cashflowTable("in");
   const expenses = await cashflowTable("out");
 
   return (
-    <Tabs defaultValue="cashin" className="w-[100%]">
+    <Tabs defaultValue="cashin" className="w-full">
       <div className="flex justify-between align-middle">
         <TabsList>
           <TabsTrigger value="cashin">Income</TabsTrigger>

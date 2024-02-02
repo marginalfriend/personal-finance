@@ -66,6 +66,7 @@ export const columns: ColumnDef<CashflowTable>[] = [
     cell: ({ row }) => {
       return <div className="text-left">{row.getValue("subject")}</div>;
     },
+    size: 30,
   },
   {
     accessorKey: "status",
@@ -85,6 +86,7 @@ export const columns: ColumnDef<CashflowTable>[] = [
       const label = status.label;
       return <div className="text-left">{label}</div>;
     },
+    size: 15,
   },
   {
     accessorKey: "date",
@@ -108,6 +110,7 @@ export const columns: ColumnDef<CashflowTable>[] = [
 
       return <div className="text-left">{date}</div>;
     },
+    size: 15,
   },
   {
     id: "actions",
@@ -136,5 +139,6 @@ export const columns: ColumnDef<CashflowTable>[] = [
         </DropdownMenu>
       );
     },
+    size: 10,
   },
 ];
