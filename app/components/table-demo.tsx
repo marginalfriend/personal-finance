@@ -3,6 +3,7 @@ import { DataTable } from "../dashboard/cashflow-tables/components/cashflow-data
 import { CashflowTable } from "../dashboard/cashflow-tables/components/columns";
 import { StatusType } from "../dashboard/components/status";
 import { Category } from "@prisma/client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const dummyData: NoId[] = [
   {
@@ -193,18 +194,41 @@ expenses.map((data, index) => {
 });
 
 export function TableDemo() {
-  <Tabs defaultValue="cashin" className="w-[100%]">
-    <div className="flex justify-between align-middle">
-      <TabsList>
-        <TabsTrigger value="cashin">Income</TabsTrigger>
-        <TabsTrigger value="cashout">Expenses</TabsTrigger>
-      </TabsList>
-    </div>
-    <TabsContent value="cashin">
-      <DataTable category="in" serverData={income as CashflowTable[]} />
-    </TabsContent>
-    <TabsContent value="cashout">
-      <DataTable category="out" serverData={expenses as CashflowTable[]} />
-    </TabsContent>
-  </Tabs>;
+  return (
+    <section className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 p-10">
+      <h1
+        className="align-middle text-center text-5xl font-bold text-gray
+        dark:text-white mb-6 col-span-2"
+      >
+        Cashflow-Management Made Simple
+      </h1>
+      <article className="col-span-1">
+        <Card className="max-h-[70vh] overflow-y-scroll">
+          <CardHeader>
+            <CardTitle>Table Demo</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="cashin" className="w-[100%]">
+              <TabsList>
+                <TabsTrigger value="cashin">Income</TabsTrigger>
+                <TabsTrigger value="cashout">Expenses</TabsTrigger>
+              </TabsList>
+              <TabsContent value="cashin" className="overflo-scroll">
+                <DataTable
+                  category="in"
+                  serverData={income as CashflowTable[]}
+                />
+              </TabsContent>
+              <TabsContent value="cashout">
+                <DataTable
+                  category="out"
+                  serverData={expenses as CashflowTable[]}
+                />
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </article>
+    </section>
+  );
 }

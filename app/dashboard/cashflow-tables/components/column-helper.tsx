@@ -53,7 +53,7 @@ const ActionCell = ({ row, table }: any) => {
   };
 
   return meta?.editedRows[row.id] ? (
-    <>
+    <div className="flex flex-row justify-start">
       <Button
         variant="ghost"
         className="h-8 w-8 p-0"
@@ -72,39 +72,41 @@ const ActionCell = ({ row, table }: any) => {
         <span className="sr-only">Cancel edit</span>
         <X className="h-4 w-4" />
       </Button>
-    </>
+    </div>
   ) : (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem className="p-0">
-          <Button
-            variant="ghost"
-            className="h-full w-full p-1 px-2 justify-between"
-            onClick={setEditedRows}
-          >
-            <span className="sr-only">Edit</span>
-            Edit <Pencil className="h-4 w-4" />
+    <div className="w-[100%] justify-start pr-0">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
           </Button>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="p-0">
-          <Button
-            variant="ghost"
-            className="h-full w-full p-1 px-2 justify-between"
-            onClick={removeRow}
-          >
-            <span className="sr-only">Edit</span>
-            Delete <Trash2 className="h-4 w-4" />
-          </Button>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem className="p-0">
+            <Button
+              variant="ghost"
+              className="h-full w-full p-1 px-2 justify-between"
+              onClick={setEditedRows}
+            >
+              <span className="sr-only">Edit</span>
+              Edit <Pencil className="h-4 w-4" />
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="p-0">
+            <Button
+              variant="ghost"
+              className="h-full w-full p-1 px-2 justify-between"
+              onClick={removeRow}
+            >
+              <span className="sr-only">Edit</span>
+              Delete <Trash2 className="h-4 w-4" />
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 };
 
@@ -131,14 +133,14 @@ const InputCell = ({ getValue, row, column, table }: any) => {
     );
   }
 
-  return column.columnDef.meta?.type === "text" ? (
-    <div className="text-left">{value}</div>
-  ) : (
+  return (
     <div className="text-left">
-      {new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-      }).format(value)}
+      {column.columnDef.meta?.type === "text"
+        ? value
+        : new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          }).format(value)}
     </div>
   );
 };
@@ -163,7 +165,7 @@ const StatusCell = ({ getValue, row, column, table }: any) => {
     <div
       className={cn(
         value.value === "pending" ? "bg-amber-300/75" : "bg-lime-500/75",
-        "text-left border rounded-sm w-min px-2 m-0",
+        "text-center border rounded-sm w-min px-2 m-0",
       )}
     >
       {value.label}
@@ -252,10 +254,13 @@ export const columns = [
       // Return the comparison result
       return Anum < Bnum ? 1 : Anum > Bnum ? -1 : 0;
     },
+    meta: {
+      className: "w-[30%]",
+    },
+    size: 1000,
   }),
 
   columnHelper.accessor("date", {
-    // DATE
     header: ({ column }) => {
       return (
         <Button
@@ -272,6 +277,10 @@ export const columns = [
 
   columnHelper.display({
     id: "actions",
+    header: () => {
+      return <div className="w-17">Actions</div>;
+    },
     cell: ActionCell,
+    size: 75,
   }),
 ];

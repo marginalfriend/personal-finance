@@ -34,7 +34,7 @@ export default async function Page() {
       title: "Acc Receivable",
       value: calculated.accountReceivable,
       className: "text-lime-500",
-      info: "Unreceived income / claim",
+      info: "Unreceived income",
     },
     {
       title: "Balance",

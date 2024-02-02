@@ -28,9 +28,10 @@ import { Input } from "@/components/ui/input";
 import { CreateRow } from "./create-row";
 import { Category } from "@prisma/client";
 import { useState } from "react";
-import { CashflowTable } from "./columns";
+import { CashflowTable, columnHelper } from "./columns";
 import { columns } from "./column-helper";
 import { deleteRow } from "../actions";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps {
   serverData: CashflowTable[];
@@ -114,6 +115,13 @@ export function DataTable({ serverData, category }: DataTableProps) {
         setOriginalData(setFilterFunc);
         deleteRow(data[rowIndex].id);
       },
+      // headWidth: {
+      //   category: "20%",
+      //   value: "15%",
+      //   subject: "30%",
+      //   status: "8%",
+      //   date: "17%",
+      // }
     },
   });
 
