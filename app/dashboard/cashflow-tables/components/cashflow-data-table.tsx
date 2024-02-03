@@ -28,8 +28,7 @@ import { Input } from "@/components/ui/input";
 import { CreateRow } from "./create-row";
 import { Category } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { CashflowTable, columnHelper } from "./columns";
-import { columns } from "./column-helper";
+import { columns, CashflowTable } from "./column-helper";
 import { deleteRow, editData } from "../actions";
 import { cn } from "@/lib/utils";
 

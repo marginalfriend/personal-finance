@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
 
-export type CashlflowTable = {
+export type CashflowTable = {
   category: Category;
   id: string;
   value: number;
@@ -34,7 +34,7 @@ export type CashlflowTable = {
   date: Date;
 };
 
-export const columnHelper = createColumnHelper<CashlflowTable>();
+export const columnHelper = createColumnHelper<CashflowTable>();
 
 const ActionCell = ({ row, table }: any) => {
   const meta = table.options.meta;

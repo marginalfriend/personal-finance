@@ -1,4 +1,4 @@
-import { BsCashStack, BsKanban } from "react-icons/bs";
+import { BsCashStack, BsKanban, BsPen } from "react-icons/bs";
 import { SidebarNav } from "./components/sidenav";
 import { Suspense } from "react";
 import { MobileNav } from "./components/mobile-nav";
@@ -19,11 +19,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     //   href: "/dashboard/investment-tracker",
     //   icon: <BsBarChart />
     // },
-    // {
-    //   title: "Budget Planner",
-    //   href: "/dashboard/budget-planner",
-    //   icon: <BsPen />
-    // }
+    {
+      title: "Budget Planner",
+      href: "/dashboard/budget-planner",
+      icon: <BsPen />,
+    },
   ];
 
   return (
