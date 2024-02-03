@@ -8,94 +8,9 @@ import {
 } from "../dashboard/components/charts";
 import { LatestCashflow } from "../dashboard/components/latest-cashflow";
 import { Section } from "./section";
-import {
-  income as cashin,
-  expenses as cashout,
-  dummyData as data,
-} from "./table-demo";
-function exporter() {
-  const expenses: number = cashout
-    .slice()
-    .filter(
-      (cashout) =>
-        JSON.stringify(cashout.status) ===
-        JSON.stringify({ label: "Paid", value: "paid" }),
-    )
-    .reduce(function (prev, next) {
-      return prev + next.value;
-    }, 0);
-
-  const income: number = cashin
-    .slice()
-    .filter(
-      (cashin) =>
-        JSON.stringify(cashin.status) ===
-        JSON.stringify({ label: "Paid", value: "paid" }),
-    )
-    .reduce(function (prev, next) {
-      return prev + next.value;
-    }, 0);
-
-  const balance: number = income - expenses;
-
-  const debt: number = cashout
-    .slice()
-    .filter(
-      (cashout) =>
-        JSON.stringify(cashout.status) ===
-        JSON.stringify({ label: "Pending", value: "pending" }),
-    )
-    .reduce(function (prev, next) {
-      return prev + next.value;
-    }, 0);
-
-  const accountReceivable: number = cashin
-    .slice()
-    .filter(
-      (cashin) =>
-        JSON.stringify(cashin.status) ===
-        JSON.stringify({ label: "Pending", value: "pending" }),
-    )
-    .reduce(function (prev, next) {
-      return prev + next.value;
-    }, 0);
-
-  return { income, expenses, accountReceivable, debt, balance };
-}
-
-const calculated = exporter();
-
-const calculatedData = [
-  {
-    title: "Income",
-    value: calculated.income,
-    className: "text-lime-500",
-    info: "Received income",
-  },
-  {
-    title: "Acc Receivable",
-    value: calculated.accountReceivable,
-    className: "text-lime-500",
-    info: "Unreceived income",
-  },
-  {
-    title: "Balance",
-    value: calculated.balance,
-    info: "Your current balance",
-  },
-  {
-    title: "Expenses",
-    value: calculated.expenses,
-    className: "text-rose-500",
-    info: "Money spent",
-  },
-  {
-    title: "Debt",
-    value: calculated.debt,
-    className: "text-rose-500",
-    info: "Unpaid spending",
-  },
-];
+import { cashin, cashout } from "../actions";
+import { dummyData as data } from "../actions";
+import calculatedDummy from "../actions";
 
 const dailyChartData: any[] = [];
 
@@ -131,6 +46,39 @@ dailyChartData.map((data) => {
 });
 
 export function DashboardDemo() {
+  const calculated = calculatedDummy();
+  const calculatedData = [
+    {
+      title: "Income",
+      value: calculated.income,
+      className: "text-lime-500",
+      info: "Received income",
+    },
+    {
+      title: "Acc Receivable",
+      value: calculated.accountReceivable,
+      className: "text-lime-500",
+      info: "Unreceived income",
+    },
+    {
+      title: "Balance",
+      value: calculated.balance,
+      info: "Your current balance",
+    },
+    {
+      title: "Expenses",
+      value: calculated.expenses,
+      className: "text-rose-500",
+      info: "Money spent",
+    },
+    {
+      title: "Debt",
+      value: calculated.debt,
+      className: "text-rose-500",
+      info: "Unpaid spending",
+    },
+  ];
+
   return (
     <Section className="p-10 gap-4">
       <h1
