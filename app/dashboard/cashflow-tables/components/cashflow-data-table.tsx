@@ -116,13 +116,6 @@ export function DataTable({ serverData, category, pageSize }: DataTableProps) {
         setOriginalData(setFilterFunc);
         deleteRow(data[rowIndex].id);
       },
-      // headWidth: {
-      //   category: "20%",
-      //   value: "15%",
-      //   subject: "30%",
-      //   status: "8%",
-      //   date: "17%",
-      // }
     },
   });
 
