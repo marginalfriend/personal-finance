@@ -1,30 +1,31 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-  // output   = "./node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-enum Category {
-  in
-  out
+  url      = env("DEV_DATABASE_URL")
 }
 
 model Cashflow {
-  id       String   @id @default(uuid())
-  value    Int
-  subject  String
-  category Category
-  status   Json
-  date     DateTime @default(now())
-  userId   String
-  User     User     @relation(fields: [userId], references: [id])
+  id              String         @id @default(uuid())
+  value           BigInt
+  subject         String
+  category        Category
+  status          Json
+  date            DateTime       @default(now())
+  userId          String
+  User            User           @relation(fields: [userId], references: [id])
+  BudgetPlanner   BudgetPlanner? @relation(fields: [budgetPlannerId], references: [id])
+  budgetPlannerId String?
+}
+
+model BudgetPlanner {
+  id        String     @id @default(uuid())
+  amount    Int
+  basis     String
+  tag       String
+  cashflows Cashflow[]
 }
 
 model Account {
@@ -33,15 +34,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -61,8 +61,8 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[]
   cashflows     Cashflow[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -71,4 +71,9 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Category {
+  in
+  out
 }
