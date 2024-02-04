@@ -28,6 +28,8 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { BudgetPlanner } from "./columns";
 import { columns } from "./columns";
+import { unstable_noStore as noStore } from "next/cache";
+import { CreateBudgetRow } from "./create-row";
 
 interface DataTableProps {
   serverData: BudgetPlanner[];
@@ -35,6 +37,8 @@ interface DataTableProps {
 }
 
 export function DataTable({ serverData, pageSize }: DataTableProps) {
+  noStore();
+
   const [originalData, setOriginalData] = useState(() => [...serverData]);
   const [data, setData] = useState(() => [...serverData]);
   const [editedRows, setEditedRows] = useState({});
@@ -152,7 +156,7 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
             ))}
           </TableHeader>
           <TableBody>
-            {/* <CreateRow category={category} table={table} /> */}
+            <CreateBudgetRow />
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

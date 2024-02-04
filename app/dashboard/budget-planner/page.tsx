@@ -14,19 +14,19 @@ const dummy: BudgetPlanner[] = [
     id: crypto.randomUUID(),
     tag: "Food",
     amount: 1500000,
-    basis: "monthly",
+    basis: "Monthly",
   },
   {
     id: crypto.randomUUID(),
     tag: "Entertainment",
-    amount: 500000,
-    basis: "weekly",
+    amount: 300000,
+    basis: "Weekly",
   },
   {
     id: crypto.randomUUID(),
     tag: "Home Electric Bill",
     amount: 300000,
-    basis: "monthly",
+    basis: "Monthly",
   },
 ];
 

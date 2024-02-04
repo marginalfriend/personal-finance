@@ -1,4 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { currencyFormatter } from "../../components/balance";
 
 export type BudgetPlanner = {
   id: string;
@@ -20,11 +21,8 @@ export const columns = [
     header: () => {
       return <h1>Amount</h1>;
     },
-  }),
-
-  columnHelper.accessor("basis", {
-    header: () => {
-      return <h1>Basis</h1>;
+    cell: ({ row }) => {
+      return currencyFormatter(row.getValue("amount"));
     },
   }),
 
@@ -32,6 +30,12 @@ export const columns = [
     id: "remaining",
     header: () => {
       return <h1>Remaining</h1>;
+    },
+  }),
+
+  columnHelper.accessor("basis", {
+    header: () => {
+      return <h1>Basis</h1>;
     },
   }),
 ];
