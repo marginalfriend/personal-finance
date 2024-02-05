@@ -20,9 +20,12 @@ export default async function Hero() {
         <article className="flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
           {/* <LoginButton provider="google" /> */}
           {session ? (
-            <Link href={"/dashboard"}>
-              <Button>Dashboard</Button>
-            </Link>
+            <>
+              <h2 className="text-3xl">Hello {session.user.name}!</h2>
+              <Link href={"/dashboard"}>
+                <Button>Go to dashboard</Button>
+              </Link>
+            </>
           ) : (
             <LoginButton provider="github" />
           )}

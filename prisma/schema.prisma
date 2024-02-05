@@ -9,7 +9,7 @@ datasource db {
 
 model Cashflow {
   id              String         @id @default(uuid())
-  value           BigInt
+  value           Int
   subject         String
   category        Category
   status          Json

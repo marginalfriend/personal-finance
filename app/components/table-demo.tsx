@@ -1,8 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DataTable } from "../dashboard/cashflow-tables/components/cashflow-data-table";
-import { CashflowTable } from "../dashboard/cashflow-tables/components/columns";
-import { StatusType } from "../dashboard/components/status";
-import { Category } from "@prisma/client";
+import { CashflowTable } from "../dashboard/cashflow-tables/components/column-helper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Section } from "./section";
 import { dummyData as data } from "../actions";
@@ -10,7 +8,7 @@ import { dummyData as data } from "../actions";
 export function TableDemo() {
   return (
     <Section className="p-8 gap-8">
-      {/* <h1
+      {/* <h1   
         className="align-middle text-center text-5xl font-bold text-gray
         dark:text-white mb-6 col-span-2"
       >
