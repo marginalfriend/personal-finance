@@ -10,7 +10,7 @@ export function Section({
   return (
     <section
       className={cn(
-        "flex flex-col h-[90vh] w-full justify-center m-0 p-0 sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2",
+        "flex flex-col min-h-[90vh] w-full justify-center m-0 p-0 sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2",
         className,
       )}
     >

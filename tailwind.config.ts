@@ -73,7 +73,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animated")],
 };
 const config: Config = {
   content: [

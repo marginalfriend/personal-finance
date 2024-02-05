@@ -80,7 +80,7 @@ export function DashboardDemo() {
   ];
 
   return (
-    <Section className="p-10 gap-4">
+    <Section className="p-10 gap-4 pb-10">
       <h1
         className="align-middle text-center text-6xl font-bold text-gray
         dark:text-white mb-6 col-span-2"

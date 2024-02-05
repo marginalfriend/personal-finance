@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <>
       <Nav />
-      <main className="w-full m-auto p-0 pb-10 grid grid-cols-1 gap-y-10">
+      <main className="w-full m-auto p-0 mb-10 grid grid-cols-1 gap-y-10">
         <Hero />
         <TableDemo />
         <DashboardDemo />
