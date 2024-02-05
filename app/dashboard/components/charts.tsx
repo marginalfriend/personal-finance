@@ -12,7 +12,7 @@ import {
 
 export function SimpleBarChart({ data }: { data: any }) {
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={390}>
       <BarChart data={data}>
         <XAxis dataKey="date" tickLine={false} axisLine={false} />
         <YAxis hide={true} tickLine={false} axisLine={false} />
@@ -27,7 +27,7 @@ export function SimpleBarChart({ data }: { data: any }) {
 
 export function StackedBarChart({ data }: { data: any }) {
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={390}>
       <BarChart data={data}>
         <XAxis dataKey="date" tickLine={false} axisLine={false} />
         <YAxis hide={true} tickLine={false} axisLine={false} />

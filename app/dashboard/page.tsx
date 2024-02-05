@@ -60,13 +60,13 @@ export default async function Page() {
   const cashout: any = await cashflowTable("out");
 
   return (
-    <>
+    <div className="flex flex-col gap-2 h-full w-[80%] px-4 my-auto">
       <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5">
         {calculatedData.map((data) => (
           <Calculated className={data.className} data={data} key={data.title} />
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-7 justify-start gap-2 h-min">
         <Card className="col-span-1 md:col-span-4">
           <Tabs defaultValue="simple-bar">
             <CardHeader className="flex flex-row justify-between align-top pt-3">
@@ -115,6 +115,6 @@ export default async function Page() {
           </Tabs>
         </Card>
       </div>
-    </>
+    </div>
   );
 }

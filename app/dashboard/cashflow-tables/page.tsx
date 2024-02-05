@@ -14,7 +14,10 @@ async function Page() {
   const expenses = await cashflowTable("out");
 
   return (
-    <Tabs defaultValue="cashin" className="w-full">
+    <Tabs
+      defaultValue="cashin"
+      className="flex flex-col gap-2 h-full w-[80%] p-4"
+    >
       <div className="flex justify-between align-middle">
         <TabsList>
           <TabsTrigger value="cashin">Income</TabsTrigger>
