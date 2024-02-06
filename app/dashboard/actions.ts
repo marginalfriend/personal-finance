@@ -31,34 +31,42 @@ export default async function actions() {
     },
   });
 
+  //  EXPENSES -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   const expenses: number = cashout
-    .slice()
-    .filter(
-      (cashout) =>
-        JSON.stringify(cashout.status) ===
-          JSON.stringify({ label: "Paid", value: "paid" }) &&
-        cashout.date.getMonth() === new Date().getMonth(),
-    )
+    .filter((cashout) => cashout.date.getMonth() === new Date().getMonth())
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
+
+  const lastMonthExpenses: number = cashout
+    .filter((cashout) => cashout.date.getMonth() === new Date().getMonth() - 1)
+    .reduce(function (prev, next) {
+      return prev + next.value;
+    }, 0);
+
+  // INCOME -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const income: number = cashin
-    .slice()
-    .filter(
-      (cashin) =>
-        JSON.stringify(cashin.status) ===
-          JSON.stringify({ label: "Paid", value: "paid" }) &&
-        cashin.date.getMonth() === new Date().getMonth(),
-    )
+    .filter((cashin) => cashin.date.getMonth() === new Date().getMonth())
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
 
+  const lastMonthIncome: number = cashin
+    .filter((cashin) => cashin.date.getMonth() === new Date().getMonth() - 1)
+    .reduce(function (prev, next) {
+      return prev + next.value;
+    }, 0);
+
+  // BALANCE -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   const balance: number = income - expenses;
+  const lastMonthBalance: number = lastMonthIncome - lastMonthExpenses;
+
+  // DEBT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const debt: number = cashout
-    .slice()
     .filter(
       (cashout) =>
         JSON.stringify(cashout.status) ===
@@ -69,8 +77,9 @@ export default async function actions() {
       return prev + next.value;
     }, 0);
 
+  // ACCOUNT RECEIVABLE -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   const accountReceivable: number = cashin
-    .slice()
     .filter(
       (cashin) =>
         JSON.stringify(cashin.status) ===
@@ -81,5 +90,14 @@ export default async function actions() {
       return prev + next.value;
     }, 0);
 
-  return { expenses, income, balance, debt, accountReceivable };
+  return {
+    expenses,
+    income,
+    balance,
+    debt,
+    accountReceivable,
+    lastMonthExpenses,
+    lastMonthIncome,
+    lastMonthBalance,
+  };
 }

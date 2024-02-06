@@ -12,12 +12,12 @@ export default async function Hero() {
     <Section>
       <article className="col-span-1 p-8 align-middle justify-center my-auto mx-0">
         <h1
-          className="animate-fade-right align-middle text-6xl font-bold text-gray
+          className="align-middle text-6xl font-bold text-gray
         dark:text-white mb-6"
         >
           Selffin: A Tool to Forge a Prosperous Financial Future
         </h1>
-        <article className=" animate-fade-left flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
+        <article className="flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
           {session ? (
             <>
               <h1 className="text-2xl">Hello {session.user.name}!</h1>
@@ -33,7 +33,7 @@ export default async function Hero() {
           )}
         </article>
       </article>
-      <article className="animate-fade-down col-span-1 relative h-full">
+      <article className="col-span-1 relative h-full">
         <Image
           src={
             "https://www.worldhistory.org/uploads/images/6123.jpg?v=1706169006"
