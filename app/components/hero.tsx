@@ -18,7 +18,6 @@ export default async function Hero() {
           Selffin: A Tool to Forge a Prosperous Financial Future
         </h1>
         <article className=" animate-fade-left flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
-          {/* <LoginButton provider="google" /> */}
           {session ? (
             <>
               <h1 className="text-2xl">Hello {session.user.name}!</h1>
@@ -27,7 +26,10 @@ export default async function Hero() {
               </Link>
             </>
           ) : (
-            <LoginButton provider="github" />
+            <>
+              <LoginButton provider="google" />
+              <LoginButton provider="github" />
+            </>
           )}
         </article>
       </article>
