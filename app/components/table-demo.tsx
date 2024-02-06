@@ -13,15 +13,12 @@ export function TableDemo() {
   const ref1 = useRef(null);
   const isVisible1 = useIsVisible(ref1);
 
-  const ref2 = useRef(null);
-  const isVisible2 = useIsVisible(ref2);
-
   return (
     <Section className="p-8 gap-8">
-      <article className="col-span-1 align-middle my-auto">
+      <article className="col-span-2 h-full align-middle px-7 my-auto">
         <Card
-          ref={ref1}
-          className={`opacity-0 transition-all duration-1000 max-h-[70vh] overflow-y-scroll ${isVisible1 ? "translate-x-0 opacity-100" : "translate-x-[-20%]"}`}
+          // ref={ref1}
+          className={`opacity-100 transition-all duration-1000 ${isVisible1 ? "translate-x-0 opacity-100" : "translate-x-0"}`}
         >
           <CardHeader></CardHeader>
           <CardContent>
@@ -30,7 +27,7 @@ export function TableDemo() {
                 <TabsTrigger value="cashin">Income</TabsTrigger>
                 <TabsTrigger value="cashout">Expenses</TabsTrigger>
               </TabsList>
-              <TabsContent value="cashin" className="overflo-scroll">
+              <TabsContent value="cashin">
                 <DataTable
                   pageSize={3}
                   category="in"
@@ -47,14 +44,6 @@ export function TableDemo() {
             </Tabs>
           </CardContent>
         </Card>
-      </article>
-      <article className="col-span-1 align-middle justify-center my-auto mx-0">
-        <h1
-          className="align-middle text-6xl font-bold text-gray
-        dark:text-white mb-6"
-        >
-          Take Notes of Every Financial Decision You&apos;ve Made
-        </h1>
       </article>
     </Section>
   );

@@ -260,3 +260,74 @@ export default function calculatedDummy() {
     lastMonthBalance,
   };
 }
+
+const dailyChartData: any[] = [];
+
+for (let i = 0; i < 7; i++) {
+  const d = new Date();
+  d.setDate(d.getDate() - i);
+  dailyChartData.push({
+    date: new Date(d.setHours(0, 0, 0, 0)),
+    in: 0,
+    out: 0,
+  });
+}
+
+dummyData.map((entry: any) => {
+  for (let i = 0; i < dailyChartData.length; i++) {
+    if (
+      new Date(entry.date).setHours(0, 0, 0, 0) ===
+      dailyChartData[i].date.getTime()
+    ) {
+      if (entry.category === "in") {
+        return (dailyChartData[i].in += Number(entry.value));
+      }
+      return (dailyChartData[i].out += Number(entry.value));
+    }
+  }
+});
+
+dailyChartData.map((data) => {
+  data.date = data.date.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+  });
+});
+
+export { dailyChartData };
+
+const calculated = calculatedDummy();
+export const calculatedData = [
+  {
+    title: "Income",
+    value: calculated.income,
+    className:
+      "bg-gradient-to-tr from-lime-800/30 to-gray-0 hover:from-lime-800 hover:to-gray-0",
+    info: Math.floor(
+      (100 * (calculated.income - calculated.lastMonthIncome)) /
+        calculated.lastMonthIncome,
+    ),
+    href: "/income",
+  },
+  {
+    title: "Expenses",
+    value: calculated.expenses,
+    className:
+      "bg-gradient-to-tr from-rose-800/30 to-gray-0 hover:from-rose-800 hover:to-gray-0",
+    info: Math.floor(
+      (100 * (calculated.expenses - calculated.lastMonthExpenses)) /
+        calculated.lastMonthExpenses,
+    ),
+    href: "/expenses",
+  },
+  {
+    title: "Balance",
+    value: calculated.balance,
+    className:
+      "bg-gradient-to-tr from-amber-400/30 to-gray-0 hover:from-amber-600 hover:to-gray-0",
+    info: Math.floor(
+      (100 * (calculated.balance - calculated.lastMonthBalance)) /
+        calculated.lastMonthBalance,
+    ),
+  },
+];
