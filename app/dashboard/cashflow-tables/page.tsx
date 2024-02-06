@@ -16,7 +16,7 @@ async function Page() {
   return (
     <Tabs
       defaultValue="cashin"
-      className="flex flex-col gap-2 h-full w-[80%] p-4"
+      className="flex flex-col gap-2 h-full w-full md:w-[80%] p-4"
     >
       <div className="flex justify-between align-middle">
         <TabsList>

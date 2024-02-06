@@ -68,8 +68,8 @@ export default async function Page() {
   const cashout: any = await cashflowTable("out");
 
   return (
-    <div className="flex flex-col gap-2 h-full w-[80%] px-4 my-auto">
-      <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-3">
+    <div className="flex flex-col gap-2 h-full w-full md:w-[80%] px-4 my-auto">
+      <div className="w-full grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-3">
         {calculatedData.map((data) => (
           <Calculated className={data.className} data={data} key={data.title} />
         ))}
