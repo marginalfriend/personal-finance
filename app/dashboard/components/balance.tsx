@@ -39,7 +39,7 @@ export async function Calculated({ data }: Calculated) {
         <p className={cn(data.text, " text-lg font-bold")}>
           {currencyFormatter(data.value)}
         </p>
-        {data.info ? (
+        {data.info && data.info !== Infinity ? (
           data.info > 0 ? (
             data.href === "/expenses" ? (
               <p className="text-xs text-muted-foreground">
@@ -63,7 +63,7 @@ export async function Calculated({ data }: Calculated) {
           )
         ) : (
           <p className="text-xs text-muted-foreground">
-            No information available
+            No information available yet...
           </p>
         )}
       </CardContent>
