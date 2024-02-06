@@ -8,6 +8,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Area,
+  AreaChart,
 } from "recharts";
 
 export function SimpleBarChart({ data }: { data: any }) {
@@ -48,6 +50,35 @@ export function StackedBarChart({ data }: { data: any }) {
           fill="#039100"
         />
       </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+export function MonthlyAreaChart({ data }: { data: any }) {
+  return (
+    <ResponsiveContainer width="100%" height={390}>
+      <AreaChart data={data}>
+        <XAxis dataKey="date" tickLine={false} axisLine={false} />
+        <YAxis hide={true} tickLine={false} axisLine={false} />
+        <Tooltip />
+        <Legend />
+        <Area
+          type="monotone"
+          dataKey="in"
+          stroke="#039100"
+          name="Income"
+          fill="#039100"
+          fillOpacity={50}
+        />
+        <Area
+          type="monotone"
+          dataKey="out"
+          stroke="#FF4C4C"
+          name="Expenses"
+          fill="#FF4C4C"
+          fillOpacity={50}
+        />
+      </AreaChart>
     </ResponsiveContainer>
   );
 }

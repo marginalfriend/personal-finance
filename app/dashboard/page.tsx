@@ -14,7 +14,11 @@ import { cashflowTable } from "./cashflow-tables/actions";
 import actions from "./actions";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { SimpleBarChart, StackedBarChart } from "./components/charts";
+import {
+  MonthlyAreaChart,
+  SimpleBarChart,
+  StackedBarChart,
+} from "./components/charts";
 
 export default async function Page() {
   const session = await auth();
@@ -55,7 +59,8 @@ export default async function Page() {
     },
   ];
 
-  const data = await chartData();
+  const weeklyData = await chartData(7);
+  const monthlyData = await chartData(30);
   const cashin: any = await cashflowTable("in");
   const cashout: any = await cashflowTable("out");
 
@@ -79,12 +84,13 @@ export default async function Page() {
             <CardContent className="pl-2">
               <TabsContent value="simple-bar">
                 <Suspense fallback={<h1>Loading chart...</h1>}>
-                  <SimpleBarChart data={JSON.parse(data)} />
+                  {/* <MonthlyAreaChart data={JSON.parse(monthlyData)} /> */}
+                  <SimpleBarChart data={JSON.parse(weeklyData)} />
                 </Suspense>
               </TabsContent>
               <TabsContent value="stacked-bar">
                 <Suspense fallback={<h1>Loading chart...</h1>}>
-                  <StackedBarChart data={JSON.parse(data)} />
+                  <StackedBarChart data={JSON.parse(weeklyData)} />
                 </Suspense>
               </TabsContent>
             </CardContent>

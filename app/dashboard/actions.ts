@@ -36,7 +36,8 @@ export default async function actions() {
     .filter(
       (cashout) =>
         JSON.stringify(cashout.status) ===
-        JSON.stringify({ label: "Paid", value: "paid" }),
+          JSON.stringify({ label: "Paid", value: "paid" }) &&
+        cashout.date.getMonth() === new Date().getMonth(),
     )
     .reduce(function (prev, next) {
       return prev + next.value;
@@ -47,7 +48,8 @@ export default async function actions() {
     .filter(
       (cashin) =>
         JSON.stringify(cashin.status) ===
-        JSON.stringify({ label: "Paid", value: "paid" }),
+          JSON.stringify({ label: "Paid", value: "paid" }) &&
+        cashin.date.getMonth() === new Date().getMonth(),
     )
     .reduce(function (prev, next) {
       return prev + next.value;
@@ -60,7 +62,8 @@ export default async function actions() {
     .filter(
       (cashout) =>
         JSON.stringify(cashout.status) ===
-        JSON.stringify({ label: "Pending", value: "pending" }),
+          JSON.stringify({ label: "Pending", value: "pending" }) &&
+        cashout.date.getMonth() === new Date().getMonth(),
     )
     .reduce(function (prev, next) {
       return prev + next.value;
@@ -71,7 +74,8 @@ export default async function actions() {
     .filter(
       (cashin) =>
         JSON.stringify(cashin.status) ===
-        JSON.stringify({ label: "Pending", value: "pending" }),
+          JSON.stringify({ label: "Pending", value: "pending" }) &&
+        cashin.date.getMonth() === new Date().getMonth(),
     )
     .reduce(function (prev, next) {
       return prev + next.value;
