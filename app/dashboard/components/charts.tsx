@@ -20,8 +20,18 @@ export function SimpleBarChart({ data }: { data: any }) {
         <YAxis hide={true} tickLine={false} axisLine={false} />
         <Tooltip />
         <Legend />
-        <Bar name="Expenses" type="monotone" dataKey="out" fill="#FF4C4C" />
-        <Bar name="Income" type="monotone" dataKey="in" fill="#039100" />
+        <Bar
+          name="Expenses"
+          type="monotone"
+          dataKey="out"
+          fill="rgb(225 29 72)"
+        />
+        <Bar
+          name="Income"
+          type="monotone"
+          dataKey="in"
+          fill="rgb(101 163 13)"
+        />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -40,14 +50,14 @@ export function StackedBarChart({ data }: { data: any }) {
           stackId="a"
           type="monotone"
           dataKey="out"
-          fill="#FF4C4C"
+          fill="rgb(225 29 72)"
         />
         <Bar
           name="Income"
           stackId="a"
           type="monotone"
           dataKey="in"
-          fill="#039100"
+          fill="rgb(101 163 13)"
         />
       </BarChart>
     </ResponsiveContainer>

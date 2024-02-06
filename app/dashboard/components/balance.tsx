@@ -41,12 +41,24 @@ export async function Calculated({ data }: Calculated) {
         </p>
         {data.info ? (
           data.info > 0 ? (
+            data.href === "/expenses" ? (
+              <p className="text-xs text-muted-foreground">
+                Increased{" "}
+                <span className="text-rose-500">{data.info + "%"}</span>
+              </p>
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                Increased{" "}
+                <span className="text-lime-500">{data.info + "%"}</span>
+              </p>
+            )
+          ) : data.href === "/expenses" ? (
             <p className="text-xs text-muted-foreground">
               Increased <span className="text-lime-500">{data.info + "%"}</span>
             </p>
           ) : (
             <p className="text-xs text-muted-foreground">
-              Decreased <span className="text-rose-500">{data.info + "%"}</span>
+              Increased <span className="text-rose-500">{data.info + "%"}</span>
             </p>
           )
         ) : (

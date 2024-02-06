@@ -31,7 +31,6 @@ export default async function Page() {
     {
       title: "Income",
       value: calculated.income,
-      // text: "text-lime-500",
       className:
         "bg-gradient-to-tr from-lime-800/30 to-gray-0 hover:from-lime-800 hover:to-gray-0",
       info: Math.floor(
@@ -40,16 +39,9 @@ export default async function Page() {
       ),
       href: "/income",
     },
-    // {
-    //   title: "Acc Receivable",
-    //   value: calculated.accountReceivable,
-    //   className: "text-lime-500",
-    //   info: "Unreceived income",
-    // },
     {
       title: "Expenses",
       value: calculated.expenses,
-      // text: "text-rose-500",
       className:
         "bg-gradient-to-tr from-rose-800/30 to-gray-0 hover:from-rose-800 hover:to-gray-0",
       info: Math.floor(
@@ -68,12 +60,6 @@ export default async function Page() {
           calculated.lastMonthBalance,
       ),
     },
-    // {
-    //   title: "Debt",
-    //   value: calculated.debt,
-    //   className: "text-rose-500",
-    //   info: "Unpaid spending",
-    // },
   ];
 
   const weeklyData = await chartData(7);

@@ -6,7 +6,7 @@ import { TableDemo } from "./components/table-demo";
 export default function Page() {
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <main className="w-full m-auto p-0 mb-10 grid grid-cols-1 gap-y-10">
         <Hero />
         <TableDemo />

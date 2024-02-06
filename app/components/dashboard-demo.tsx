@@ -51,49 +51,60 @@ export function DashboardDemo() {
     {
       title: "Income",
       value: calculated.income,
-      className: "text-lime-500",
-      info: "Received income",
+      // text: "text-lime-500",
+      className:
+        "bg-gradient-to-tr from-lime-800/30 to-gray-0 hover:from-lime-800 hover:to-gray-0",
+      info: Math.floor(
+        (100 * (calculated.income - calculated.lastMonthIncome)) /
+          calculated.lastMonthIncome,
+      ),
+      href: "/income",
     },
+    // {
+    //   title: "Acc Receivable",
+    //   value: calculated.accountReceivable,
+    //   className: "text-lime-500",
+    //   info: "Unreceived income",
+    // },
     {
-      title: "Acc Receivable",
-      value: calculated.accountReceivable,
-      className: "text-lime-500",
-      info: "Unreceived income",
+      title: "Expenses",
+      value: calculated.expenses,
+      // text: "text-rose-500",
+      className:
+        "bg-gradient-to-tr from-rose-800/30 to-gray-0 hover:from-rose-800 hover:to-gray-0",
+      info: Math.floor(
+        (100 * (calculated.expenses - calculated.lastMonthExpenses)) /
+          calculated.lastMonthExpenses,
+      ),
+      href: "/expenses",
     },
     {
       title: "Balance",
       value: calculated.balance,
-      info: "Your current balance",
+      className:
+        "bg-gradient-to-tr from-amber-400/30 to-gray-0 hover:from-amber-600 hover:to-gray-0",
+      info: Math.floor(
+        (100 * (calculated.balance - calculated.lastMonthBalance)) /
+          calculated.lastMonthBalance,
+      ),
     },
-    {
-      title: "Expenses",
-      value: calculated.expenses,
-      className: "text-rose-500",
-      info: "Money spent",
-    },
-    {
-      title: "Debt",
-      value: calculated.debt,
-      className: "text-rose-500",
-      info: "Unpaid spending",
-    },
+    // {
+    //   title: "Debt",
+    //   value: calculated.debt,
+    //   className: "text-rose-500",
+    //   info: "Unpaid spending",
+    // },
   ];
 
   return (
-    <Section className="p-10 gap-4 pb-10">
-      <h1
-        className="align-middle text-center text-6xl font-bold text-gray
-        dark:text-white mb-6 col-span-2"
-      >
-        Keep Track of Your Financial Activity
-      </h1>
-      <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5 col-span-2">
+    <div className="flex flex-col gap-2 h-full w-full px-4 my-auto">
+      <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-3">
         {calculatedData.map((data) => (
           <Calculated className={data.className} data={data} key={data.title} />
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-7 justify-normal gap-2 col-span-2">
-        <Card className="col-span-1 md:col-span-4">
+      <div className="grid grid-cols-1 md:grid-cols-7 justify-start gap-2 h-min">
+        <Card className="col-span-1 md:col-span-4 border-0">
           <Tabs defaultValue="simple-bar">
             <CardHeader className="flex flex-row justify-between align-top pt-3">
               <CardTitle className="my-auto">Last 7 Days Overview</CardTitle>
@@ -105,6 +116,7 @@ export function DashboardDemo() {
             <CardContent className="pl-2">
               <TabsContent value="simple-bar">
                 <Suspense fallback={<h1>Loading chart...</h1>}>
+                  {/* <MonthlyAreaChart data={JSON.parse(monthlyData)} /> */}
                   <SimpleBarChart data={dailyChartData} />
                 </Suspense>
               </TabsContent>
@@ -117,7 +129,7 @@ export function DashboardDemo() {
           </Tabs>
         </Card>
 
-        <Card className="col-span-1 md:col-span-3">
+        <Card className="col-span-1 md:col-span-3 border-0">
           <Tabs defaultValue="cashin">
             <CardHeader className="flex flex-row justify-between align-top pt-3">
               <CardTitle className="my-auto">Latest Cashflow</CardTitle>
@@ -141,6 +153,6 @@ export function DashboardDemo() {
           </Tabs>
         </Card>
       </div>
-    </Section>
+    </div>
   );
 }

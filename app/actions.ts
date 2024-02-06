@@ -193,41 +193,70 @@ export { cashin, cashout };
 
 export default function calculatedDummy() {
   const expenses: number = cashout
-    .filter((cashout) => cashout.status.value == "paid")
+    .filter((cashout) => cashout.date.getMonth() === new Date().getMonth())
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
+
+  const lastMonthExpenses: number = cashout
+    .filter((cashout) => cashout.date.getMonth() === new Date().getMonth() - 1)
+    .reduce(function (prev, next) {
+      return prev + next.value;
+    }, 0);
+
+  // INCOME -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const income: number = cashin
-    .slice()
-    .filter((cashin) => cashin.status.value === "paid")
+    .filter((cashin) => cashin.date.getMonth() === new Date().getMonth())
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
+
+  const lastMonthIncome: number = cashin
+    .filter((cashin) => cashin.date.getMonth() === new Date().getMonth() - 1)
+    .reduce(function (prev, next) {
+      return prev + next.value;
+    }, 0);
+
+  // BALANCE -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const balance: number = income - expenses;
+  const lastMonthBalance: number = lastMonthIncome - lastMonthExpenses;
+
+  // DEBT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const debt: number = cashout
-    .slice()
-    .filter((cashout) => cashout.status.value === "pending")
+    .filter(
+      (cashout) =>
+        JSON.stringify(cashout.status) ===
+          JSON.stringify({ label: "Pending", value: "pending" }) &&
+        cashout.date.getMonth() === new Date().getMonth(),
+    )
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
 
+  // ACCOUNT RECEIVABLE -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   const accountReceivable: number = cashin
-    .slice()
-    .filter((cashin) => cashin.status.value === "pending")
+    .filter(
+      (cashin) =>
+        JSON.stringify(cashin.status) ===
+          JSON.stringify({ label: "Pending", value: "pending" }) &&
+        cashin.date.getMonth() === new Date().getMonth(),
+    )
     .reduce(function (prev, next) {
-      return Number(prev) + Number(next.value);
+      return prev + next.value;
     }, 0);
 
   return {
-    cashin,
-    cashout,
-    income,
     expenses,
+    income,
+    balance,
     debt,
     accountReceivable,
-    balance,
+    lastMonthExpenses,
+    lastMonthIncome,
+    lastMonthBalance,
   };
 }
