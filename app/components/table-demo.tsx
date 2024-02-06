@@ -14,8 +14,8 @@ export function TableDemo() {
   const isVisible1 = useIsVisible(ref1);
 
   return (
-    <Section className="p-8 gap-8">
-      <article className="col-span-2 h-full align-middle px-7 my-auto">
+    <Section className="p-2 md:p-8 py-0 m-0">
+      <article className="col-span-2 align-middle">
         <Card
           // ref={ref1}
           className={`opacity-100 transition-all duration-1000 ${isVisible1 ? "translate-x-0 opacity-100" : "translate-x-0"}`}

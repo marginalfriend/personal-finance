@@ -7,7 +7,7 @@ import { Section } from "./section";
 
 export default function Hero({ name }: { name?: string | undefined | null }) {
   return (
-    <Section>
+    <Section className="h-[90vh]">
       <article className="col-span-1 p-8 align-middle justify-center my-auto mx-0">
         <h1
           className="align-middle text-6xl font-bold text-gray
@@ -24,10 +24,7 @@ export default function Hero({ name }: { name?: string | undefined | null }) {
               </Link>
             </>
           ) : (
-            <>
-              <LoginButton provider="google" />
-              <LoginButton provider="github" />
-            </>
+            <LoginButton provider="github" />
           )}
         </article>
       </article>
