@@ -13,12 +13,16 @@ interface Calculated {
   className?: string;
 }
 
-export async function Calculated({ data }: Calculated) {
+export function Calculated({ data, className }: Calculated) {
   noStore();
 
   return (
     <Card
-      className={cn("flex flex-col align-middle border-0 ", data.className)}
+      className={cn(
+        "flex flex-col align-middle border-0 ",
+        data.className,
+        className,
+      )}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-0 pt-4 space-y-0">
         <CardTitle className="text-sm font-medium">{data.title}</CardTitle>

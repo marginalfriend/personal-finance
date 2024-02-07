@@ -13,12 +13,12 @@ export default function Hero({ name }: { name?: string | undefined | null }) {
           className="align-middle text-6xl font-bold text-gray
         dark:text-white mb-6"
         >
-          Selffin: A Tool to Forge a Prosperous Financial Future
+          Selffin: A Tool to Forge a Prosperous Financial Future 💰
         </h1>
         <article className="flex flex-col min-w-full lg:flex-row gap-4 max-w-min">
           {name ? (
             <>
-              <h1 className="text-2xl">Hello {name}!</h1>
+              <h1 className="animate-bounce text-2xl">Hello {name}!</h1>
               <Link href={"/dashboard"}>
                 <Button>Go to dashboard?</Button>
               </Link>

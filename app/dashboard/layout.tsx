@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className="col-auto md:hidden lg:hidden p-4">
         <MobileNav items={sidebarNavItems} />
       </header>
-      <main className="flex sm:justify-center p-0">
+      <main className="flex justify-center md:justify-start p-0">
         <SidebarNav items={sidebarNavItems} />
         <Suspense fallback={<h1>Loading...</h1>}>{children}</Suspense>
       </main>
