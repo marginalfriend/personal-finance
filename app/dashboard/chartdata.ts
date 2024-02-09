@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 
 const prisma = db;
 
-export default async function chartData() {
+export default async function chartData(length: number) {
   const session = await auth();
 
   const data = await prisma.cashflow.findMany({
@@ -15,9 +15,9 @@ export default async function chartData() {
   });
   const dailyChartData: any[] = [];
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < length; i++) {
     const d = new Date();
-    d.setDate(d.getDate() - i);
+    d.setDate(d.getDate() - length + i);
     dailyChartData.push({
       date: new Date(d.setHours(0, 0, 0, 0)),
       in: 0,

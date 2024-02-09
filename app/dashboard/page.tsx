@@ -14,7 +14,11 @@ import { cashflowTable } from "./cashflow-tables/actions";
 import actions from "./actions";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { SimpleBarChart, StackedBarChart } from "./components/charts";
+import {
+  MonthlyAreaChart,
+  SimpleBarChart,
+  StackedBarChart,
+} from "./components/charts";
 
 export default async function Page() {
   const session = await auth();
@@ -27,47 +31,51 @@ export default async function Page() {
     {
       title: "Income",
       value: calculated.income,
-      className: "text-lime-500",
-      info: "Received income",
-    },
-    {
-      title: "Acc Receivable",
-      value: calculated.accountReceivable,
-      className: "text-lime-500",
-      info: "Unreceived income",
-    },
-    {
-      title: "Balance",
-      value: calculated.balance,
-      info: "Your current balance",
+      className:
+        "bg-gradient-to-tr from-lime-800/30 to-gray-0 hover:from-lime-800 hover:to-gray-0",
+      info: Math.floor(
+        (100 * (calculated.income - calculated.lastMonthIncome)) /
+          calculated.lastMonthIncome,
+      ),
+      href: "/income",
     },
     {
       title: "Expenses",
       value: calculated.expenses,
-      className: "text-rose-500",
-      info: "Money spent",
+      className:
+        "bg-gradient-to-tr from-rose-800/30 to-gray-0 hover:from-rose-800 hover:to-gray-0",
+      info: Math.floor(
+        (100 * (calculated.expenses - calculated.lastMonthExpenses)) /
+          calculated.lastMonthExpenses,
+      ),
+      href: "/expenses",
     },
     {
-      title: "Debt",
-      value: calculated.debt,
-      className: "text-rose-500",
-      info: "Unpaid spending",
+      title: "Balance",
+      value: calculated.balance,
+      className:
+        "bg-gradient-to-tr from-amber-400/30 to-gray-0 hover:from-amber-600 hover:to-gray-0",
+      info: Math.floor(
+        (100 * (calculated.balance - calculated.lastMonthBalance)) /
+          calculated.lastMonthBalance,
+      ),
     },
   ];
 
-  const data = await chartData();
+  const weeklyData = await chartData(7);
+  const monthlyData = await chartData(30);
   const cashin: any = await cashflowTable("in");
   const cashout: any = await cashflowTable("out");
 
   return (
-    <>
-      <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-3 h-[20%] lg:grid-cols-5">
+    <div className="flex flex-col gap-2 h-full w-full md:w-[80%] px-4 my-auto">
+      <div className="w-full grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-3">
         {calculatedData.map((data) => (
           <Calculated className={data.className} data={data} key={data.title} />
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-7 h-[100%] justify-normal gap-2">
-        <Card className="col-span-1 md:col-span-4">
+      <div className="grid grid-cols-1 md:grid-cols-7 justify-start gap-2 h-min">
+        <Card className="col-span-1 md:col-span-4 border-0">
           <Tabs defaultValue="simple-bar">
             <CardHeader className="flex flex-row justify-between align-top pt-3">
               <CardTitle className="my-auto">Last 7 Days Overview</CardTitle>
@@ -79,19 +87,20 @@ export default async function Page() {
             <CardContent className="pl-2">
               <TabsContent value="simple-bar">
                 <Suspense fallback={<h1>Loading chart...</h1>}>
-                  <SimpleBarChart data={JSON.parse(data)} />
+                  {/* <MonthlyAreaChart data={JSON.parse(monthlyData)} /> */}
+                  <SimpleBarChart data={JSON.parse(weeklyData)} />
                 </Suspense>
               </TabsContent>
               <TabsContent value="stacked-bar">
                 <Suspense fallback={<h1>Loading chart...</h1>}>
-                  <StackedBarChart data={JSON.parse(data)} />
+                  <StackedBarChart data={JSON.parse(weeklyData)} />
                 </Suspense>
               </TabsContent>
             </CardContent>
           </Tabs>
         </Card>
 
-        <Card className="col-span-1 md:col-span-3">
+        <Card className="col-span-1 md:col-span-3 border-0">
           <Tabs defaultValue="cashin">
             <CardHeader className="flex flex-row justify-between align-top pt-3">
               <CardTitle className="my-auto">Latest Cashflow</CardTitle>
@@ -115,6 +124,6 @@ export default async function Page() {
           </Tabs>
         </Card>
       </div>
-    </>
+    </div>
   );
 }

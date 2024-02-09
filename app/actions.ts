@@ -193,41 +193,141 @@ export { cashin, cashout };
 
 export default function calculatedDummy() {
   const expenses: number = cashout
-    .filter((cashout) => cashout.status.value == "paid")
+    .filter((cashout) => cashout.date.getMonth() === new Date().getMonth())
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
+
+  const lastMonthExpenses: number = cashout
+    .filter((cashout) => cashout.date.getMonth() === new Date().getMonth() - 1)
+    .reduce(function (prev, next) {
+      return prev + next.value;
+    }, 0);
+
+  // INCOME -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const income: number = cashin
-    .slice()
-    .filter((cashin) => cashin.status.value === "paid")
+    .filter((cashin) => cashin.date.getMonth() === new Date().getMonth())
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
+
+  const lastMonthIncome: number = cashin
+    .filter((cashin) => cashin.date.getMonth() === new Date().getMonth() - 1)
+    .reduce(function (prev, next) {
+      return prev + next.value;
+    }, 0);
+
+  // BALANCE -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const balance: number = income - expenses;
+  const lastMonthBalance: number = lastMonthIncome - lastMonthExpenses;
+
+  // DEBT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const debt: number = cashout
-    .slice()
-    .filter((cashout) => cashout.status.value === "pending")
+    .filter(
+      (cashout) =>
+        JSON.stringify(cashout.status) ===
+          JSON.stringify({ label: "Pending", value: "pending" }) &&
+        cashout.date.getMonth() === new Date().getMonth(),
+    )
     .reduce(function (prev, next) {
       return prev + next.value;
     }, 0);
 
+  // ACCOUNT RECEIVABLE -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   const accountReceivable: number = cashin
-    .slice()
-    .filter((cashin) => cashin.status.value === "pending")
+    .filter(
+      (cashin) =>
+        JSON.stringify(cashin.status) ===
+          JSON.stringify({ label: "Pending", value: "pending" }) &&
+        cashin.date.getMonth() === new Date().getMonth(),
+    )
     .reduce(function (prev, next) {
-      return Number(prev) + Number(next.value);
+      return prev + next.value;
     }, 0);
 
   return {
-    cashin,
-    cashout,
-    income,
     expenses,
+    income,
+    balance,
     debt,
     accountReceivable,
-    balance,
+    lastMonthExpenses,
+    lastMonthIncome,
+    lastMonthBalance,
   };
 }
+
+const dailyChartData: any[] = [];
+
+for (let i = 0; i < 7; i++) {
+  const d = new Date();
+  d.setDate(d.getDate() - i);
+  dailyChartData.push({
+    date: new Date(d.setHours(0, 0, 0, 0)),
+    in: 0,
+    out: 0,
+  });
+}
+
+dummyData.map((entry: any) => {
+  for (let i = 0; i < dailyChartData.length; i++) {
+    if (
+      new Date(entry.date).setHours(0, 0, 0, 0) ===
+      dailyChartData[i].date.getTime()
+    ) {
+      if (entry.category === "in") {
+        return (dailyChartData[i].in += Number(entry.value));
+      }
+      return (dailyChartData[i].out += Number(entry.value));
+    }
+  }
+});
+
+dailyChartData.map((data) => {
+  data.date = data.date.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+  });
+});
+
+export { dailyChartData };
+
+const calculated = calculatedDummy();
+export const calculatedData = [
+  {
+    title: "Income",
+    value: calculated.income,
+    className:
+      "bg-gradient-to-tr from-lime-800/30 to-gray-0 hover:from-lime-800 hover:to-gray-0",
+    info: Math.floor(
+      (100 * (calculated.income - calculated.lastMonthIncome)) /
+        calculated.lastMonthIncome,
+    ),
+    href: "/income",
+  },
+  {
+    title: "Expenses",
+    value: calculated.expenses,
+    className:
+      "bg-gradient-to-tr from-rose-800/30 to-gray-0 hover:from-rose-800 hover:to-gray-0",
+    info: Math.floor(
+      (100 * (calculated.expenses - calculated.lastMonthExpenses)) /
+        calculated.lastMonthExpenses,
+    ),
+    href: "/expenses",
+  },
+  {
+    title: "Balance",
+    value: calculated.balance,
+    className:
+      "bg-gradient-to-tr from-amber-400/30 to-gray-0 hover:from-amber-600 hover:to-gray-0",
+    info: Math.floor(
+      (100 * (calculated.balance - calculated.lastMonthBalance)) /
+        calculated.lastMonthBalance,
+    ),
+  },
+];
