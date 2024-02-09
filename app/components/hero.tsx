@@ -7,7 +7,7 @@ import { Section } from "./section";
 
 export default function Hero({ name }: { name?: string | undefined | null }) {
   return (
-    <Section className="h-[90vh]">
+    <Section className="h-[100vh]">
       <article className="col-span-1 p-8 align-middle justify-center my-auto mx-0">
         <h1
           className="align-middle text-6xl font-bold text-gray

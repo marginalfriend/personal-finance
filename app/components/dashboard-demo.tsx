@@ -28,7 +28,7 @@ export function DashboardDemo() {
   return (
     <div className="flex flex-col gap-2 px-2 h-full w-full md:px-8 my-auto overflow-hidden">
       <h1 className="text-5xl text-center pb-10">
-        Keep track of your wealth 🧐💸s
+        Keep track of your wealth 🧐💸
       </h1>
       <div
         ref={balance}
