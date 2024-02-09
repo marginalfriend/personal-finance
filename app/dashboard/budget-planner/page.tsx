@@ -31,5 +31,9 @@ const dummy: BudgetPlanner[] = [
 ];
 
 export default function Page() {
-  return <DataTable serverData={dummy} />;
+  return (
+    <div className="flex flex-col gap-2 h-full w-full md:w-[80%] p-4">
+      <DataTable serverData={dummy} />
+    </div>
+  );
 }

@@ -1,8 +1,9 @@
-import { CashflowTable } from "@/app/dashboard/cashflow-tables/components/columns";
-import { expect, test } from "vitest";
+import {
+  fetchBudgetRow,
+  createBudgetRow,
+} from "@/app/dashboard/budget-planner/actions";
+import { describe, test, expect, vi } from "vitest";
 
-function actions(input: CashflowTable) {}
+global.fetch = vi.fn();
 
-test("The function has to return income from this month", () => {
-  expect(actions);
-});
+describe("Budget Planner", () => {});

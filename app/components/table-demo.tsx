@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DataTable } from "../dashboard/cashflow-tables/components/cashflow-data-table";
-import { CashflowTable } from "../dashboard/cashflow-tables/components/columns";
+import { CashflowTable } from "../dashboard/cashflow-tables/components/column-helper";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Section } from "./section";
 import { dummyData as data } from "../actions";
