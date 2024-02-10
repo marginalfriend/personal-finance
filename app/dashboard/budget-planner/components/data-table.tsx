@@ -93,20 +93,18 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
           }),
         );
       },
-      // addRow: (row: any) => {
-      //   const newRow: CashflowTable = {
-      //     id: row.id || crypto.randomUUID(),
-      //     category: row.category,
-      //     value: row.value,
-      //     subject: row.subject,
-      //     status: row.status,
-      //     date: row.date,
-      //   };
+      addRow: (row: any) => {
+        const newRow: BudgetPlanner = {
+          id: row.id || crypto.randomUUID(),
+          amount: row.amount,
+          tag: row.tag,
+          basis: row.basis || "monthly",
+        };
 
-      //   const setFunc = (old: CashflowTable[]) => [...old, newRow];
-      //   setData(setFunc);
-      //   setOriginalData(setFunc);
-      // },
+        const setFunc = (old: BudgetPlanner[]) => [...old, newRow];
+        setData(setFunc);
+        setOriginalData(setFunc);
+      },
       // removeRow: (rowIndex: number) => {
       //   const setFilterFunc = (old: CashflowTable[]) =>
       //     old.filter(
@@ -126,14 +124,14 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
   return (
     <div>
       <div className="flex items-center py-4">
-        <Input
+        {/* <Input
           placeholder="Filter subject..."
           value={(table.getColumn("subject")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("subject")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
-        />
+        /> */}
       </div>
       <div className="rounded-md border">
         <Table>
@@ -156,7 +154,7 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
             ))}
           </TableHeader>
           <TableBody>
-            <CreateBudgetRow />
+            <CreateBudgetRow table={table} />
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

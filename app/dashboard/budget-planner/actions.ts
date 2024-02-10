@@ -7,8 +7,20 @@ import { revalidatePath } from "next/cache";
 
 const prisma = db;
 
+enum Basis {
+  "monthly",
+  "weekly",
+  "daily",
+}
+
+export interface CreateBudget {
+  tag: string;
+  basis: Basis;
+  amount: number;
+  id: string;
+}
 // Creating Budget Row
-export async function createBudgetRow({ data }: { data: BudgetPlanner }) {
+export async function createBudgetRow({ data }: { data: any }) {
   const session = await auth();
   if (!session) {
     return new Error("Unauthorized");
@@ -17,10 +29,10 @@ export async function createBudgetRow({ data }: { data: BudgetPlanner }) {
   try {
     await prisma?.budgetPlanner.create({
       data: {
-        userId: data.userId,
+        userId: session.user.id,
         tag: data.tag,
         basis: data.basis,
-        amount: data.amount,
+        amount: parseInt(data.amount),
         id: data.id,
       },
     });
@@ -36,8 +48,9 @@ export async function createBudgetRow({ data }: { data: BudgetPlanner }) {
 // Fetching Budget Planner Table Data
 export async function fetchBudgetRow() {
   const session = await auth();
+
   if (!session) {
-    return new Error("Unauthorized");
+    throw { message: "Unauthorized" };
   }
 
   try {
@@ -47,9 +60,8 @@ export async function fetchBudgetRow() {
       },
     });
 
-    return budgets;
+    return budgets as BudgetPlanner[];
   } catch (error) {
-    console.log(error);
-    return new Error("Failed fetching budgets");
+    throw { message: error };
   }
 }

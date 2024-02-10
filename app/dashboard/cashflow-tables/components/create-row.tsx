@@ -11,7 +11,7 @@ import { Plus } from "lucide-react";
 import { Category } from "@prisma/client";
 import { DatePicker } from "@/components/ui/date-picker";
 
-export function CreateRow({ category, sendRow, table }: CreateRowProps) {
+export function CreateRow({ category, table }: CreateRowProps) {
   const meta = table.options.meta;
   const rowData = {
     id: crypto.randomUUID(),
@@ -80,5 +80,4 @@ export function CreateRow({ category, sendRow, table }: CreateRowProps) {
 interface CreateRowProps {
   category: Category;
   table: any;
-  sendRow?: (action: any) => void;
 }
