@@ -30,6 +30,7 @@ import { BudgetPlanner } from "./columns";
 import { columns } from "./columns";
 import { unstable_noStore as noStore } from "next/cache";
 import { CreateBudgetRow } from "./create-row";
+import { deleteBudgetRow, editBudgetRow } from "../actions";
 
 interface DataTableProps {
   serverData: BudgetPlanner[];
@@ -77,7 +78,8 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
               index === rowIndex ? data[rowIndex] : row,
             ),
           );
-          // editData(data[rowIndex] as BudgetPlanner);
+          console.log(data[rowIndex]);
+          editBudgetRow(data[rowIndex] as BudgetPlanner);
         }
       },
       updateData: (rowIndex: number, columnId: string, value: any) => {
@@ -105,15 +107,15 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
         setData(setFunc);
         setOriginalData(setFunc);
       },
-      // removeRow: (rowIndex: number) => {
-      //   const setFilterFunc = (old: CashflowTable[]) =>
-      //     old.filter(
-      //       (_row: CashflowTable, index: number) => index !== rowIndex,
-      //     );
-      //   setData(setFilterFunc);
-      //   setOriginalData(setFilterFunc);
-      //   deleteRow(data[rowIndex].id)
-      // },
+      removeRow: (rowIndex: number) => {
+        const setFilterFunc = (old: BudgetPlanner[]) =>
+          old.filter(
+            (_row: BudgetPlanner, index: number) => index !== rowIndex,
+          );
+        setData(setFilterFunc);
+        setOriginalData(setFilterFunc);
+        deleteBudgetRow(data[rowIndex].id);
+      },
     },
   });
 

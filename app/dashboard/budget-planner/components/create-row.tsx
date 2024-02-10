@@ -39,10 +39,10 @@ export function CreateBudgetRow({ table }: { table: any }) {
           placeholder="Input a number"
         />
       </TableCell>
-      <TableCell></TableCell>
       <TableCell>
         <BasisDropdown />
       </TableCell>
+      <TableCell></TableCell>
       <TableCell>
         <Button
           className="h-8 w-8 p-0"

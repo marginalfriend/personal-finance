@@ -65,3 +65,38 @@ export async function fetchBudgetRow() {
     throw { message: error };
   }
 }
+
+export async function editBudgetRow(newData: any) {
+  try {
+    await prisma.budgetPlanner.update({
+      where: {
+        id: newData.id,
+      },
+      data: {
+        amount: Number(newData.amount),
+        tag: newData.tag,
+        basis: newData.basis,
+      },
+    });
+  } catch (error) {
+    console.log("Error updating data : " + error);
+  }
+
+  revalidatePath("/dashboard/budget-planner");
+  revalidatePath("/dashboard");
+}
+
+export async function deleteBudgetRow(id: string) {
+  try {
+    await prisma.budgetPlanner.delete({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error) {
+    console.log("Error deleting row : " + error);
+  }
+
+  revalidatePath("/dashboard/cashflow-tables");
+  revalidatePath("/dashboard");
+}
