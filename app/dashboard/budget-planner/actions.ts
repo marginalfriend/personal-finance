@@ -4,14 +4,9 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { BudgetPlanner } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { Basis } from "./components/basis-dropdown";
 
 const prisma = db;
-
-enum Basis {
-  "monthly",
-  "weekly",
-  "daily",
-}
 
 export interface CreateBudget {
   tag: string;
@@ -83,7 +78,6 @@ export async function editBudgetRow(newData: any) {
   }
 
   revalidatePath("/dashboard/budget-planner");
-  revalidatePath("/dashboard");
 }
 
 export async function deleteBudgetRow(id: string) {

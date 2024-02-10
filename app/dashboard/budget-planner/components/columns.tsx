@@ -11,6 +11,7 @@ import {
 import { Check, MoreHorizontal, Pencil, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Basis, BasisDropdown } from "./basis-dropdown";
 
 export type BudgetPlanner = {
   id: string;
@@ -129,6 +130,30 @@ const InputCell = ({ getValue, row, column, table }: any) => {
   );
 };
 
+const BasisCell = ({ getValue, row, column, table }: any) => {
+  const initialValue = getValue();
+  const meta = table.options.meta;
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+  const onChange = () => {
+    console.log(value);
+    meta?.updateData(row.index, column.id, value);
+  };
+
+  if (meta?.editedRows[row.id]) {
+    return (
+      <BasisDropdown sendData={setValue} data={value} onChange={onChange} />
+    );
+  }
+
+  return (
+    <div className="text-left">{value[0].toUpperCase() + value.slice(1)}</div>
+  );
+};
+
 const columnHelper = createColumnHelper<BudgetPlanner>();
 
 export const columns = [
@@ -151,6 +176,7 @@ export const columns = [
     header: () => {
       return <h1>Basis</h1>;
     },
+    cell: BasisCell,
   }),
 
   columnHelper.display({
