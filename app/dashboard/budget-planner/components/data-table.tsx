@@ -97,7 +97,6 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
       },
       addRow: (row: any) => {
         const newRow: BudgetPlanner = {
-          id: row.id || crypto.randomUUID(),
           amount: row.amount,
           tag: row.tag,
           basis: row.basis || "monthly",
@@ -114,7 +113,7 @@ export function DataTable({ serverData, pageSize }: DataTableProps) {
           );
         setData(setFilterFunc);
         setOriginalData(setFilterFunc);
-        deleteBudgetRow(data[rowIndex].id);
+        deleteBudgetRow(data[rowIndex].tag);
       },
     },
   });

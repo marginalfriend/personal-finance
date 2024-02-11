@@ -165,6 +165,7 @@ type NoId = {
   category: Category;
   date: Date;
   id?: string;
+  budgetPlannerTag?: string;
 };
 
 const cashin: NoId[] = dummyData.filter((data) => data.category === "in");

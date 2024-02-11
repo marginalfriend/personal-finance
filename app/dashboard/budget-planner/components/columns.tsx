@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Basis, BasisDropdown } from "./basis-dropdown";
 
 export type BudgetPlanner = {
-  id: string;
   tag: string;
   amount: number;
   basis: Basis;
