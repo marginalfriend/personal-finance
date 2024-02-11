@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
+import { BudgetTagDropdown } from "./budget-tag-dropdown";
 
 export type CashflowTable = {
   category: Category;
@@ -32,6 +33,7 @@ export type CashflowTable = {
   subject: string;
   status: Prisma.JsonValue;
   date: Date;
+  budgetPlannerTag: string;
 };
 
 export const columnHelper = createColumnHelper<CashflowTable>();
@@ -202,6 +204,35 @@ const DateCell = ({ getValue, row, column, table }: any) => {
   return <div className="text-left">{date}</div>;
 };
 
+const BudgetCell = ({ getValue, row, column, table }: any) => {
+  const initialValue = getValue();
+  const tableMeta = table.options.meta;
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+  const onChange = () => {
+    tableMeta?.updateData(row.index, column.id, value);
+  };
+
+  if (tableMeta?.editedRows[row.id]) {
+    return (
+      <BudgetTagDropdown
+        data={value}
+        sendData={setValue}
+        onOpenChange={onChange}
+      />
+    );
+  }
+
+  return (
+    <div className="text-center border rounded-sm w-min px-2 m-0">
+      {initialValue}
+    </div>
+  );
+};
+
 export const columns = [
   columnHelper.accessor("value", {
     header: ({ column }) => {
@@ -278,6 +309,21 @@ export const columns = [
       );
     },
     cell: DateCell,
+  }),
+
+  columnHelper.accessor("budgetPlannerTag", {
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Budget Tag
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: BudgetCell,
   }),
 
   columnHelper.display({

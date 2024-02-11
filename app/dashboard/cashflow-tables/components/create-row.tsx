@@ -8,8 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Status } from "../../components/status";
 import { createCashflow } from "../actions";
 import { Plus } from "lucide-react";
-import { Category } from "@prisma/client";
+import { BudgetPlanner, Category } from "@prisma/client";
 import { DatePicker } from "@/components/ui/date-picker";
+import { BudgetTagDropdown } from "./budget-tag-dropdown";
 
 export function CreateRow({ category, table }: CreateRowProps) {
   const meta = table.options.meta;
@@ -19,6 +20,7 @@ export function CreateRow({ category, table }: CreateRowProps) {
     value: "",
     status: undefined,
     date: undefined,
+    budgetPlannerId: "",
     subject: "",
   };
   const [rowState, setRowState] = useState(rowData);
@@ -58,6 +60,12 @@ export function CreateRow({ category, table }: CreateRowProps) {
         <DatePicker
           data={rowState.date}
           sendData={(e: ChangeEvent<HTMLInputElement>) => handleBlur(e, "date")}
+        />
+      </TableCell>
+      <TableCell hidden={category === "in"}>
+        <BudgetTagDropdown
+          data={rowState.budgetPlannerId}
+          sendData={(e: object) => handleBlur(e, "budgetPlannerId")}
         />
       </TableCell>
       <TableCell className="flex flex-row gap-6">

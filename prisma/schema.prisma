@@ -8,23 +8,22 @@ datasource db {
 }
 
 model Cashflow {
-  id              String         @id @default(uuid())
-  value           Int
-  subject         String
-  category        Category
-  status          Json
-  date            DateTime       @default(now())
-  userId          String
-  User            User           @relation(fields: [userId], references: [id])
-  BudgetPlanner   BudgetPlanner? @relation(fields: [budgetPlannerId], references: [id])
-  budgetPlannerId String?
+  id               String         @id @default(uuid())
+  value            Int
+  subject          String
+  category         Category
+  status           Json
+  date             DateTime       @default(now())
+  userId           String
+  User             User           @relation(fields: [userId], references: [id])
+  BudgetPlanner    BudgetPlanner? @relation(fields: [budgetPlannerTag], references: [tag])
+  budgetPlannerTag String?
 }
 
 model BudgetPlanner {
-  id        String     @id @default(uuid())
   amount    Int
   basis     String
-  tag       String
+  tag       String     @unique
   cashflows Cashflow[]
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String

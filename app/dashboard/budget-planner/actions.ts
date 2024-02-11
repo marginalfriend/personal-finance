@@ -28,7 +28,6 @@ export async function createBudgetRow({ data }: { data: any }) {
         tag: data.tag,
         basis: data.basis,
         amount: parseInt(data.amount),
-        id: data.id,
       },
     });
   } catch (error) {
@@ -65,7 +64,7 @@ export async function editBudgetRow(newData: any) {
   try {
     await prisma.budgetPlanner.update({
       where: {
-        id: newData.id,
+        tag: newData.tag,
       },
       data: {
         amount: Number(newData.amount),
@@ -80,17 +79,44 @@ export async function editBudgetRow(newData: any) {
   revalidatePath("/dashboard/budget-planner");
 }
 
-export async function deleteBudgetRow(id: string) {
+export async function deleteBudgetRow(tag: string) {
   try {
     await prisma.budgetPlanner.delete({
       where: {
-        id: id,
+        tag: tag,
       },
     });
   } catch (error) {
     console.log("Error deleting row : " + error);
   }
-
   revalidatePath("/dashboard/cashflow-tables");
   revalidatePath("/dashboard");
+}
+
+export async function remaining(tag: string) {
+  const budget = await prisma.budgetPlanner.findUnique({
+    where: {
+      tag: tag,
+    },
+    select: {
+      amount: true,
+    },
+  });
+
+  const budgetUsed = await prisma.cashflow.aggregate({
+    _sum: {
+      value: true,
+    },
+    where: {
+      budgetPlannerTag: tag,
+    },
+  });
+
+  if (!budgetUsed) {
+    return budget;
+  } else if (!budget) {
+    return;
+  } else {
+    return budget.amount - (budgetUsed._sum.value || 0);
+  }
 }

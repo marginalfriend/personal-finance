@@ -17,7 +17,7 @@ export type BudgetPlanner = {
   id: string;
   tag: string;
   amount: number;
-  basis: string;
+  basis: Basis;
 };
 
 const ActionCell = ({ row, table }: any) => {
@@ -153,6 +153,8 @@ const BasisCell = ({ getValue, row, column, table }: any) => {
     <div className="text-left">{value[0].toUpperCase() + value.slice(1)}</div>
   );
 };
+
+const RemainingCell = ({ table }: { table: any }) => {};
 
 const columnHelper = createColumnHelper<BudgetPlanner>();
 

@@ -24,6 +24,7 @@ export async function createCashflow(newData: any) {
         date: newData.date,
         subject: newData.subject,
         userId: session.user.id,
+        budgetPlannerTag: newData.budgetPlannerTag,
       },
     });
 
@@ -67,9 +68,12 @@ export async function editData(newData: any) {
         status: newData.status,
         subject: newData.subject,
         date: newData.date,
+        budgetPlannerTag: newData.budgetPlannerTag,
       },
     });
+    console.log(newData);
   } catch (error) {
+    console.log(newData);
     console.log("Error updating data : " + error);
   }
 

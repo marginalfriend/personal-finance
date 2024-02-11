@@ -11,7 +11,7 @@ export function CreateBudgetRow({ table }: { table: any }) {
   const rowData = {
     tag: "",
     amount: 0,
-    basis: "monthly",
+    basis: "",
     id: crypto.randomUUID(),
   };
   const [data, setData] = useState(rowData);
@@ -40,7 +40,10 @@ export function CreateBudgetRow({ table }: { table: any }) {
         />
       </TableCell>
       <TableCell>
-        <BasisDropdown />
+        <BasisDropdown
+          data={rowData.basis}
+          sendData={(e: string) => handleChange(e, "tag")}
+        />
       </TableCell>
       <TableCell></TableCell>
       <TableCell>

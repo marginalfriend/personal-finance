@@ -22,8 +22,8 @@ export function BasisDropdown({
   onChange,
 }: {
   sendData: any;
-  data?: any;
-  onChange: () => void;
+  data?: string;
+  onChange?: () => void;
 }) {
   noStore();
   const [basis, setBasis] = useState(data);
@@ -36,7 +36,7 @@ export function BasisDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="text-muted-foreground">
-          {basis ? basis[0].toUpperCase() + basis.slice(1) : "Basis"}
+          {basis ? basis.charAt(0).toUpperCase() + basis.slice(1) : "Basis"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>

@@ -28,7 +28,6 @@ import { Category } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { columns, CashflowTable } from "./column-helper";
 import { deleteRow, editData } from "../actions";
-import { cn } from "@/lib/utils";
 
 interface DataTableProps {
   serverData: CashflowTable[];
@@ -58,6 +57,9 @@ export function DataTable({ serverData, category, pageSize }: DataTableProps) {
     state: {
       sorting,
       columnFilters,
+      columnVisibility: {
+        budgetPlannerTag: category !== "in",
+      },
     },
     meta: {
       editedRows,
@@ -98,6 +100,7 @@ export function DataTable({ serverData, category, pageSize }: DataTableProps) {
           value: row.value,
           subject: row.subject,
           status: row.status,
+          budgetPlannerTag: row.budgetPlannerTag,
           date: row.date,
         };
 
