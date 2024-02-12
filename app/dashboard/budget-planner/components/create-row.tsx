@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { createBudgetRow } from "../actions";
+import { currencyFormatter } from "../../components/balance";
 
 export function CreateBudgetRow({ table }: { table: any }) {
   const meta = table.options.meta;
@@ -41,11 +42,11 @@ export function CreateBudgetRow({ table }: { table: any }) {
       </TableCell>
       <TableCell>
         <BasisDropdown
-          data={rowData.basis}
+          data={data.basis}
           sendData={(e: string) => handleChange(e, "tag")}
         />
       </TableCell>
-      <TableCell></TableCell>
+      <TableCell>{currencyFormatter(data.amount)}</TableCell>
       <TableCell>
         <Button
           className="h-8 w-8 p-0"

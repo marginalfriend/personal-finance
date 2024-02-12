@@ -12,6 +12,7 @@ import { Check, MoreHorizontal, Pencil, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Basis, BasisDropdown } from "./basis-dropdown";
+import { remaining } from "../actions";
 
 export type BudgetPlanner = {
   tag: string;
@@ -153,7 +154,26 @@ const BasisCell = ({ getValue, row, column, table }: any) => {
   );
 };
 
-const RemainingCell = ({ table }: { table: any }) => {};
+const RemainingCell = ({ row }: { table: any; row: any }) => {
+  const initialValue = row.getValue("amount");
+  const tag = row.getValue("tag");
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    let ignore = false;
+    setValue(initialValue);
+    remaining(tag).then((result) => {
+      if (!ignore) {
+        setValue(result);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, [tag, initialValue]);
+
+  return <div className="text-left">{currencyFormatter(value)}</div>;
+};
 
 const columnHelper = createColumnHelper<BudgetPlanner>();
 
@@ -183,8 +203,9 @@ export const columns = [
   columnHelper.display({
     id: "remaining",
     header: () => {
-      return <h1>Remaining</h1>;
+      return <div className="w-17">Remaining</div>;
     },
+    cell: RemainingCell,
   }),
   columnHelper.display({
     id: "actions",

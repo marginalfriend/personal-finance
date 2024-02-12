@@ -43,7 +43,7 @@ export function Calculated({ data, className }: Calculated) {
         <p className={cn(data.text, " text-lg font-bold")}>
           {currencyFormatter(data.value)}
         </p>
-        {data.info && data.info !== Infinity ? (
+        {data.info && data.info !== Infinity && data.info !== -Infinity ? (
           data.info > 0 ? (
             data.href === "/expenses" ? (
               <p className="text-xs text-muted-foreground">

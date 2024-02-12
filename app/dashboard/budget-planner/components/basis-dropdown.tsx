@@ -9,6 +9,7 @@ import {
 import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
+import { cn } from "@/lib/utils";
 
 export enum Basis {
   monthly = "monthly",
@@ -35,7 +36,13 @@ export function BasisDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-muted-foreground">
+        <Button
+          variant="outline"
+          className={cn(
+            "w-autos justify-start text-left font-normal",
+            !basis && "text-muted-foreground",
+          )}
+        >
           {basis ? basis.charAt(0).toUpperCase() + basis.slice(1) : "Basis"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
