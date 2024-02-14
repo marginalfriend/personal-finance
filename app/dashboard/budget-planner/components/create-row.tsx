@@ -43,7 +43,7 @@ export function CreateBudgetRow({ table }: { table: any }) {
       <TableCell>
         <BasisDropdown
           data={data.basis}
-          sendData={(e: string) => handleChange(e, "tag")}
+          sendData={(e: string) => handleChange(e, "basis")}
         />
       </TableCell>
       <TableCell>{currencyFormatter(data.amount)}</TableCell>

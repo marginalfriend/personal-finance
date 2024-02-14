@@ -151,7 +151,7 @@ const BasisCell = ({ getValue, row, column, table }: any) => {
 
   return (
     <div className="text-left">
-      {value ? value[0].toUpperCase() + value.slice(1) : "Loading..."}
+      {value !== "" ? value[0].toUpperCase() + value.slice(1) : ""}
     </div>
   );
 };
@@ -174,7 +174,7 @@ const RemainingCell = ({ row }: { table: any; row: any }) => {
     };
   }, [tag, initialValue]);
 
-  return <div className="text-left">{currencyFormatter(value)}</div>;
+  return <div className="text-left">{currencyFormatter(parseInt(value))}</div>;
 };
 
 const columnHelper = createColumnHelper<BudgetPlanner>();
