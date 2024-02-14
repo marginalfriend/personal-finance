@@ -150,7 +150,9 @@ const BasisCell = ({ getValue, row, column, table }: any) => {
   }
 
   return (
-    <div className="text-left">{value[0].toUpperCase() + value.slice(1)}</div>
+    <div className="text-left">
+      {value ? value[0].toUpperCase() + value.slice(1) : "Loading..."}
+    </div>
   );
 };
 

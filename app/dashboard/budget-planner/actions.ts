@@ -94,9 +94,16 @@ export async function deleteBudgetRow(tag: string) {
 }
 
 export async function remaining(tag: string) {
+  const session = await auth();
+
+  if (!session) {
+    throw { message: "Unauthorized" };
+  }
+
   const budget = await prisma.budgetPlanner.findUnique({
     where: {
       tag: tag,
+      userId: session.user.id,
     },
     select: {
       amount: true,

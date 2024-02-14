@@ -1,11 +1,3 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { DataTable } from "./components/data-table";
 import { BudgetPlanner } from "./components/columns";
 import { fetchBudgetRow } from "./actions";
