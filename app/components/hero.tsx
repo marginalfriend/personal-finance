@@ -24,7 +24,9 @@ export default function Hero({ name }: { name?: string | undefined | null }) {
               </Link>
             </>
           ) : (
-            <LoginButton provider="github" />
+            <>
+              <LoginButton provider="github" />
+            </>
           )}
         </article>
       </article>

@@ -48,21 +48,21 @@ export function Calculated({ data, className }: Calculated) {
             data.href === "/expenses" ? (
               <p className="text-xs text-muted-foreground">
                 Increased{" "}
-                <span className="text-rose-500">{data.info + "%"}</span>
+                <span className="text-rose-500">{data.info + "%"}</span> from last month
               </p>
             ) : (
               <p className="text-xs text-muted-foreground">
                 Increased{" "}
-                <span className="text-lime-500">{data.info + "%"}</span>
+                <span className="text-lime-500">{data.info + "%"}</span> from last month
               </p>
             )
           ) : data.href === "/expenses" ? (
             <p className="text-xs text-muted-foreground">
-              Increased <span className="text-lime-500">{data.info + "%"}</span>
+              Increased <span className="text-lime-500">{data.info + "%"}</span> from last month
             </p>
           ) : (
             <p className="text-xs text-muted-foreground">
-              Increased <span className="text-rose-500">{data.info + "%"}</span>
+              Increased <span className="text-rose-500">{data.info + "%"}</span> from last month
             </p>
           )
         ) : (

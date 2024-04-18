@@ -31,8 +31,6 @@ export default async function Page() {
     {
       title: "Income",
       value: calculated.income,
-      className:
-        "bg-gradient-to-tr from-lime-800/30 to-gray-0 hover:from-lime-800 hover:to-gray-0",
       info: Math.floor(
         (100 * (calculated.income - calculated.lastMonthIncome)) /
           calculated.lastMonthIncome,
@@ -42,8 +40,6 @@ export default async function Page() {
     {
       title: "Expenses",
       value: calculated.expenses,
-      className:
-        "bg-gradient-to-tr from-rose-800/30 to-gray-0 hover:from-rose-800 hover:to-gray-0",
       info: Math.floor(
         (100 * (calculated.expenses - calculated.lastMonthExpenses)) /
           calculated.lastMonthExpenses,
@@ -53,8 +49,6 @@ export default async function Page() {
     {
       title: "Balance",
       value: calculated.balance,
-      className:
-        "bg-gradient-to-tr from-amber-400/30 to-gray-0 hover:from-amber-600 hover:to-gray-0",
       info: Math.floor(
         (100 * (calculated.balance - calculated.lastMonthBalance)) /
           calculated.lastMonthBalance,
@@ -71,7 +65,7 @@ export default async function Page() {
     <div className="flex flex-col gap-2 h-full w-full md:w-[80%] px-4 my-auto">
       <div className="w-full grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-3">
         {calculatedData.map((data) => (
-          <Calculated className={data.className} data={data} key={data.title} />
+          <Calculated data={data} key={data.title} />
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-7 justify-start gap-2 h-min">
